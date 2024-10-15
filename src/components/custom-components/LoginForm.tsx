@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Cookies from 'js-cookie';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,8 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Spinner from './Spinner';
 import { Separator } from "@radix-ui/react-separator";
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { loginReq } from '@/api/api';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -33,17 +38,30 @@ const LoginForm = () => {
       password: "",
     },
   });
-
-  
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setIsLoading(true);
+
+    loginReq(values)
+    .then(() => navigate('/cabinet'))
+    .catch(() => {
+      form.setError('username', {type: '401', message: 'Невірний логін або пароль.'});
+      form.setError('password', {type: '401', message: 'Невірний логін або пароль.'});
+    })
+    .finally(() => setIsLoading(false));
   }
 
   const handleRegistrationPage = () => {
     navigate('/registration');
   }
+
+  useEffect(() => {
+    if (Cookies.get('Token')) {
+      navigate('/cabinet');
+    }
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">
@@ -70,7 +88,7 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Ім'я користувача</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} className={cn({'border-red-400': form.formState.errors.username})}/>
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage />
@@ -88,7 +106,7 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <Input {...field} type="password" className={cn({'border-red-400': form.formState.errors.username})} />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage />
@@ -99,8 +117,12 @@ const LoginForm = () => {
             )}
           />
 
-          <Button className="w-full" type="submit">
-            Вхід
+          <Button 
+            className="w-full disabled:bg-green-600" 
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (<Spinner />) : "Вхід"}
           </Button>
 
           <div className="flex justify-center items-center gap-x-2">

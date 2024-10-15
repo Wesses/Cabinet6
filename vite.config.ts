@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/kiliya/',
+  base: '/kiliya',
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
