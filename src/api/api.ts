@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import getBasename from '@/utils';
+import getBasename from '@/utils/getBasename';
 import axios from "axios";
 import Cookies from 'js-cookie';
 

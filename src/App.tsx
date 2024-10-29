@@ -1,10 +1,18 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 function App() {
   const {pathname} = useLocation();
+  const navigate = useNavigate();
 
-  return <>{pathname === "/" ? <Link to="/login">Login</Link> : <Outlet />}</>;
+  useEffect(() => {
+    if (pathname === "/") {
+      navigate('/login');
+    }
+  }, [pathname])
+
+  return  <Outlet />;
 }
 
 export default App;

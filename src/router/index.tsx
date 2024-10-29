@@ -3,6 +3,7 @@ import { LoginPage } from "@/pages/LoginPage";
 import CabinetPage from '@/pages/CabinetPage';
 import { RegistrationPage } from "@/pages/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
+import getBasename from '@/utils/getBasename';
 
 const routes = [
   {
@@ -27,7 +28,7 @@ const routes = [
 ];
 
 const router = createBrowserRouter(routes, {
-  basename: '/kiliya',
+  basename: getBasename(),
 });
 
 export default router;
