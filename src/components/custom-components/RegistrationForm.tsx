@@ -14,32 +14,35 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@radix-ui/react-separator";
+import { cn } from "@/lib/utils";
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Ім'я користувача має містити принаймні 2 символи.",
-  }),
+const formSchema = z
+  .object({
+    username: z.string().min(2, {
+      message: "Ім'я користувача має містити принаймні 2 символи.",
+    }),
 
-  password: z.string().min(2, {
-    message: "Пароль має бути не менше 2 символів.",
-  }),
+    password: z.string().min(2, {
+      message: "Пароль має бути не менше 2 символів.",
+    }),
 
-  email: z.string().min(2, {
-    message: "Пошта має бути не менше 2 символів.",
-  }),
+    email: z.string().min(2, {
+      message: "Пошта має бути не менше 2 символів.",
+    }),
 
-  confirmPassword: z.string().min(2, {
-    message: "Пароль має бути не менше 2 символів.",
-  }),
-}).superRefine(({ confirmPassword, password }, ctx) => {
-  if (confirmPassword !== password) {
-    ctx.addIssue({
-      code: "custom",
-      message: "Паролі не збігаються",
-      path: ['confirmPassword']
-    });
-  }
-});
+    confirmPassword: z.string().min(2, {
+      message: "Пароль має бути не менше 2 символів.",
+    }),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Паролі не збігаються",
+        path: ["confirmPassword"],
+      });
+    }
+  });
 
 const RegistrationForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,25 +56,24 @@ const RegistrationForm = () => {
   });
 
   const navigate = useNavigate();
-  
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
 
   const handleLoginPage = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-0 xl:mt-8">  
+    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-0 xl:mt-8">
       <div className="text-center">
         <h3 className="xl:text-2xl text-xl font-bold mb-2">
           Зареєструвати новий обліковий запис
         </h3>
 
         <p className="text-neutral-500 xl:text-base text-sm">
-          Введіть необхідні данні нижче, щоб зареєструвати свій обліковий
-          запис
+          Введіть необхідні данні нижче, щоб зареєструвати свій обліковий запис
         </p>
       </div>
 
@@ -85,9 +87,15 @@ const RegistrationForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ім'я користувача</FormLabel>
+                <FormLabel className="text-black">Ім'я користувача</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.username,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage />
@@ -103,9 +111,16 @@ const RegistrationForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Електронна пошта</FormLabel>
+                <FormLabel className="text-black">Електронна пошта</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" />
+                  <Input
+                    {...field}
+                    type="email"
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.email,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.email ? (
                   <FormMessage />
@@ -121,9 +136,16 @@ const RegistrationForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Пароль</FormLabel>
+                <FormLabel className="text-black">Пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <Input
+                    {...field}
+                    type="password"
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.password,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage />
@@ -139,9 +161,16 @@ const RegistrationForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Підтвердіть пароль</FormLabel>
+                <FormLabel className="text-black">Підтвердіть пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <Input
+                    {...field}
+                    type="password"
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.confirmPassword,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.confirmPassword ? (
                   <FormMessage />
@@ -164,8 +193,8 @@ const RegistrationForm = () => {
             <Separator className="bg-neutral-200 h-[1px] w-full" />
           </div>
 
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             variant="outline"
             onClick={handleLoginPage}
           >

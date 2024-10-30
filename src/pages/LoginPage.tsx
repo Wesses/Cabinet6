@@ -22,7 +22,7 @@ export const LoginPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col xl:flex-row">
-      <div className="w-full xl:w-1/2 h-full relative bg-zinc-900 rounded-b-xl xl:rounded-b-none">
+      <div className="w-full xl:w-1/2 h-1/4 md:h-1/3 xl:h-full relative bg-zinc-900 rounded-b-xl xl:rounded-b-none">
         <div className="absolute text-white z-10 top-4 left-4 flex xl:flex-col flex-row gap-y-2 gap-x-8 xl:gap-x-0 items-center xl:items-baseline">
           <h1 className="text-2xl xl:text-3xl font-bold">Company Name</h1>
           <p className="hidden sm:block">Description... .... ...</p>

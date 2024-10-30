@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,12 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Spinner from './Spinner';
+import Spinner from "./Spinner";
 import { Separator } from "@radix-ui/react-separator";
-import { useNavigate } from 'react-router-dom';
-import { loginReq } from '@/api/api';
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { useNavigate } from "react-router-dom";
+import { loginReq } from "@/api/api";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -45,21 +45,27 @@ const LoginForm = () => {
     setIsLoading(true);
 
     loginReq(values)
-    .then(() => navigate('/cabinet'))
-    .catch(() => {
-      form.setError('username', {type: '401', message: 'Невірний логін або пароль.'});
-      form.setError('password', {type: '401', message: 'Невірний логін або пароль.'});
-    })
-    .finally(() => setIsLoading(false));
+      .then(() => navigate("/cabinet"))
+      .catch(() => {
+        form.setError("username", {
+          type: "401",
+          message: "Невірний логін або пароль.",
+        });
+        form.setError("password", {
+          type: "401",
+          message: "Невірний логін або пароль.",
+        });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   const handleRegistrationPage = () => {
-    navigate('/registration');
-  }
+    navigate("/registration");
+  };
 
   useEffect(() => {
-    if (Cookies.get('Token')) {
-      navigate('/cabinet');
+    if (Cookies.get("Token")) {
+      navigate("/cabinet");
     }
   }, []);
 
@@ -86,9 +92,15 @@ const LoginForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ім'я користувача</FormLabel>
+                <FormLabel className="text-black">Ім'я користувача</FormLabel>
                 <FormControl>
-                  <Input {...field} className={cn({'border-red-400': form.formState.errors.username})}/>
+                  <Input
+                    {...field}
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.username,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage />
@@ -104,9 +116,16 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Пароль</FormLabel>
+                <FormLabel className="text-black">Пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" className={cn({'border-red-400': form.formState.errors.username})} />
+                  <Input
+                    {...field}
+                    type="password"
+                    className={cn({
+                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                        form.formState.errors.password,
+                    })}
+                  />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage />
@@ -117,12 +136,12 @@ const LoginForm = () => {
             )}
           />
 
-          <Button 
-            className="w-full disabled:bg-green-600" 
+          <Button
+            className="w-full disabled:bg-green-600"
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? (<Spinner />) : "Вхід"}
+            {isLoading ? <Spinner /> : "Вхід"}
           </Button>
 
           <div className="flex justify-center items-center gap-x-2">
@@ -133,8 +152,8 @@ const LoginForm = () => {
             <Separator className="bg-neutral-200 h-[1px] w-full" />
           </div>
 
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             variant="outline"
             onClick={handleRegistrationPage}
           >
