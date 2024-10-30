@@ -63,9 +63,9 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-16">
-      <div className="flex flex-col items-center gap-y-2 text-center">
-        <h3 className="xl:text-2xl text-xl font-bold">
+    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-0 xl:mt-8">  
+      <div className="text-center">
+        <h3 className="xl:text-2xl text-xl font-bold mb-2">
           Зареєструвати новий обліковий запис
         </h3>
 
