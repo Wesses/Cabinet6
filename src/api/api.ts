@@ -23,6 +23,22 @@ export const loginReq = async (data: object) => {
   }
 };
 
+export const registrationReq = async (data: object) => {
+  try {
+    const response = await axios.post(authenticate + "/register", data);
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.log(e);
+    
+    throw e.response.statusText;
+  }
+};
+
 export const getNews = async () => {
   try {
     const response = await axios.get(news + getBasename());
