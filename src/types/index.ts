@@ -8,3 +8,10 @@ export interface NewsT {
   newsText: string
   organization: string | null
 }
+
+export interface OrganizationDataT {
+  name: string
+  description: string
+  contactAddress: string
+  contactPhone: string
+}
