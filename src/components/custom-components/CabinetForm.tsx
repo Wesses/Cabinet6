@@ -12,56 +12,51 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import Spinner from "./Spinner";
-import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
-import { loginReq } from "@/api/api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
+import Autocomplete from "./Autocomplete";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Ім'я користувача має містити принаймні 2 символи.",
+  settlement: z.string().min(2, {
+    message: "Населений пункт обов'язковий.",
   }),
 
-  password: z.string().min(2, {
-    message: "Пароль має бути не менше 2 символів.",
+  street: z.string().min(2, {
+    message: "Вулиця обов'язкова.",
+  }),
+
+  house: z.string().min(2, {
+    message: "Номер будинку обов'язковий.",
+  }),
+
+  apartment: z.string().min(2, {
+    message: "Номер квартири обов'язковий.",
   }),
 });
 
+const mockData = [
+  "111",
+  "222222222222222222222222222222222222",
+  "333",
+  "444",
+  "555",
+  "332",
+];
+//---------------------------------------------------------------------
 const CabinetForm = () => {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      settlement: "",
+      street: "",
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-
-    loginReq(values)
-      .then(() => navigate("/cabinet"))
-      .catch(() => {
-        form.setError("username", {
-          type: "401",
-          message: "Невірний логін або пароль.",
-        });
-        form.setError("password", {
-          type: "401",
-          message: "Невірний логін або пароль.",
-        });
-      })
-      .finally(() => setIsLoading(false));
+    console.log(values);
   }
-
-  const handleRegistrationPage = () => {
-    navigate("/registration");
-  };
 
   useEffect(() => {
     if (Cookies.get("Token")) {
@@ -70,94 +65,126 @@ const CabinetForm = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">
+    <div className="w-full h-full flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">
       <div className="text-center">
-        <h3 className="xl:text-2xl text-xl font-bold mb-2">
-          Увійдіть до свого облікового запису
-        </h3>
-
         <p className="text-neutral-500 xl:text-base text-sm">
-          Введіть ім'я користувача та пароль, щоб увійти у свій обліковий
-          запис
+          Введіть адресу і особовий рахунок (усі поля обов'язкові):
         </p>
       </div>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 w-full max-w-[400px]"
+          className="w-full h-full flex flex-col"
         >
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-black">Ім'я користувача</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
-                        form.formState.errors.username,
-                    })}
-                  />
-                </FormControl>
-                {form.formState.errors.username ? (
-                  <FormMessage />
-                ) : (
-                  <div className="h-5" />
-                )}
-              </FormItem>
-            )}
-          />
+          <div className="w-full h-full flex flex-row gap-3">
+            <FormField
+              control={form.control}
+              name="settlement"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Населений пункт:</FormLabel>
+                  <FormControl>
+                    <Autocomplete
+                      field={field}
+                      className={cn({
+                        "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                          form.formState.errors.settlement,
+                      })}
+                      placeHolder="Населений пункт..."
+                      data={mockData}
+                    />
+                  </FormControl>
+                  {form.formState.errors.settlement ? (
+                    <FormMessage />
+                  ) : (
+                    <div className="h-5" />
+                  )}
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-black">Пароль</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
-                        form.formState.errors.password,
-                    })}
-                  />
-                </FormControl>
-                {form.formState.errors.password ? (
-                  <FormMessage />
-                ) : (
-                  <div className="h-5" />
-                )}
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="street"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Вулиця:</FormLabel>
+                  <FormControl>
+                    <Autocomplete
+                      field={field}
+                      className={cn({
+                        "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                          form.formState.errors.street,
+                      })}
+                      placeHolder="Вулиця..."
+                      data={mockData}
+                    />
+                  </FormControl>
+                  {form.formState.errors.street ? (
+                    <FormMessage />
+                  ) : (
+                    <div className="h-5" />
+                  )}
+                </FormItem>
+              )}
+            />
 
-          <Button
-            className="w-full disabled:bg-green-600"
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? <Spinner /> : "Вхід"}
-          </Button>
+            <FormField
+              control={form.control}
+              name="house"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Будинок:</FormLabel>
+                  <FormControl>
+                    <Autocomplete
+                      field={field}
+                      className={cn({
+                        "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                          form.formState.errors.house,
+                      })}
+                      placeHolder="Будинок..."
+                      data={mockData}
+                    />
+                  </FormControl>
+                  {form.formState.errors.house ? (
+                    <FormMessage />
+                  ) : (
+                    <div className="h-5" />
+                  )}
+                </FormItem>
+              )}
+            />
 
-          <div className="flex justify-center items-center gap-x-2">
-            <Separator className="bg-neutral-200 h-[1px] w-full" />
-            <span className="uppercase text-neutral-500 text-sm whitespace-nowrap">
-              або зареєструватися
-            </span>
-            <Separator className="bg-neutral-200 h-[1px] w-full" />
+            <FormField
+              control={form.control}
+              name="apartment"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Квартира:</FormLabel>
+                  <FormControl>
+                    <Autocomplete
+                      field={field}
+                      className={cn({
+                        "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                          form.formState.errors.apartment,
+                      })}
+                      placeHolder="Квартира..."
+                      data={mockData}
+                    />
+                  </FormControl>
+                  {form.formState.errors.apartment ? (
+                    <FormMessage />
+                  ) : (
+                    <div className="h-5" />
+                  )}
+                </FormItem>
+              )}
+            />
           </div>
 
-          <Button
-            className="w-full"
-            variant="outline"
-            onClick={handleRegistrationPage}
-          >
-            Зареєструватися
+          <Button className="disabled:bg-green-600" type="submit">
+            "Вхід"
           </Button>
         </form>
       </Form>
