@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Cookies from "js-cookie";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,7 @@ import Spinner from "./Spinner";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
 import { loginReq } from "@/api/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -62,12 +61,6 @@ const LoginForm = () => {
   const handleRegistrationPage = () => {
     navigate("/registration");
   };
-
-  useEffect(() => {
-    if (Cookies.get("Token")) {
-      navigate("/cabinet");
-    }
-  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">

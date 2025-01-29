@@ -6,6 +6,7 @@ axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
 const news = "/api/News";
 const organizationData = "/api/OrganizationData";
+const personalacconts = "/api/Personalacconts";
 const baseName = import.meta.env.BASE_URL;
 
 export const loginReq = async (data: object) => {
@@ -16,11 +17,12 @@ export const loginReq = async (data: object) => {
       throw new Error(response.statusText);
     }
 
-    Cookies.set('Token', JSON.stringify(response.data), { expires: 1, path: '' });
+    Cookies.set(import.meta.env.VITE_TOKEN_NAME, JSON.stringify(response.data), { expires: 1, path: '' });
 
     return response.data;
   } catch (e: any) {
-    throw e.response.statusText;
+    console.error('Помилка при виконанні запиту:', e);
+    throw e.response?.statusText || 'Unknown error';
   }
 };
 
@@ -34,9 +36,8 @@ export const registrationReq = async (data: object) => {
 
     return response.data;
   } catch (e: any) {
-    console.log(e);
-    
-    throw e.response.statusText;
+    console.error('Помилка при виконанні запиту:', e);
+    throw e.response?.statusText || 'Unknown error';
   }
 };
 
@@ -50,7 +51,8 @@ export const getNews = async () => {
 
     return response.data;
   } catch (e: any) {
-    throw e.response.statusText;
+    console.error('Помилка при виконанні запиту:', e);
+    throw e.response?.statusText || 'Unknown error';
   }
 }
 
@@ -64,6 +66,40 @@ export const getOrganizationData = async () => {
 
     return response.data;
   } catch (e: any) {
-    throw e.response.statusText;
+    console.error('Помилка при виконанні запиту:', e);
+    throw e.response?.statusText || 'Unknown error';
   }
 }
+
+export const getPersonalacconts = async () => {
+  const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
+
+  if (!tokenString) {
+    return 'no-token';
+  }
+
+  let token;
+  try {
+    token = JSON.parse(tokenString);
+  } catch (error) {
+    console.error('Ошибка парсинга токена:', error);
+    return 'invalid-token';
+  }
+
+  try {
+    const response = await axios.get(personalacconts + baseName, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error('Помилка при виконанні запиту:', e);
+    throw e.response?.statusText || 'Unknown error';
+  }
+};

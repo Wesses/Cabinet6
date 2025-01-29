@@ -16,6 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import { getOrganizationData } from "@/api/api";
 import { OrganizationDataT } from "@/types";
+import Cookies from "js-cookie";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,10 @@ export const LoginPage = () => {
     getOrganizationData()
       .then(setOrganizationData)
       .catch(() => setIsError(true));
+
+      if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
+        navigate("/cabinet");
+      }
   }, []);
 
   return (
