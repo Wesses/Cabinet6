@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -17,12 +17,16 @@ export const loginReq = async (data: object) => {
       throw new Error(response.statusText);
     }
 
-    Cookies.set(import.meta.env.VITE_TOKEN_NAME, JSON.stringify(response.data), { expires: 1, path: '' });
+    Cookies.set(
+      import.meta.env.VITE_TOKEN_NAME,
+      JSON.stringify(response.data),
+      { expires: 1, path: import.meta.env.VITE_TOKEN_PATH }
+    );
 
     return response.data;
   } catch (e: any) {
-    console.error('Помилка при виконанні запиту:', e);
-    throw e.response?.statusText || 'Unknown error';
+    console.error("Помилка при виконанні запиту:", e);
+    throw e.response?.statusText || "Unknown error";
   }
 };
 
@@ -36,8 +40,8 @@ export const registrationReq = async (data: object) => {
 
     return response.data;
   } catch (e: any) {
-    console.error('Помилка при виконанні запиту:', e);
-    throw e.response?.statusText || 'Unknown error';
+    console.error("Помилка при виконанні запиту:", e);
+    throw e.response?.statusText || "Unknown error";
   }
 };
 
@@ -51,10 +55,10 @@ export const getNews = async () => {
 
     return response.data;
   } catch (e: any) {
-    console.error('Помилка при виконанні запиту:', e);
-    throw e.response?.statusText || 'Unknown error';
+    console.error("Помилка при виконанні запиту:", e);
+    throw e.response?.statusText || "Unknown error";
   }
-}
+};
 
 export const getOrganizationData = async () => {
   try {
@@ -66,24 +70,25 @@ export const getOrganizationData = async () => {
 
     return response.data;
   } catch (e: any) {
-    console.error('Помилка при виконанні запиту:', e);
-    throw e.response?.statusText || 'Unknown error';
+    console.error("Помилка при виконанні запиту:", e);
+    throw e.response?.statusText || "Unknown error";
   }
-}
+};
 
 export const getPersonalacconts = async () => {
   const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
 
   if (!tokenString) {
-    return 'no-token';
+    return "no-token";
   }
 
   let token;
   try {
     token = JSON.parse(tokenString);
   } catch (error) {
-    console.error('Ошибка парсинга токена:', error);
-    return 'invalid-token';
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
+    console.error("Помилка парсинга токена:", error);
+    return "invalid-token";
   }
 
   try {
@@ -99,7 +104,41 @@ export const getPersonalacconts = async () => {
 
     return response.data;
   } catch (e: any) {
-    console.error('Помилка при виконанні запиту:', e);
-    throw e.response?.statusText || 'Unknown error';
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {path: import.meta.env.VITE_TOKEN_PATH});
+    console.error("Помилка при виконанні запиту:", e);
+    throw e.response?.statusText || "Unknown error";
   }
 };
+
+// export const refreshTokenReq = async () => {
+//   const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
+
+//   if (!tokenString) {
+//     return "no-token";
+//   }
+
+//   let token;
+//   try {
+//     token = JSON.parse(tokenString);
+//   } catch (error) {
+//     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
+//     console.error("Помилка парсинга токена:", error);
+//     return "invalid-token";
+//   }
+
+//   try {
+//     console.log({accessToken: token.token, refreshToken: token.refreshToken});
+    
+//     const response = await axios.post(authenticate + "/refresh-token", {accessToken: token.token, refreshToken: token.refreshToken});
+
+//     if (response.statusText !== "OK") {
+//       throw new Error(response.statusText);
+//     }
+
+//     return response.statusText;
+//   } catch (e: any) {
+//     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
+//     console.error("Помилка при виконанні запиту:", e);
+//     throw e.response?.statusText || "Unknown error";
+//   }
+// };
