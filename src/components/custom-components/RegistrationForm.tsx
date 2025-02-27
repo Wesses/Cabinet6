@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@radix-ui/react-separator";
-import { registrationReq } from "@/api/api";
+import { postRegistrationReq } from "@/api/api";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Spinner from "./Spinner";
@@ -97,7 +97,7 @@ const RegistrationForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    registrationReq(values)
+    postRegistrationReq(values)
       .then(() => {
         setIsAlertOpen(true);
       })

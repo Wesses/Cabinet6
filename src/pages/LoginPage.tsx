@@ -33,9 +33,9 @@ export const LoginPage = () => {
       .then(setOrganizationData)
       .catch(() => setIsError(true));
 
-      if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
-        navigate("/cabinet");
-      }
+    if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
+      navigate("/cabinet");
+    }
   }, []);
 
   return (

@@ -22,13 +22,14 @@ const TableBlock = ({ item }: { item: PersonalaccontsT }) => {
         </Button>
       </div>
       <div className="flex gap-x-8 pt-4">
-        <ul className="font-semibold">
+        <ul className="font-semibold sm:text-base text-xs">
           <li>#: </li>
-          <li>Особовий рахунок: </li>
+          <li className="sm:block hidden">Особовий рахунок: </li>
+          <li className="block sm:hidden">Рахунок: </li>
           <li>ПІБ: </li>
           <li>Адреса: </li>
         </ul>
-        <ul>
+        <ul className="sm:text-base text-xs">
           <li>{item.personalaccontsId - 1}</li>
           <li>{item.paLs}</li>
           <li>{item.fio}</li>

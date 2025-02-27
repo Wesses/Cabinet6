@@ -9,7 +9,7 @@ const organizationData = "/api/OrganizationData";
 const personalacconts = "/api/Personalacconts";
 const baseName = import.meta.env.BASE_URL;
 
-export const loginReq = async (data: object) => {
+export const postLoginReq = async (data: object) => {
   try {
     const response = await axios.post(authenticate + "/login", data);
 
@@ -20,7 +20,7 @@ export const loginReq = async (data: object) => {
     Cookies.set(
       import.meta.env.VITE_TOKEN_NAME,
       JSON.stringify(response.data),
-      { expires: 1, path: import.meta.env.VITE_TOKEN_PATH }
+      { expires: 1, path: import.meta.env.VITE_BASE_URL }
     );
 
     return response.data;
@@ -30,7 +30,7 @@ export const loginReq = async (data: object) => {
   }
 };
 
-export const registrationReq = async (data: object) => {
+export const postRegistrationReq = async (data: object) => {
   try {
     const response = await axios.post(authenticate + "/register", data);
 
@@ -86,7 +86,7 @@ export const getPersonalacconts = async () => {
   try {
     token = JSON.parse(tokenString);
   } catch (error) {
-    Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, { path: import.meta.env.VITE_BASE_URL });
     console.error("Помилка парсинга токена:", error);
     return "invalid-token";
   }
@@ -104,7 +104,7 @@ export const getPersonalacconts = async () => {
 
     return response.data;
   } catch (e: any) {
-    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {path: import.meta.env.VITE_TOKEN_PATH});
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, { path: import.meta.env.VITE_BASE_URL });
     console.error("Помилка при виконанні запиту:", e);
     throw e.response?.statusText || "Unknown error";
   }
@@ -142,3 +142,38 @@ export const getPersonalacconts = async () => {
 //     throw e.response?.statusText || "Unknown error";
 //   }
 // };
+
+export const postPersonalacconts = async (pwd: string) => {
+  const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
+
+  if (!tokenString) {
+    return "no-token";
+  }
+
+  let token;
+  try {
+    token = JSON.parse(tokenString);
+  } catch (error) {
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, { path: import.meta.env.VITE_BASE_URL });
+    console.error("Помилка парсинга токена:", error);
+    return "invalid-token";
+  }
+
+  try {    
+    const response = await axios.post(personalacconts, {pwd, organizationAlias: import.meta.env.VITE_ALIAS }, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+    
+    if (response.statusText !== "Created") {  
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+    
+    throw e?.response?.status || "Unknown error";
+  }
+};

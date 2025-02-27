@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { getPersonalacconts } from "../../api/api";
 import { Card, CardContent } from "@/components/ui/card";
-import { PersonalaccontsT } from "@/types";
-import { useNavigate } from "react-router";
-import { EyeIcon, PlusIcon, TrashIcon } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PersonalaccontsT } from "@/types";
+import { useNavigate } from "react-router";
+import { EyeIcon, PlusIcon, SearchIcon, TrashIcon } from "lucide-react";
 import TableSkeleton from "./TableSkeleton";
 import TableBlock from "./TableBlock";
+import { Input } from '../ui/input';
+import CabinetAddInvoiceForm from './CabinetAddInvoiceForm';
+import { cn } from '@/lib/utils';
 
 function MyTable() {
   const navigate = useNavigate();
@@ -19,7 +26,8 @@ function MyTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const itemsPerPage = 10;
+  const [createdInvoice, setCreatedInvoice] = useState(-1);
+  const itemsPerPage = 7;
 
   const filteredData = tableData.filter(
     (item) =>
@@ -33,7 +41,7 @@ function MyTable() {
     currentPage * itemsPerPage
   );
 
-  useEffect(() => {
+  const getData = () => {
     setIsLoading(true);
     getPersonalacconts()
       .then(setTableData)
@@ -43,6 +51,10 @@ function MyTable() {
       .finally(() => {
         setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -53,6 +65,11 @@ function MyTable() {
     navigate(`/cabinet/${id}`);
   };
 
+  const lightInvoice = (invoice: number) => {
+    setCurrentPage(Math.ceil(filteredData.length / itemsPerPage));
+    setCreatedInvoice(invoice);
+  }
+
   return (
     <Card className="shadow-xl border border-gray-300 rounded-lg">
       <CardContent className="p-4">
@@ -61,24 +78,35 @@ function MyTable() {
         ) : (
           <>
             <div className="mb-4 flex gap-x-4">
-              <input
+              <SearchIcon className="size-10" />
+
+              <Input
                 type="text"
-                placeholder="Пошук за ПІБ або адресою"
+                placeholder="Пошук за рахунком або адресою"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded w-full"
+                className="px-4 py-2 border border-gray-300 rounded w-full text-base"
               />
 
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
-                    <PlusIcon className="text-white" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Додати особовий рахунок</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger
+                          className="bg-zinc-900 p-2 rounded-lg"
+                        >
+                          <PlusIcon className="text-white" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Додати особовий рахунок</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </AlertDialogTrigger>
+                  <CabinetAddInvoiceForm getData={getData} lightInvoice={lightInvoice} />
+              </AlertDialog>
             </div>
 
             <div className="hidden md:block overflow-x-auto">
@@ -105,10 +133,14 @@ function MyTable() {
                   {paginatedData.map((item, index) => (
                     <tr
                       key={item.personalaccontsId}
-                      className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                      className={cn({
+                        "bg-white": index % 2 === 0,
+                        "bg-gray-50": index % 2 !== 0,
+                        "border-4 border-green-600":createdInvoice === item.paLs,
+                      })}
                     >
                       <td className="px-4 py-2 border-b border-gray-300">
-                        {item.personalaccontsId - 1}
+                        {(currentPage - 1) * itemsPerPage + index + 1}
                       </td>
                       <td className="px-4 py-2 border-b border-gray-300">
                         {item.paLs}
@@ -157,7 +189,7 @@ function MyTable() {
               ))}
             </div>
 
-            {totalPages > 10 && (
+            {filteredData.length > itemsPerPage && (
               <div className="flex justify-between items-center mt-4">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}

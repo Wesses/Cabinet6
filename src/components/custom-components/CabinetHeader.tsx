@@ -6,7 +6,7 @@ export const CabinetHeader = () => {
   const navigate = useNavigate();
 
   const handleDeleteCookies = () => {
-    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, { path: "" });
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, { path: import.meta.env.VITE_BASE_URL });
     navigate("/login");
   };
 

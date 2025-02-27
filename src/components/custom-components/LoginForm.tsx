@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import Spinner from "./Spinner";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
-import { loginReq } from "@/api/api";
+import { postLoginReq } from "@/api/api";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -43,7 +43,7 @@ const LoginForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    loginReq(values)
+    postLoginReq(values)
       .then(() => navigate("/cabinet"))
       .catch(() => {
         form.setError("username", {
