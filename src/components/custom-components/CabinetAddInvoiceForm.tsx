@@ -118,7 +118,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
               <FormItem className="xl:w-[400px] md:w-[300px] w-[250px]">
                 <FormLabel>Код доступу до особового рахунку</FormLabel>
                 <FormControl>
-                  <Input placeholder="Введіть код тут:" type="" {...field} />
+                  <Input placeholder="Введіть код тут:" type="" {...field} autoComplete="off" />
                 </FormControl>
                 {form.formState.errors.pwd ? (
                   <FormMessage />
