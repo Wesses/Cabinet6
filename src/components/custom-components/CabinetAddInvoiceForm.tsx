@@ -71,7 +71,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
 
         if (error === 556) {
           showCustomToast(
-            "Аккаунт підв'язний до вашого коду доступу вже існує",
+            "Код доступу до особового рахунку вже був використаний, введіть інший",
             "bg-red-400"
           );
         }
@@ -95,14 +95,14 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
         </div>
 
         <AlertDialogTitle className="text-left">
-          Створення нового аккаунту для сплати
+          Додати особовий рахунок
         </AlertDialogTitle>
         <AlertDialogDescription className="text-left">
-          Для того, щоб стоворити новий аккаунт для сплати, потрібно ввести{" "}
+          Для того, щоб додати особовий рахунок, потрібно ввести{" "}
           <span className="text-orange-600 italic">
             код доступу до особового рахунку
-          </span>{" "}
-          його можна отрити в комунальних документах.
+          </span>{", "}
+          який можна отримати від надавача комунальних послуг.
         </AlertDialogDescription>
       </AlertDialogHeader>
 

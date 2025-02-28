@@ -1,5 +1,5 @@
 import LoginForm from "@/components/custom-components/LoginForm";
-import NewsList from "@/components/NewsList";
+import NewsList from "@/components/custom-components/NewsList";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
@@ -13,16 +13,18 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getOrganizationData } from "@/api/api";
 import { OrganizationDataT } from "@/types";
 import Cookies from "js-cookie";
+import { UserContext } from '@/Contexts/UserContext';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [organizationData, setOrganizationData] =
     useState<OrganizationDataT | null>(null);
   const [isError, setIsError] = useState(false);
+  const { handleSetCompanyName } = useContext(UserContext);
 
   const handleRegistrationPage = () => {
     navigate("/registration");
@@ -30,8 +32,15 @@ export const LoginPage = () => {
 
   useEffect(() => {
     getOrganizationData()
-      .then(setOrganizationData)
-      .catch(() => setIsError(true));
+      .then(r => {
+        setOrganizationData(r);
+        handleSetCompanyName(r.name);
+      })
+      .catch((e) => {
+        setIsError(true)
+        console.log(e);
+        
+      });
 
     if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
       navigate("/cabinet");

@@ -16,8 +16,9 @@ import Spinner from "./Spinner";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
 import { postLoginReq } from "@/api/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
+import { UserContext } from '@/Contexts/UserContext';
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -39,12 +40,16 @@ const LoginForm = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { handleSetUsername } = useContext(UserContext);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
     postLoginReq(values)
-      .then(() => navigate("/cabinet"))
+      .then(() => {
+        handleSetUsername(values.username);
+        navigate("/cabinet");
+      })
       .catch(() => {
         form.setError("username", {
           type: "401",

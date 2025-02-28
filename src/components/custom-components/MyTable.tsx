@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPersonalacconts } from "../../api/api";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -13,12 +10,19 @@ import {
 } from "@/components/ui/tooltip";
 import { PersonalaccontsT } from "@/types";
 import { useNavigate } from "react-router";
-import { EyeIcon, PlusIcon, SearchIcon, TrashIcon } from "lucide-react";
+import {
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
+  EyeIcon,
+  PlusIcon,
+  SearchIcon,
+  TrashIcon,
+} from "lucide-react";
 import TableSkeleton from "./TableSkeleton";
 import TableBlock from "./TableBlock";
-import { Input } from '../ui/input';
-import CabinetAddInvoiceForm from './CabinetAddInvoiceForm';
-import { cn } from '@/lib/utils';
+import { Input } from "../ui/input";
+import CabinetAddInvoiceForm from "./CabinetAddInvoiceForm";
+import { cn } from "@/lib/utils";
 
 function MyTable() {
   const navigate = useNavigate();
@@ -29,11 +33,16 @@ function MyTable() {
   const [createdInvoice, setCreatedInvoice] = useState(-1);
   const itemsPerPage = 7;
 
-  const filteredData = tableData.filter(
-    (item) =>
-      item.fio.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.paLs.toString().toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = tableData.filter((item) => {
+    const splitedFio = item.fio.toLowerCase().trim().split(" ");
+    const validInput = searchQuery.toLowerCase().trim();
+    const validPaLs = item.paLs.toString().toLowerCase();
+
+    return (
+      splitedFio.some((str) => str.startsWith(validInput)) ||
+      validPaLs.startsWith(validInput)
+    );
+  });
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -51,7 +60,7 @@ function MyTable() {
       .finally(() => {
         setIsLoading(false);
       });
-  }
+  };
 
   useEffect(() => {
     getData();
@@ -68,7 +77,7 @@ function MyTable() {
   const lightInvoice = (invoice: number) => {
     setCurrentPage(Math.ceil(filteredData.length / itemsPerPage));
     setCreatedInvoice(invoice);
-  }
+  };
 
   return (
     <Card className="shadow-xl border border-gray-300 rounded-lg">
@@ -82,7 +91,7 @@ function MyTable() {
 
               <Input
                 type="text"
-                placeholder="Пошук за рахунком або адресою"
+                placeholder="Пошук за рахунком або ПІБ"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded w-full text-base"
@@ -93,9 +102,7 @@ function MyTable() {
                   <div>
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger
-                          className="bg-zinc-900 p-2 rounded-lg"
-                        >
+                        <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
                           <PlusIcon className="text-white" />
                         </TooltipTrigger>
                         <TooltipContent>
@@ -105,7 +112,10 @@ function MyTable() {
                     </TooltipProvider>
                   </div>
                 </AlertDialogTrigger>
-                  <CabinetAddInvoiceForm getData={getData} lightInvoice={lightInvoice} />
+                <CabinetAddInvoiceForm
+                  getData={getData}
+                  lightInvoice={lightInvoice}
+                />
               </AlertDialog>
             </div>
 
@@ -136,7 +146,8 @@ function MyTable() {
                       className={cn({
                         "bg-white": index % 2 === 0,
                         "bg-gray-50": index % 2 !== 0,
-                        "border-4 border-green-600":createdInvoice === item.paLs,
+                        "border-4 border-green-600":
+                          createdInvoice === item.paLs,
                       })}
                     >
                       <td className="px-4 py-2 border-b border-gray-300">
@@ -194,20 +205,41 @@ function MyTable() {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
                 >
                   Попередня
                 </button>
+
+                <div className="block md:hidden cursor-pointer h-16 w-16">
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                  >
+                    <ChevronsLeftIcon className="size-8" />
+                  </button>
+                </div>
+
                 <span className="text-sm">
                   Сторінка {currentPage} з {totalPages}
                 </span>
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                  className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
                 >
                   Наступна
                 </button>
+
+                <div className="block md:hidden cursor-pointer h-16 w-16">
+                  <button
+                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronsRightIcon className="size-8" />
+                  </button>
+                </div>
               </div>
             )}
           </>

@@ -4,7 +4,7 @@ import CabinetPage from "@/pages/CabinetPage";
 import { RegistrationPage } from "@/pages/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
 import InvoicePage from '@/pages/InvoicePage';
-import { CabinetLayout } from '@/pages/CabinetLayout';
+import { PrivateRoutes } from '@/pages/PrivateRoutes';
 
 const routes = [
   {
@@ -21,7 +21,7 @@ const routes = [
       },
       {
         path: "cabinet",
-        element: <CabinetLayout />,
+        element: <PrivateRoutes />,
         children: [
           {
             index: true,
