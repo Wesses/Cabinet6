@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useContext } from "react";
 import { UserContext } from '@/Contexts/UserContext';
+import { localStorages } from '@/utils/constants';
 
 export const CabinetHeader = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const CabinetHeader = () => {
       path: import.meta.env.VITE_BASE_URL,
     });
     navigate("/login");
+    localStorage.removeItem(localStorages.USER_DATA);
   };
 
   return (

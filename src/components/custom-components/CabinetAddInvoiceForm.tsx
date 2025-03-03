@@ -77,7 +77,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
         }
 
         if (error !== 558 && error !== 556) {
-          showCustomToast("Пмилка, спробуйте пізніше", "bg-red-400");
+          showCustomToast("Помилка, спробуйте пізніше", "bg-red-400");
         }
       } finally {
         setIsloading(false);

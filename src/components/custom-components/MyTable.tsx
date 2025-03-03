@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getPersonalacconts } from "../../api/api";
+import { useState } from "react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import {
@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PersonalaccontsT } from "@/types";
+
 import { useNavigate } from "react-router";
 import {
   ChevronsLeftIcon,
@@ -18,18 +18,22 @@ import {
   SearchIcon,
   TrashIcon,
 } from "lucide-react";
-import TableSkeleton from "./TableSkeleton";
 import TableBlock from "./TableBlock";
 import { Input } from "../ui/input";
 import CabinetAddInvoiceForm from "./CabinetAddInvoiceForm";
 import { cn } from "@/lib/utils";
+import { PersonalaccontsT } from '@/types';
 
-function MyTable() {
+type Props = {
+  getData: () => void,
+  tableData: PersonalaccontsT[],
+}
+
+function MyTable({getData, tableData}: Props) {
   const navigate = useNavigate();
-  const [tableData, setTableData] = useState<PersonalaccontsT[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
   const [createdInvoice, setCreatedInvoice] = useState(-1);
   const itemsPerPage = 7;
 
@@ -50,22 +54,6 @@ function MyTable() {
     currentPage * itemsPerPage
   );
 
-  const getData = () => {
-    setIsLoading(true);
-    getPersonalacconts()
-      .then(setTableData)
-      .catch(() => {
-        navigate("/login");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -82,9 +70,6 @@ function MyTable() {
   return (
     <Card className="shadow-xl border border-gray-300 rounded-lg">
       <CardContent className="p-4">
-        {isLoading ? (
-          <TableSkeleton />
-        ) : (
           <>
             <div className="mb-4 flex gap-x-4">
               <SearchIcon className="size-10" />
@@ -243,7 +228,6 @@ function MyTable() {
               </div>
             )}
           </>
-        )}
       </CardContent>
     </Card>
   );
