@@ -17,7 +17,7 @@ import { useContext, useEffect, useState } from "react";
 import { getOrganizationData } from "@/api/api";
 import { OrganizationDataT } from "@/types";
 import Cookies from "js-cookie";
-import { UserContext } from '@/Contexts/UserContext';
+import { UserContext } from '@/contexts/UserContext';
 
 export const LoginPage = () => {
   const navigate = useNavigate();

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useContext } from "react";
-import { UserContext } from '@/Contexts/UserContext';
 import { localStorages } from '@/utils/constants';
+import { UserContext } from '@/contexts/UserContext';
 
 export const CabinetHeader = () => {
   const navigate = useNavigate();

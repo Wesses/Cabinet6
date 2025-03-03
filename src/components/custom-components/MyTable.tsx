@@ -35,7 +35,7 @@ function MyTable({getData, tableData}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [createdInvoice, setCreatedInvoice] = useState(-1);
-  const itemsPerPage = 7;
+  const itemsPerPage = Math.floor((window.innerHeight - (72 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) / 57);
 
   const filteredData = tableData.filter((item) => {
     const splitedFio = item.fio.toLowerCase().trim().split(" ");

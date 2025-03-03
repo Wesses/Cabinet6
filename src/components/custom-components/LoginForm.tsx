@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { postLoginReq } from "@/api/api";
 import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
-import { UserContext } from '@/Contexts/UserContext';
+import { UserContext } from '@/contexts/UserContext';
 
 const formSchema = z.object({
   username: z.string().min(2, {

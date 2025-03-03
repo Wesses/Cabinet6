@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
-import { UserProvider } from "./Contexts/UserProvider";
+import { UserProvider } from "./contexts/UserProvider";
 import { history } from './utils/history';
 
 function App() {
