@@ -27,9 +27,9 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
         {
           "bg-white": index % 2 === 0,
           "bg-gray-50": index % 2 !== 0,
+          "border-2 border-zinc-900": !isPopoverOpen,
           "border-4 border-green-400": createdInvoice === item.paLs,
           "border-4 border-orange-400": isPopoverOpen,
-          "border-2 border-zinc-900": !isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
         "rounded-lg p-2 transition-all duration-200"

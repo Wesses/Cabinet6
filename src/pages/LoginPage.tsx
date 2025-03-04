@@ -48,9 +48,9 @@ export const LoginPage = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col xl:flex-row xl:min-h-[500px]">
-      <div className="w-full xl:w-1/2 h-1/3 md:h-1/2 xl:h-full relative bg-zinc-900 rounded-b-xl xl:rounded-b-none min-h-[200px] xl:max-w-none">
-        <div className="absolute text-white z-10 top-4 left-4 flex xl:flex-col flex-row gap-y-2 gap-x-8 xl:gap-x-0 items-center xl:items-baseline">
+    <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
+      <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-zinc-900 rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
+        <div className="absolute text-white z-10 top-4 left-4 flex lg:flex-col flex-row gap-y-2 gap-x-8 lg:gap-x-0 items-center lg:items-baseline">
           {isError ? (
             <h1>Помилка серверу</h1>
           ) : (
@@ -78,10 +78,10 @@ export const LoginPage = () => {
           )}
         </div>
 
-        <div className="xl:hidden absolute bottom-4 w-full flex justify-center">
+        <div className="lg:hidden absolute bottom-4 w-full flex justify-center">
           <Drawer>
             <DrawerTrigger className="w-full" asChild>
-              <Button className="text-black w-4/5 bg-purple-600 hover:bg-purple-700 max-w-[400px] xl:max-w-none">
+              <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
                 Новини
               </Button>
             </DrawerTrigger>
@@ -99,14 +99,14 @@ export const LoginPage = () => {
           </Drawer>
         </div>
 
-        <div className="xl:block hidden h-full">
+        <div className="lg:block hidden h-full">
           <NewsList />
         </div>
       </div>
 
-      <div className="w-full xl:w-1/2 h-full flex items-center justify-center relative mb-2 xl:mb-0 min-h-[500px]">
+      <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">
         <Button
-          className="absolute top-4 right-4 hidden xl:block"
+          className="absolute top-4 right-4 hidden lg:block"
           variant="ghost"
           onClick={handleRegistrationPage}
         >

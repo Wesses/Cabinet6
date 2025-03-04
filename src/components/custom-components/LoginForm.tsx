@@ -94,6 +94,9 @@ const LoginForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    name="login-username"
+                    autoComplete="login-username"
+                    id="login-username"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
                         form.formState.errors.username,
@@ -118,6 +121,9 @@ const LoginForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    name="login-password"
+                    autoComplete="login-password"
+                    id="login-password"
                     type="password"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":

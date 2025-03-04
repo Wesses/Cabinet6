@@ -25,7 +25,7 @@ import { useState } from "react";
 import { showCustomToast } from "@/utils/showCustomComponent";
 
 type Props = {
-  getData: () => void;
+  getData: (successFunction: () => void) => void;
   lightInvoice: (invoice: number) => void;
 };
 
@@ -52,10 +52,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
         const newInvoice = await postPersonalaccont(values.pwd);
         showCustomToast("Успішно створенно", "bg-green-400");
 
-        setTimeout(() => {
-          getData();
-          lightInvoice(newInvoice.paLs);
-        }, 3000);
+        getData(() => lightInvoice(newInvoice.paLs));
       } catch (error) {
         form.setError("pwd", {
           type: "401",

@@ -25,7 +25,6 @@ const DeleteInvoiceButton = ({
   invoiceNum,
   deleteInvoice,
 }: Props) => {
-
   const handleXPopover = () => setIsPopoverOpen(false);
   const handleChekPopover = () => {
     deleteInvoice();
@@ -33,26 +32,43 @@ const DeleteInvoiceButton = ({
 
   return (
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-      <PopoverTrigger>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
-              <TrashIcon className="text-white" />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Видалити особовий рахунок</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <PopoverTrigger asChild>
+        <div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
+                <TrashIcon className="text-white" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Видалити особовий рахунок</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </PopoverTrigger>
-      <PopoverContent side="bottom" className="flex flex-col items-center px-1 gap-y-2">
-        <p>Видалити рахунок під номером <span className="text-orange-600 text-lg">{invoiceNum}</span>?</p>
+      <PopoverContent
+        side="bottom"
+        className="flex flex-col items-center px-4 gap-y-2 w-full"
+      >
+        <p className="sm:text-xl text-base">
+          Видалити запис з особовим рахунком{" "}
+          <span className="text-orange-600 sm:text-2xl text-lg">
+            {invoiceNum}
+          </span>
+          ?
+        </p>
         <div className="flex justify-evenly w-full h-full">
-          <Button className="bg-green-400 hover:bg-green-800" onClick={handleChekPopover}>
-            <CheckIcon />
+          <Button
+            className="bg-green-400 hover:bg-green-800"
+            onClick={handleChekPopover}
+          >
+            <CheckIcon className="sm:size-8 size-5" />
           </Button>
-          <Button className="bg-red-400 hover:bg-red-800" onClick={handleXPopover}>
-            <XIcon />
+          <Button
+            className="bg-red-400 hover:bg-red-800"
+            onClick={handleXPopover}
+          >
+            <XIcon className="sm:size-8 size-5" />
           </Button>
         </div>
       </PopoverContent>

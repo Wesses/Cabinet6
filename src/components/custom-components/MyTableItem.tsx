@@ -36,16 +36,16 @@ const MyTableItem = ({
         {
           "bg-white": index % 2 === 0,
           "bg-gray-50": index % 2 !== 0,
+          "border-2 border-gray-300": !isPopoverOpen,
           "border-4 border-green-400": createdInvoice === item.paLs,
           "border-4 border-orange-400": isPopoverOpen,
-          "border-2 border-gray-300": !isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
         "text-base transition-all duration-200"
       )}
     >
       <td className="px-4 py-2">{invoiceNum}</td>
-      <td className="px-4 py-2">{item.paLs}</td>
+      <td className="px-4 py-2 text-right">{item.paLs}</td>
       <td className="px-4 py-2">{item.fio}</td>
       <td className="px-4 py-2">{item.addres}</td>
       <td className="px-4 py-2 flex gap-4">
@@ -54,7 +54,7 @@ const MyTableItem = ({
         <DeleteInvoiceButton
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}
-          invoiceNum={invoiceNum}
+          invoiceNum={item.paLs}
           deleteInvoice={() =>
             deleteInvoice({
               setIsPopoverOpen,

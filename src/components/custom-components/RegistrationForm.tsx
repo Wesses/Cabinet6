@@ -152,6 +152,9 @@ const RegistrationForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    name="registration-username"
+                    autoComplete="off"
+                    id="registration-email"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
                         form.formState.errors.username,
@@ -176,6 +179,9 @@ const RegistrationForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    name="registration-email"
+                    autoComplete="off"
+                    id="registration-email"
                     type="email"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
@@ -201,6 +207,9 @@ const RegistrationForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    name="registration-password"
+                    autoComplete="off"
+                    id="registration-password"
                     type="password"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
@@ -227,6 +236,9 @@ const RegistrationForm = () => {
                   <Input
                     {...field}
                     type="password"
+                    name="registration-confirm-password"
+                    id="registration-confirm-password"
+                    autoComplete="off"
                     className={cn({
                       "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
                         form.formState.errors.confirmPassword,
@@ -247,12 +259,17 @@ const RegistrationForm = () => {
               <AlertDialogHeader>
                 <AlertDialogTitle>Реєстрація успішна</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Ви успішно зареєструвалися, тепер ви можете перейти на сторінку логіну, щоб увійти в особовий кабінет.
+                  Ви успішно зареєструвалися, тепер ви можете перейти на
+                  сторінку логіну, щоб увійти в особовий кабінет.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter className="xl: gap-2">
-                <AlertDialogAction onClick={handleLoginPage}>Залогінитись</AlertDialogAction>
-                <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>Залишитись на сторінці</AlertDialogCancel>
+                <AlertDialogAction onClick={handleLoginPage}>
+                  Залогінитись
+                </AlertDialogAction>
+                <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>
+                  Залишитись на сторінці
+                </AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

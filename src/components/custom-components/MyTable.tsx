@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import {
@@ -18,8 +18,8 @@ import { Input } from "../ui/input";
 import CabinetAddInvoiceForm from "./CabinetAddInvoiceForm";
 import { PersonalaccontsT } from "@/types";
 import MyTableItem from "./MyTableItem";
-import { deletePersonalaccont } from '@/api/api';
-import { showCustomToast } from '@/utils/showCustomComponent';
+import { deletePersonalaccont } from "@/api/api";
+import { showCustomToast } from "@/utils/showCustomComponent";
 
 const getInvoiceNumber = (
   currentPage: number,
@@ -30,13 +30,21 @@ const getInvoiceNumber = (
 type Props = {
   getData: () => void;
   tableData: PersonalaccontsT[];
+  createdInvoice: number;
+  setCreatedInvoice: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function MyTable({ getData, tableData }: Props) {
-  const [currentPage, setCurrentPage] = useState(1);
+function MyTable({
+  getData,
+  tableData,
+  createdInvoice,
+  setCreatedInvoice,
+  currentPage,
+  setCurrentPage,
+}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [createdInvoice, setCreatedInvoice] = useState(-1);
   const itemsPerPage = Math.floor(
     (window.innerHeight -
       (72 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) /
@@ -50,7 +58,8 @@ function MyTable({ getData, tableData }: Props) {
 
     return (
       splitedFio.some((str) => str.startsWith(validInput)) ||
-      validPaLs.startsWith(validInput)
+      validPaLs.startsWith(validInput) ||
+      item.fio.toLowerCase().trim().startsWith(validInput)
     );
   });
 
@@ -65,7 +74,7 @@ function MyTable({ getData, tableData }: Props) {
   };
 
   const lightInvoice = (invoice: number) => {
-    setCurrentPage(Math.ceil(filteredData.length / itemsPerPage));
+    setCurrentPage(Math.ceil(tableData.length / itemsPerPage));
     setCreatedInvoice(invoice);
   };
 
@@ -74,9 +83,9 @@ function MyTable({ getData, tableData }: Props) {
     setIsDeleteProcessing,
     personalaccontsId,
   }: {
-    setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsDeleteProcessing: React.Dispatch<React.SetStateAction<boolean>>,
-    personalaccontsId: number,
+    setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsDeleteProcessing: React.Dispatch<React.SetStateAction<boolean>>;
+    personalaccontsId: number;
   }) => {
     setIsPopoverOpen(false);
     setIsDeleteProcessing(true);
@@ -94,6 +103,11 @@ function MyTable({ getData, tableData }: Props) {
       }
     })();
   };
+
+  useEffect(() => {
+    if(searchQuery)
+    setCurrentPage(1);
+  }, [searchQuery])
 
   return (
     <Card className="shadow-xl border border-gray-300 rounded-lg">
@@ -139,7 +153,7 @@ function MyTable({ getData, tableData }: Props) {
                   <th className="px-4 py-2 border-b border-gray-300 text-left">
                     #
                   </th>
-                  <th className="px-4 py-2 border-b border-gray-300 text-left">
+                  <th className="px-4 py-2 border-b border-gray-300 text-right">
                     Особовий рахунок
                   </th>
                   <th className="px-4 py-2 border-b border-gray-300 text-left">
