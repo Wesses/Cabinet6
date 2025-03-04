@@ -149,7 +149,7 @@ export const getPersonalacconts = async () => {
 //   }
 // };
 
-export const postPersonalacconts = async (pwd: string) => {
+export const postPersonalaccont = async (pwd: string) => {
   const token = getToken();
 
   try {
@@ -164,6 +164,31 @@ export const postPersonalacconts = async (pwd: string) => {
     );
 
     if (response.statusText !== "Created") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const deletePersonalaccont = async (id: number) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.delete(
+      personalacconts + "/" +id,
+      {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      }
+    );
+
+    if (response.statusText !== "No Content") {
       throw new Error(response.statusText);
     }
 

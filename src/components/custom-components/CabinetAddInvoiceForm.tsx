@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { XIcon } from "lucide-react";
-import { postPersonalacconts } from "@/api/api";
+import { postPersonalaccont } from "@/api/api";
 import Spinner from "./Spinner";
 import { useState } from "react";
 import { showCustomToast } from "@/utils/showCustomComponent";
@@ -49,7 +49,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
 
     (async () => {
       try {
-        const newInvoice = await postPersonalacconts(values.pwd);
+        const newInvoice = await postPersonalaccont(values.pwd);
         showCustomToast("Успішно створенно", "bg-green-400");
 
         setTimeout(() => {

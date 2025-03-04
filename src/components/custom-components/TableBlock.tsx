@@ -1,25 +1,49 @@
-import { EyeIcon, TrashIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import { PersonalaccontsT } from "@/types";
-import { useNavigate } from "react-router";
+import OpenInvoiceButton from "./OpenInvoiceButton";
+import DeleteInvoiceButton from "./DeleteInvoiceButton";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
-const TableBlock = ({ item }: { item: PersonalaccontsT }) => {
-  const navigate = useNavigate();
+type Props = {
+  item: PersonalaccontsT;
+  invoiceNum: number;
+  index: number;
+  createdInvoice: number;
+  deleteInvoice: ({ setIsPopoverOpen, setIsDeleteProcessing, personalaccontsId }: {
+    setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsDeleteProcessing: React.Dispatch<React.SetStateAction<boolean>>,
+    personalaccontsId: number,
+}) => void
+};
 
-  const handleOpenInvoice = (id: number) => {
-    navigate(`/cabinet/${id}`);
-  };
+const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: Props) => {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isDeleteprocessing, setIsDeleteProcessing] = useState(false);
+
 
   return (
-    <div className="border border-zinc-900 rounded-lg p-2">
+    <div
+      className={cn(
+        {
+          "bg-white": index % 2 === 0,
+          "bg-gray-50": index % 2 !== 0,
+          "border-4 border-green-400": createdInvoice === item.paLs,
+          "border-4 border-orange-400": isPopoverOpen,
+          "border-2 border-zinc-900": !isPopoverOpen,
+          "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
+        },
+        "rounded-lg p-2 transition-all duration-200"
+      )}
+    >
       <div className="flex gap-x-4">
-        <Button onClick={() => handleOpenInvoice(item.paLs)}>
-          <EyeIcon className="text-white" />
-        </Button>
+        <OpenInvoiceButton paLs={item.paLs} />
 
-        <Button>
-          <TrashIcon className="text-white" />
-        </Button>
+        <DeleteInvoiceButton
+          isPopoverOpen={isPopoverOpen}
+          setIsPopoverOpen={setIsPopoverOpen}
+          invoiceNum={invoiceNum}
+          deleteInvoice={() => deleteInvoice({setIsPopoverOpen, setIsDeleteProcessing, personalaccontsId: item.personalaccontsId})}
+        />
       </div>
       <div className="flex gap-x-8 pt-4">
         <ul className="font-semibold sm:text-base text-xs">
