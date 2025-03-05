@@ -16,14 +16,23 @@ import { useEffect, useState } from "react";
 import TableSkeleton from "@/components/custom-components/TableSkeleton";
 import { localStorages } from "@/utils/constants";
 import Cookies from "js-cookie";
+import AddInvoiceButton from "@/components/custom-components/AddInvoiceButton";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 const CabinetPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [tableData, setTableData] = useState<PersonalaccontsT[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [createdInvoice, setCreatedInvoice] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = Math.floor(
+    (window.innerHeight -
+      (72 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) /
+      57
+  );
 
   const onAlertLogin = () => {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
@@ -39,6 +48,7 @@ const CabinetPage = () => {
 
   const getData = (successFunction: () => void = () => {}) => {
     setIsLoading(true);
+    setIsError(false);
     getPersonalacconts()
       .then((r) => {
         setTableData(r);
@@ -47,6 +57,7 @@ const CabinetPage = () => {
       .catch((e) => {
         console.log(e);
         setShowAlert(true);
+        setIsError(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -60,9 +71,29 @@ const CabinetPage = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="px-10 py-5">
-        {isLoading || !tableData.length ? (
-          <TableSkeleton />
-        ) : (
+        {isLoading && <TableSkeleton />}
+        {isError && (
+          <h1 className="text-xl"> Виникла помилка спробуйте пізніше</h1>
+        )}
+        {!isLoading && !tableData.length && !isError && (
+          <div className="border-2 border-black shadow-lg w-full h-[200px] rounded-sm flex flex-col justify-center items-center gap-y-8">
+            <p className="text-lg">
+              {" "}
+              Додайте свій перший особовий рахунок для того, щоб розпочати
+              роботу.
+            </p>
+            <div className="flex justify-center items-center w-full">
+               <ChevronRightIcon />
+               <ChevronRightIcon />
+               <ChevronRightIcon />
+              <AddInvoiceButton getData={getData} lightInvoice={() => {}} />
+                <ChevronLeftIcon />
+                <ChevronLeftIcon />
+                <ChevronLeftIcon />
+            </div>
+          </div>
+        )}
+        {!isLoading && !!tableData.length && !isError && (
           <MyTable
             tableData={tableData}
             getData={getData}
@@ -70,6 +101,7 @@ const CabinetPage = () => {
             setCreatedInvoice={setCreatedInvoice}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
           />
         )}
       </div>

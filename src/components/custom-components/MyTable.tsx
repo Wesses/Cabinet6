@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
-  PlusIcon,
   SearchIcon,
 } from "lucide-react";
 import TableBlock from "./TableBlock";
 import { Input } from "../ui/input";
-import CabinetAddInvoiceForm from "./CabinetAddInvoiceForm";
 import { PersonalaccontsT } from "@/types";
 import MyTableItem from "./MyTableItem";
 import { deletePersonalaccont } from "@/api/api";
 import { showCustomToast } from "@/utils/showCustomComponent";
+import AddInvoiceButton from './AddInvoiceButton';
 
 const getInvoiceNumber = (
   currentPage: number,
@@ -28,12 +20,13 @@ const getInvoiceNumber = (
 ) => (currentPage - 1) * itemsPerPage + index + 1;
 
 type Props = {
-  getData: () => void;
+  getData: (successFunction: () => void) => void;
   tableData: PersonalaccontsT[];
   createdInvoice: number;
   setCreatedInvoice: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  itemsPerPage: number;
 };
 
 function MyTable({
@@ -43,13 +36,9 @@ function MyTable({
   setCreatedInvoice,
   currentPage,
   setCurrentPage,
+  itemsPerPage,
 }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
-  const itemsPerPage = Math.floor(
-    (window.innerHeight -
-      (72 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) /
-      57
-  );
 
   const filteredData = tableData.filter((item) => {
     const splitedFio = item.fio.toLowerCase().trim().split(" ");
@@ -74,7 +63,11 @@ function MyTable({
   };
 
   const lightInvoice = (invoice: number) => {
-    setCurrentPage(Math.ceil(tableData.length / itemsPerPage));
+    if (filteredData.length % itemsPerPage === 0) {
+      setCurrentPage(totalPages + 1);
+    } else {
+      setCurrentPage(totalPages);
+    }
     setCreatedInvoice(invoice);
   };
 
@@ -93,7 +86,11 @@ function MyTable({
     (async () => {
       try {
         await deletePersonalaccont(personalaccontsId);
-        getData();
+        getData(() => {
+          if (!paginatedData.length) {
+            setCurrentPage((prev) => prev--);
+          }
+        });
         showCustomToast("Успішно видалено", "bg-green-400");
       } catch (e) {
         console.error(e);
@@ -105,9 +102,14 @@ function MyTable({
   };
 
   useEffect(() => {
-    if(searchQuery)
-    setCurrentPage(1);
-  }, [searchQuery])
+    if (searchQuery) setCurrentPage(1);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage]);
 
   return (
     <Card className="shadow-xl border border-gray-300 rounded-lg">
@@ -124,123 +126,117 @@ function MyTable({
               className="px-4 py-2 border border-gray-300 rounded w-full text-base"
             />
 
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <div>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
-                        <PlusIcon className="text-white" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Додати особовий рахунок</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-              </AlertDialogTrigger>
-              <CabinetAddInvoiceForm
+              <AddInvoiceButton
                 getData={getData}
                 lightInvoice={lightInvoice}
               />
-            </AlertDialog>
           </div>
 
-          <div className="hidden md:block overflow-x-auto">
-            <table className="table-auto w-full border border-gray-300 text-sm">
-              <thead>
-                <tr className="bg-gray-100 text-gray-700">
-                  <th className="px-4 py-2 border-b border-gray-300 text-left">
-                    #
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300 text-right">
-                    Особовий рахунок
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300 text-left">
-                    ПІБ
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300 text-left">
-                    Адреса
-                  </th>
-                  <th className="px-4 py-2 border-b border-gray-300 text-left"></th>
-                </tr>
-              </thead>
+        {filteredData.length ? (
+                    <div>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="table-auto w-full border border-gray-300 text-sm">
+                <thead>
+                  <tr className="bg-gray-100 text-gray-700">
+                    <th className="px-4 py-2 border-b border-gray-300 text-left">
+                      #
+                    </th>
+                    <th className="px-4 py-2 border-b border-gray-300 text-right">
+                      Особовий рахунок
+                    </th>
+                    <th className="px-4 py-2 border-b border-gray-300 text-left">
+                      ПІБ
+                    </th>
+                    <th className="px-4 py-2 border-b border-gray-300 text-left">
+                      Адреса
+                    </th>
+                    <th className="px-4 py-2 border-b border-gray-300 text-left"></th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {paginatedData.map((item, index) => (
-                  <MyTableItem
-                    key={item.personalaccontsId}
-                    index={index}
-                    item={item}
-                    createdInvoice={createdInvoice}
-                    invoiceNum={getInvoiceNumber(
-                      currentPage,
-                      itemsPerPage,
-                      index
-                    )}
-                    deleteInvoice={deleteInvoice}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+                <tbody>
+                  {paginatedData.map((item, index) => (
+                    <MyTableItem
+                      key={item.personalaccontsId}
+                      index={index}
+                      item={item}
+                      createdInvoice={createdInvoice}
+                      invoiceNum={getInvoiceNumber(
+                        currentPage,
+                        itemsPerPage,
+                        index
+                      )}
+                      deleteInvoice={deleteInvoice}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          <div className="md:hidden flex flex-col gap-y-4">
-            {paginatedData.map((item, index) => (
-              <TableBlock
-                item={item}
-                key={item.personalaccontsId}
-                invoiceNum={getInvoiceNumber(currentPage, itemsPerPage, index)}
-                createdInvoice={createdInvoice}
-                index={index}
-                deleteInvoice={deleteInvoice}
-              />
-            ))}
-          </div>
+            <div className="md:hidden flex flex-col gap-y-4">
+              {paginatedData.map((item, index) => (
+                <TableBlock
+                  item={item}
+                  key={item.personalaccontsId}
+                  invoiceNum={getInvoiceNumber(
+                    currentPage,
+                    itemsPerPage,
+                    index
+                  )}
+                  createdInvoice={createdInvoice}
+                  index={index}
+                  deleteInvoice={deleteInvoice}
+                />
+              ))}
+            </div>
 
-          {filteredData.length > itemsPerPage && (
-            <div className="flex justify-between items-center mt-4">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
-              >
-                Попередня
-              </button>
-
-              <div className="block md:hidden cursor-pointer h-16 w-16">
+            {filteredData.length > itemsPerPage && (
+              <div className="flex justify-between items-center mt-4">
                 <button
-                  disabled={currentPage === 1}
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
                 >
-                  <ChevronsLeftIcon className="size-8" />
+                  Попередня
                 </button>
-              </div>
 
-              <span className="text-sm">
-                Сторінка {currentPage} з {totalPages}
-              </span>
+                <div className="block md:hidden cursor-pointer h-16 w-16">
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                  >
+                    <ChevronsLeftIcon className="size-8" />
+                  </button>
+                </div>
 
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-              >
-                Наступна
-              </button>
+                <span className="text-sm">
+                  Сторінка {currentPage} з {totalPages}
+                </span>
 
-              <div className="block md:hidden cursor-pointer h-16 w-16">
                 <button
-                  className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
+                  className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
                 >
-                  <ChevronsRightIcon className="size-8" />
+                  Наступна
                 </button>
+
+                <div className="block md:hidden cursor-pointer h-16 w-16">
+                  <button
+                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronsRightIcon className="size-8" />
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        ) : (
+          <h1 className="text-xl">Не знайдено жодного собового рахунку, перевірте правильність вводу та спройте ще раз.</h1>
+        )}
         </>
       </CardContent>
     </Card>
