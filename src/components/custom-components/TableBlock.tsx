@@ -3,6 +3,7 @@ import OpenInvoiceButton from "./OpenInvoiceButton";
 import DeleteInvoiceButton from "./DeleteInvoiceButton";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   item: PersonalaccontsT;
@@ -19,7 +20,7 @@ type Props = {
 const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDeleteprocessing, setIsDeleteProcessing] = useState(false);
-
+  const { t } = useTranslation();
 
   return (
     <div
@@ -48,10 +49,10 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
       <div className="flex gap-x-8 pt-4">
         <ul className="font-semibold sm:text-base text-xs">
           <li>#: </li>
-          <li className="sm:block hidden">Особовий рахунок: </li>
-          <li className="block sm:hidden">Рахунок: </li>
-          <li>ПІБ: </li>
-          <li>Адреса: </li>
+          <li className="sm:block hidden">{t("mobile_invoice") + " "}</li>
+          <li className="block sm:hidden">{t("mobile_invoice_2") + " "}</li>
+          <li>{t("mobile_full_name") + " "}</li>
+          <li>{t("mobile_address") + " "}</li>
         </ul>
         <ul className="sm:text-base text-xs">
           <li>{item.personalaccontsId - 1}</li>

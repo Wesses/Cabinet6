@@ -6,6 +6,7 @@ import router from "./router";
 import ScreenWrapper from "./components/ScreenWrapper";
 import moment from "moment";
 import "moment/dist/locale/uk";
+import "./localization/i18n";
 
 moment.locale("uk");
 

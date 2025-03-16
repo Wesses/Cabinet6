@@ -17,7 +17,9 @@ import { useContext, useEffect, useState } from "react";
 import { getOrganizationData } from "@/api/api";
 import { OrganizationDataT } from "@/types";
 import Cookies from "js-cookie";
-import { UserContext } from '@/contexts/UserContext';
+import { UserContext } from "@/contexts/UserContext";
+import LocaleButton from "@/components/custom-components/LocaleButton";
+import { useTranslation } from 'react-i18next';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export const LoginPage = () => {
     useState<OrganizationDataT | null>(null);
   const [isError, setIsError] = useState(false);
   const { handleSetCompanyName } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const handleRegistrationPage = () => {
     navigate("/registration");
@@ -32,14 +35,13 @@ export const LoginPage = () => {
 
   useEffect(() => {
     getOrganizationData()
-      .then(r => {
+      .then((r) => {
         setOrganizationData(r);
         handleSetCompanyName(r.name);
       })
       .catch((e) => {
-        setIsError(true)
+        setIsError(true);
         console.log(e);
-        
       });
 
     if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
@@ -52,7 +54,7 @@ export const LoginPage = () => {
       <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-zinc-900 rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
         <div className="absolute text-white z-10 top-4 left-4 flex lg:flex-col flex-row gap-y-2 gap-x-8 lg:gap-x-0 items-center lg:items-baseline">
           {isError ? (
-            <h1>Помилка серверу</h1>
+            <h1>{t("server_error")}</h1>
           ) : (
             <>
               {organizationData ? (
@@ -62,10 +64,10 @@ export const LoginPage = () => {
                   </h1>
                   <p className="hidden sm:block">
                     {organizationData.description +
-                      ". За адресою: " +
+                      t("address_label") + " " +
                       organizationData.contactAddress}
                   </p>
-                  <p>{"Номер телефону: " + organizationData.contactPhone}</p>
+                  <p>{t("phone_number_label") + " " + organizationData.contactPhone}</p>
                 </>
               ) : (
                 <>
@@ -82,17 +84,17 @@ export const LoginPage = () => {
           <Drawer>
             <DrawerTrigger className="w-full" asChild>
               <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
-                Новини
+                {t("news")}
               </Button>
             </DrawerTrigger>
             <DrawerContent className="h-full rounded-none">
               <DrawerHeader>
-                <DrawerTitle>Новини</DrawerTitle>
+                <DrawerTitle>{t("news")}</DrawerTitle>
               </DrawerHeader>
               <NewsList />
               <DrawerFooter>
                 <DrawerClose>
-                  <Button>Закрити</Button>
+                  <Button>{t("close")}</Button>
                 </DrawerClose>
               </DrawerFooter>
             </DrawerContent>
@@ -105,13 +107,17 @@ export const LoginPage = () => {
       </div>
 
       <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">
-        <Button
-          className="absolute top-4 right-4 hidden lg:block"
-          variant="ghost"
-          onClick={handleRegistrationPage}
-        >
-          Зареєструватися
-        </Button>
+        <div className="absolute top-4 right-4 flex flex-row items-center">
+          <LocaleButton isLabel={true}/>
+
+          <Button
+            className="hidden lg:block"
+            variant="ghost"
+            onClick={handleRegistrationPage}
+          >
+            {t("register_button")}
+          </Button>
+        </div>
 
         <LoginForm />
       </div>

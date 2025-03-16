@@ -2,6 +2,7 @@ import { AlertDialog, AlertDialogTrigger } from '../ui/alert-dialog'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { PlusIcon } from 'lucide-react'
 import CabinetAddInvoiceForm from './CabinetAddInvoiceForm'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   getData: (successFunction: () => void) => void;
@@ -9,6 +10,8 @@ type Props = {
 }
 
 const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
+  const {t} = useTranslation();
+
   return (
     <AlertDialog>
     <AlertDialogTrigger asChild>
@@ -19,7 +22,7 @@ const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
               <PlusIcon className="text-white" />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Додати особовий рахунок</p>
+              <p>{t("button_add_invoice")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

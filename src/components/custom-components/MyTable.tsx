@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-  SearchIcon,
-} from "lucide-react";
+import { ChevronsLeftIcon, ChevronsRightIcon, SearchIcon } from "lucide-react";
 import TableBlock from "./TableBlock";
 import { Input } from "../ui/input";
 import { PersonalaccontsT } from "@/types";
 import MyTableItem from "./MyTableItem";
 import { deletePersonalaccont } from "@/api/api";
 import { showCustomToast } from "@/utils/showCustomComponent";
-import AddInvoiceButton from './AddInvoiceButton';
+import AddInvoiceButton from "./AddInvoiceButton";
+import { useTranslation } from "react-i18next";
 
 const getInvoiceNumber = (
   currentPage: number,
@@ -39,6 +36,7 @@ function MyTable({
   itemsPerPage,
 }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation();
 
   const filteredData = tableData.filter((item) => {
     const splitedFio = item.fio.toLowerCase().trim().split(" ");
@@ -91,10 +89,10 @@ function MyTable({
             setCurrentPage((prev) => prev--);
           }
         });
-        showCustomToast("Успішно видалено", "bg-green-400");
+        showCustomToast(t("toast_successfully_deleted"), "bg-green-400");
       } catch (e) {
         console.error(e);
-        showCustomToast("Сталася помилка. Спробуйте пізніше", "bg-red-400");
+        showCustomToast(t("toast_error_try_later"), "bg-red-400");
       } finally {
         setIsDeleteProcessing(false);
       }
@@ -120,123 +118,122 @@ function MyTable({
 
             <Input
               type="text"
-              placeholder="Пошук за рахунком або ПІБ"
+              placeholder={t("table_search_placeholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded w-full text-base"
             />
 
-              <AddInvoiceButton
-                getData={getData}
-                lightInvoice={lightInvoice}
-              />
+            <AddInvoiceButton getData={getData} lightInvoice={lightInvoice} />
           </div>
 
-        {filteredData.length ? (
-                    <div>
-            <div className="hidden md:block overflow-x-auto">
-              <table className="table-auto w-full border border-gray-300 text-sm">
-                <thead>
-                  <tr className="bg-gray-100 text-gray-700">
-                    <th className="px-4 py-2 border-b border-gray-300 text-left">
-                      #
-                    </th>
-                    <th className="px-4 py-2 border-b border-gray-300 text-right">
-                      Особовий рахунок
-                    </th>
-                    <th className="px-4 py-2 border-b border-gray-300 text-left">
-                      ПІБ
-                    </th>
-                    <th className="px-4 py-2 border-b border-gray-300 text-left">
-                      Адреса
-                    </th>
-                    <th className="px-4 py-2 border-b border-gray-300 text-left"></th>
-                  </tr>
-                </thead>
+          {filteredData.length ? (
+            <div>
+              <div className="hidden md:block overflow-x-auto">
+                <table className="table-auto w-full border border-gray-300 text-sm">
+                  <thead>
+                    <tr className="bg-gray-100 text-gray-700">
+                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                        #
+                      </th>
+                      <th className="px-4 py-2 border-b border-gray-300 text-right">
+                        {t("invoice")}
+                      </th>
+                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                        {t("full_name")}
+                      </th>
+                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                        {t("address")}
+                      </th>
+                      <th className="px-4 py-2 border-b border-gray-300 text-left"></th>
+                    </tr>
+                  </thead>
 
-                <tbody>
-                  {paginatedData.map((item, index) => (
-                    <MyTableItem
-                      key={item.personalaccontsId}
-                      index={index}
-                      item={item}
-                      createdInvoice={createdInvoice}
-                      invoiceNum={getInvoiceNumber(
-                        currentPage,
-                        itemsPerPage,
-                        index
-                      )}
-                      deleteInvoice={deleteInvoice}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  <tbody>
+                    {paginatedData.map((item, index) => (
+                      <MyTableItem
+                        key={item.personalaccontsId}
+                        index={index}
+                        item={item}
+                        createdInvoice={createdInvoice}
+                        invoiceNum={getInvoiceNumber(
+                          currentPage,
+                          itemsPerPage,
+                          index
+                        )}
+                        deleteInvoice={deleteInvoice}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            <div className="md:hidden flex flex-col gap-y-4">
-              {paginatedData.map((item, index) => (
-                <TableBlock
-                  item={item}
-                  key={item.personalaccontsId}
-                  invoiceNum={getInvoiceNumber(
-                    currentPage,
-                    itemsPerPage,
-                    index
-                  )}
-                  createdInvoice={createdInvoice}
-                  index={index}
-                  deleteInvoice={deleteInvoice}
-                />
-              ))}
-            </div>
+              <div className="md:hidden flex flex-col gap-y-4">
+                {paginatedData.map((item, index) => (
+                  <TableBlock
+                    item={item}
+                    key={item.personalaccontsId}
+                    invoiceNum={getInvoiceNumber(
+                      currentPage,
+                      itemsPerPage,
+                      index
+                    )}
+                    createdInvoice={createdInvoice}
+                    index={index}
+                    deleteInvoice={deleteInvoice}
+                  />
+                ))}
+              </div>
 
-            {filteredData.length > itemsPerPage && (
-              <div className="flex justify-between items-center mt-4">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
-                >
-                  Попередня
-                </button>
-
-                <div className="block md:hidden cursor-pointer h-16 w-16">
+              {filteredData.length > itemsPerPage && (
+                <div className="flex justify-between items-center mt-4">
                   <button
-                    disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}
-                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
                   >
-                    <ChevronsLeftIcon className="size-8" />
+                    {t("previous")}
                   </button>
-                </div>
 
-                <span className="text-sm">
-                  Сторінка {currentPage} з {totalPages}
-                </span>
+                  <div className="block md:hidden cursor-pointer h-16 w-16">
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                    >
+                      <ChevronsLeftIcon className="size-8" />
+                    </button>
+                  </div>
 
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                >
-                  Наступна
-                </button>
+                  <span className="text-sm">
+                    {t("page") + " " + currentPage + " " + t("of") + " " + totalPages}
+                  </span>
 
-                <div className="block md:hidden cursor-pointer h-16 w-16">
                   <button
-                    className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
+                    className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
                   >
-                    <ChevronsRightIcon className="size-8" />
+                    {t("next")}
                   </button>
+
+                  <div className="block md:hidden cursor-pointer h-16 w-16">
+                    <button
+                      className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      <ChevronsRightIcon className="size-8" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <h1 className="text-xl">Не знайдено жодного собового рахунку, перевірте правильність вводу та спройте ще раз.</h1>
-        )}
+              )}
+            </div>
+          ) : (
+            <h1 className="text-xl">
+              {t("cant_find_any_invoice")}
+            </h1>
+          )}
         </>
       </CardContent>
     </Card>

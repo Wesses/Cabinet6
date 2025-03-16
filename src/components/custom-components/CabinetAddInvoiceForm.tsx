@@ -23,26 +23,29 @@ import { postPersonalaccont } from "@/api/api";
 import Spinner from "./Spinner";
 import { useState } from "react";
 import { showCustomToast } from "@/utils/showCustomComponent";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   getData: (successFunction: () => void) => void;
   lightInvoice: (invoice: number) => void;
 };
 
-const formSchema = z.object({
-  pwd: z.string().min(2, {
-    message: "Код доступу має містити принаймні 2 символи.",
-  }),
-});
-
 const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
+  const [isLoading, setIsloading] = useState(false);
+  const { t } = useTranslation();
+
+  const formSchema = z.object({
+    pwd: z.string().min(2, {
+      message: t("form_error_code_length"),
+    }),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       pwd: "",
     },
   });
-  const [isLoading, setIsloading] = useState(false);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsloading(true);
@@ -50,31 +53,31 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
     (async () => {
       try {
         const newInvoice = await postPersonalaccont(values.pwd);
-        showCustomToast("Успішно створенно", "bg-green-400");
+        showCustomToast(t("toast_successfully_created"), "bg-green-400");
 
         getData(() => lightInvoice(newInvoice.paLs));
       } catch (error) {
         form.setError("pwd", {
           type: "401",
-          message: "Введіть інший код доступу.",
+          message: t("form_error_input_another_code"),
         });
 
         if (error === 558) {
           showCustomToast(
-            "Ви ввели не правильний код доступу, перевірте правильність вводу",
+            t("toast_incorect_code"),
             "bg-red-400"
           );
         }
 
         if (error === 556) {
           showCustomToast(
-            "Код доступу до особового рахунку вже був використаний, введіть інший",
+            t("toast_used_code"),
             "bg-red-400"
           );
         }
 
         if (error !== 558 && error !== 556) {
-          showCustomToast("Помилка, спробуйте пізніше", "bg-red-400");
+          showCustomToast(t("toast_error_try_later"), "bg-red-400");
         }
       } finally {
         setIsloading(false);
@@ -92,14 +95,14 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
         </div>
 
         <AlertDialogTitle className="text-left">
-          Додати особовий рахунок
+          {t("button_add_invoice")}
         </AlertDialogTitle>
         <AlertDialogDescription className="text-left">
-          Для того, щоб додати особовий рахунок, потрібно ввести{" "}
+          {t("add_incoive_part_1") + " "}
           <span className="text-orange-600 italic">
-            код доступу до особового рахунку
-          </span>{", "}
-          який можна отримати від надавача комунальних послуг.
+            {t("add_incoive_part_2")}
+          </span>
+          {", " + t("add_incoive_part_3")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
@@ -113,9 +116,14 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
             name="pwd"
             render={({ field }) => (
               <FormItem className="xl:w-[400px] md:w-[300px] w-[250px]">
-                <FormLabel>Код доступу до особового рахунку</FormLabel>
+                <FormLabel>{t("form_code_title")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Введіть код тут:" type="" {...field} autoComplete="off" />
+                  <Input
+                    placeholder={t("form_placeholder_code")}
+                    type=""
+                    {...field}
+                    autoComplete="off"
+                  />
                 </FormControl>
                 {form.formState.errors.pwd ? (
                   <FormMessage />
@@ -130,7 +138,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
             type="submit"
             disabled={isLoading || !form.formState.isValid}
           >
-            {isLoading ? <Spinner /> : "Відправити"}
+            {isLoading ? <Spinner /> : t("send")}
           </Button>
         </form>
       </Form>

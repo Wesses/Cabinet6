@@ -18,19 +18,26 @@ import { useNavigate } from "react-router-dom";
 import { postLoginReq } from "@/api/api";
 import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
-import { UserContext } from '@/contexts/UserContext';
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Ім'я користувача має містити принаймні 2 символи.",
-  }),
-
-  password: z.string().min(2, {
-    message: "Пароль має бути не менше 2 символів.",
-  }),
-});
+import { UserContext } from "@/contexts/UserContext";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
+  const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const { handleSetUsername } = useContext(UserContext);
+
+  const formSchema = z.object({
+    username: z.string().min(2, {
+      message: t("form_error_username_length"),
+    }),
+  
+    password: z.string().min(2, {
+      message: t("form_error_password_length"),
+    }),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,9 +45,6 @@ const LoginForm = () => {
       password: "",
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { handleSetUsername } = useContext(UserContext);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
@@ -53,11 +57,11 @@ const LoginForm = () => {
       .catch(() => {
         form.setError("username", {
           type: "401",
-          message: "Невірний логін або пароль.",
+          message: t("form_error_login_or_pass"),
         });
         form.setError("password", {
           type: "401",
-          message: "Невірний логін або пароль.",
+          message: t("form_error_login_or_pass"),
         });
       })
       .finally(() => setIsLoading(false));
@@ -71,26 +75,25 @@ const LoginForm = () => {
     <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">
       <div className="text-center">
         <h3 className="xl:text-2xl text-xl font-bold mb-2">
-          Увійдіть до свого облікового запису
+          {t("login_title")}
         </h3>
 
         <p className="text-neutral-500 xl:text-base text-sm">
-          Введіть ім'я користувача та пароль, щоб увійти у свій обліковий
-          запис
+          {t("login_second_title")}
         </p>
       </div>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 w-full max-w-[400px]"
+          className="space-y-3 w-full min-w-[300px] sm:min-w-[400px] max-w-[400px]"
         >
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Ім'я користувача</FormLabel>
+                <FormLabel className="text-black">{t("form_username")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -117,7 +120,7 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Пароль</FormLabel>
+                <FormLabel className="text-black">{t("form_password")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -145,13 +148,13 @@ const LoginForm = () => {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : "Вхід"}
+            {isLoading ? <Spinner /> : t("login")}
           </Button>
 
           <div className="flex justify-center items-center gap-x-2">
             <Separator className="bg-neutral-200 h-[1px] w-full" />
             <span className="uppercase text-neutral-500 text-sm whitespace-nowrap">
-              або зареєструватися
+              {t("or_register")}
             </span>
             <Separator className="bg-neutral-200 h-[1px] w-full" />
           </div>
@@ -161,7 +164,7 @@ const LoginForm = () => {
             variant="outline"
             onClick={handleRegistrationPage}
           >
-            Зареєструватися
+            {t("register_button")}
           </Button>
         </form>
       </Form>

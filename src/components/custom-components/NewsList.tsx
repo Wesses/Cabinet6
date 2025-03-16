@@ -3,10 +3,12 @@ import { getNews } from "@/api/api";
 import { NewsT } from "@/types";
 import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from 'react-i18next';
 
 const NewsList = () => {
   const [news, setNews] = useState<NewsT[]>([]);
   const [isError, setIsError] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsError(false);
@@ -20,7 +22,7 @@ const NewsList = () => {
     <div className="w-full h-full flex items-center justify-center flex-col">
       {isError ? (
         <p className="text-white py-2 px-4 text-[40px] font-semibold">
-          Новин нема
+          {t("no_news")}
         </p>
       ) : (
         <>

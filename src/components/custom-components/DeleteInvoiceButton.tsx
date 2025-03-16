@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   isPopoverOpen: boolean;
@@ -25,6 +26,8 @@ const DeleteInvoiceButton = ({
   invoiceNum,
   deleteInvoice,
 }: Props) => {
+  const { t } = useTranslation();
+
   const handleXPopover = () => setIsPopoverOpen(false);
   const handleChekPopover = () => {
     deleteInvoice();
@@ -40,7 +43,7 @@ const DeleteInvoiceButton = ({
                 <TrashIcon className="text-white" />
               </TooltipTrigger>
               <TooltipContent>
-                <p>Видалити особовий рахунок</p>
+                <p>{t("button_delete_invoice")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -51,7 +54,7 @@ const DeleteInvoiceButton = ({
         className="flex flex-col items-center px-4 gap-y-2 w-full"
       >
         <p className="sm:text-xl text-base">
-          Видалити запис з особовим рахунком{" "}
+          {t("button_delete_invoice_2") + " "}
           <span className="text-orange-600 sm:text-2xl text-lg">
             {invoiceNum}
           </span>

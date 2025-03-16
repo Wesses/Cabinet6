@@ -29,27 +29,34 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTranslation } from 'react-i18next';
 
-const formSchema = z
+const RegistrationForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAlerOpen, setIsAlertOpen] = useState(false);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const formSchema = z
   .object({
     username: z.string().min(2, {
-      message: "Ім'я користувача має містити принаймні 2 символи.",
+      message: t("form_error_username_length"),
     }),
 
     password: z
       .string()
-      .min(6, "Пароль повинен містити щонайменше 6 символів.")
+      .min(6, t("form_error_password_length_6"))
       .refine((value) => /[0-9]/.test(value), {
-        message: "Пароль повинен містити хоча б одну цифру.",
+        message: t("form_error_password_any_symbol"),
       })
       .refine((value) => /[a-z]/.test(value), {
-        message: "Пароль повинен містити хоча б одну малу літеру.",
+        message: t("form_error_password_any_lowercase_letter"),
       })
       .refine((value) => /[A-Z]/.test(value), {
-        message: "Пароль повинен містити хоча б одну велику літеру.",
+        message: t("form_error_password_any_uppercase_letter"),
       })
       .refine((value) => /[^a-zA-Z0-9]/.test(value), {
-        message: "Пароль повинен містити хоча б один спеціальний символ.",
+        message: t("form_error_password_any_special_symbol"),
       })
       .refine(
         (value) => {
@@ -57,29 +64,28 @@ const formSchema = z
           return uniqueChars >= 6;
         },
         {
-          message: "Пароль повинен містити більше унікальних символів.",
+          message: t("form_error_password_more_special_symbols"),
         }
       ),
 
     email: z.string().min(2, {
-      message: "Пошта має бути не менше 2 символів.",
+      message: t("form_error_email_length"),
     }),
 
     confirmPassword: z.string().min(6, {
-      message: "Пароль має бути не менше 6 символів.",
+      message: t("form_error_confirm_password_length_6"),
     }),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Паролі не збігаються",
+        message: t("form_error_passwords_not_same"),
         path: ["confirmPassword"],
       });
     }
   });
 
-const RegistrationForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -89,10 +95,6 @@ const RegistrationForm = () => {
       confirmPassword: "",
     },
   });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAlerOpen, setIsAlertOpen] = useState(false);
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
@@ -104,19 +106,19 @@ const RegistrationForm = () => {
       .catch(() => {
         form.setError("username", {
           type: "500",
-          message: "Помилка сервісу.",
+          message: t("form_error_service"),
         });
         form.setError("password", {
           type: "500",
-          message: "Помилка сервісу.",
+          message: t("form_error_service"),
         });
         form.setError("confirmPassword", {
           type: "500",
-          message: "Помилка сервісу.",
+          message: t("form_error_service"),
         });
         form.setError("email", {
           type: "500",
-          message: "Помилка сервісу.",
+          message: t("form_error_service"),
         });
       })
       .finally(() => setIsLoading(false));
@@ -130,25 +132,25 @@ const RegistrationForm = () => {
     <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-0 xl:mt-8">
       <div className="text-center">
         <h3 className="xl:text-2xl text-xl font-bold mb-2">
-          Зареєструвати новий обліковий запис
+          {t("register_title")}
         </h3>
 
         <p className="text-neutral-500 xl:text-base text-sm">
-          Введіть необхідні данні нижче, щоб зареєструвати свій обліковий запис
+          {t("register_second_title")}
         </p>
       </div>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 w-full max-w-[400px]"
+          className="space-y-3 w-full min-w-[300px] sm:min-w-[400px] max-w-[400px]"
         >
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Ім'я користувача</FormLabel>
+                <FormLabel className="text-black">{t("form_username")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -175,7 +177,7 @@ const RegistrationForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Електронна пошта</FormLabel>
+                <FormLabel className="text-black">{t("form_email")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -203,7 +205,7 @@ const RegistrationForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Пароль</FormLabel>
+                <FormLabel className="text-black">{t("form_password")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -231,7 +233,7 @@ const RegistrationForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">Підтвердіть пароль</FormLabel>
+                <FormLabel className="text-black">{t("form_confirm_password")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -257,18 +259,17 @@ const RegistrationForm = () => {
           <AlertDialog open={isAlerOpen}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Реєстрація успішна</AlertDialogTitle>
+                <AlertDialogTitle>{t("registration_success")}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Ви успішно зареєструвалися, тепер ви можете перейти на
-                  сторінку логіну, щоб увійти в особовий кабінет.
+                  {t("registration_success_message")}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter className="xl: gap-2">
                 <AlertDialogAction onClick={handleLoginPage}>
-                  Залогінитись
+                  {t("button_to_login")}
                 </AlertDialogAction>
                 <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>
-                  Залишитись на сторінці
+                  {t("button_stay_here")}
                 </AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -279,13 +280,13 @@ const RegistrationForm = () => {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : "Зареєструватись"}
+            {isLoading ? <Spinner /> : t("register_button")}
           </Button>
 
           <div className="flex justify-center items-center gap-x-2">
             <Separator className="bg-neutral-200 h-[1px] w-full" />
             <span className="uppercase text-neutral-500 text-sm whitespace-nowrap">
-              або увійдіть, якщо є аккаунт
+              {t("or_login")}
             </span>
             <Separator className="bg-neutral-200 h-[1px] w-full" />
           </div>
@@ -295,7 +296,7 @@ const RegistrationForm = () => {
             variant="outline"
             onClick={handleLoginPage}
           >
-            Увійти
+            {t("button_login")}
           </Button>
         </form>
       </Form>

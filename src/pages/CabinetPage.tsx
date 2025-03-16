@@ -18,6 +18,7 @@ import { localStorages } from "@/utils/constants";
 import Cookies from "js-cookie";
 import AddInvoiceButton from "@/components/custom-components/AddInvoiceButton";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const CabinetPage = () => {
   const navigate = useNavigate();
@@ -27,10 +28,11 @@ const CabinetPage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [createdInvoice, setCreatedInvoice] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useTranslation();
 
   const itemsPerPage = Math.floor(
     (window.innerHeight -
-      (72 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) /
+      (88 + 20 + 16 + 40 + 1 + 16 + 36 + 40 + 16 + 16 + 50)) /
       57
   );
 
@@ -73,14 +75,12 @@ const CabinetPage = () => {
       <div className="px-10 py-5">
         {isLoading && <TableSkeleton />}
         {isError && (
-          <h1 className="text-xl"> Виникла помилка спробуйте пізніше</h1>
+          <h1 className="text-xl">{t("error_message")}</h1>
         )}
         {!isLoading && !tableData.length && !isError && (
           <div className="border-2 border-black shadow-lg w-full h-[200px] rounded-sm flex flex-col justify-center items-center gap-y-8">
             <p className="text-lg">
-              {" "}
-              Додайте свій перший особовий рахунок для того, щоб розпочати
-              роботу.
+              {" " + t("message_add_first_invoice")}
             </p>
             <div className="flex justify-center items-center w-full">
                <ChevronRightIcon />
@@ -108,17 +108,17 @@ const CabinetPage = () => {
       <AlertDialog open={showAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Будь ласка залогінтесь</AlertDialogTitle>
+            <AlertDialogTitle>{t("message_please_login")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Необхідно залогінитись, щоб передивлятись інформацію про рахунки.
+              {t("message_need_to_login")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={onAlertQuit}>
-              Залишити сайт
+              {t("leave_website")}
             </AlertDialogCancel>
             <AlertDialogAction onClick={onAlertLogin}>
-              Залогінитись
+              {t("button_to_login")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
