@@ -21,7 +21,7 @@ export const CabinetHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex justify-between items-center shadow-lg">
+    <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex justify-between items-center shadow-lg z-10">
       <div className="flex items-center gap-4">
         <p className="text-white text-xl font-bold">{companyName}</p>
         <p className="text-gray-500 text-base">({username})</p>
