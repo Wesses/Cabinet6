@@ -1,4 +1,3 @@
-// import { useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -9,6 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useState } from 'react';
+import { PersonalaccontsT } from '@/types';
 
 const data = {
   services: "string",
@@ -129,7 +130,13 @@ const data = {
 };
 
 const CabinetPage = () => {
-  // const { id } = useParams();
+  const [abonentCardData, setAbonentCardData] = useState<PersonalaccontsT | null>(null);
+
+  useEffect(() => {
+    setAbonentCardData(null)
+  }, []);
+
+  console.log(abonentCardData); 
 
   return (
     <div className="px-5 py-3">

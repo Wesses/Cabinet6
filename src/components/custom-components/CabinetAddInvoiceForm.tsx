@@ -55,7 +55,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
         const newInvoice = await postPersonalaccont(values.pwd);
         showCustomToast(t("toast_successfully_created"), "bg-green-400");
 
-        getData(() => lightInvoice(newInvoice.paLs));
+        getData(() => lightInvoice(newInvoice.personalaccontsId));
       } catch (error) {
         form.setError("pwd", {
           type: "401",

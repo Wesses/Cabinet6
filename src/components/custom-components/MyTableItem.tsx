@@ -37,7 +37,7 @@ const MyTableItem = ({
           "bg-white": index % 2 === 0,
           "bg-gray-50": index % 2 !== 0,
           "border-2 border-gray-300": !isPopoverOpen,
-          "border-4 border-green-400": createdInvoice === item.paLs,
+          "border-4 border-green-400": createdInvoice === item.personalaccontsId,
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
@@ -49,7 +49,7 @@ const MyTableItem = ({
       <td className="px-4 py-2">{item.fio}</td>
       <td className="px-4 py-2">{item.addres}</td>
       <td className="px-4 py-2 flex gap-4">
-        <OpenInvoiceButton paLs={item.paLs} />
+        <OpenInvoiceButton id={item.personalaccontsId} />
 
         <DeleteInvoiceButton
           isPopoverOpen={isPopoverOpen}

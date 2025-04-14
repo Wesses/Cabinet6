@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { useTranslation } from 'react-i18next';
 
-const OpenInvoiceButton = ({paLs}: {paLs: number}) => {
+const OpenInvoiceButton = ({id}: {id: number}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -16,7 +16,7 @@ const OpenInvoiceButton = ({paLs}: {paLs: number}) => {
     <Tooltip>
       <TooltipTrigger
         className="bg-zinc-900 p-2 rounded-lg"
-        onClick={() => handleOpenInvoice(paLs)}
+        onClick={() => handleOpenInvoice(id)}
       >
         <EyeIcon className="text-white" />
       </TooltipTrigger>

@@ -10,7 +10,9 @@ const authenticate = "api/Authenticate";
 const news = "/api/News";
 const organizationData = "/api/OrganizationData";
 const personalacconts = "/api/Personalacconts";
+const abonentCard = "/api/AbonentCard";
 const baseName = import.meta.env.BASE_URL;
+const organizationName = import.meta.env.VITE_ALIAS;
 
 axios.interceptors.response.use(
   (r) => r,
@@ -181,6 +183,31 @@ export const deletePersonalaccont = async (id: number) => {
   try {
     const response = await axios.delete(
       personalacconts + "/" +id,
+      {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      }
+    );
+
+    if (response.statusText !== "No Content") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const getAbonentCardData = async (ticket: number) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(
+      abonentCard + "/" + organizationName + "," + ticket,
       {
         headers: {
           Authorization: `Bearer ${token.token}`,

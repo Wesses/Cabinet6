@@ -29,7 +29,7 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
           "bg-white": index % 2 === 0,
           "bg-gray-50": index % 2 !== 0,
           "border-2 border-zinc-900": !isPopoverOpen,
-          "border-4 border-green-400": createdInvoice === item.paLs,
+          "border-4 border-green-400": createdInvoice === item.personalaccontsId,
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
@@ -37,7 +37,7 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
       )}
     >
       <div className="flex gap-x-4">
-        <OpenInvoiceButton paLs={item.paLs} />
+        <OpenInvoiceButton id={item.personalaccontsId} />
 
         <DeleteInvoiceButton
           isPopoverOpen={isPopoverOpen}
