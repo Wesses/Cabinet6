@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 
 export const PrivateRoutes = () => {
   return (
-    <div>
+    <div className="flex flex-col h-screen w-full">
       <CabinetHeader />
 
       <Outlet />

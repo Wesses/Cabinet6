@@ -21,10 +21,10 @@ export const CabinetHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex justify-between items-center shadow-lg z-10">
+    <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-1 justify-center">
       <div className="flex items-center gap-4">
-        <p className="text-white text-xl font-bold">{companyName}</p>
-        <p className="text-gray-500 text-base">({username})</p>
+        <p className="text-white md:text-xl text-base font-bold">{companyName}</p>
+        <p className="text-gray-500 md:text-base text-sm">({username})</p>
       </div>
 
       <div className="flex flex-row items-center gap-x-4">

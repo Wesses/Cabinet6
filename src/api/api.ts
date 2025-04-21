@@ -12,7 +12,6 @@ const organizationData = "/api/OrganizationData";
 const personalacconts = "/api/Personalacconts";
 const abonentCard = "/api/AbonentCard";
 const baseName = import.meta.env.BASE_URL;
-const organizationName = import.meta.env.VITE_ALIAS;
 
 axios.interceptors.response.use(
   (r) => r,
@@ -202,12 +201,12 @@ export const deletePersonalaccont = async (id: number) => {
   }
 };
 
-export const getAbonentCardData = async (ticket: number) => {
+export const getAbonentCardData = async (PersonalaccontsId: number) => {
   const token = getToken();
 
   try {
     const response = await axios.get(
-      abonentCard + "/" + organizationName + "," + ticket,
+      abonentCard + "/" + PersonalaccontsId,
       {
         headers: {
           Authorization: `Bearer ${token.token}`,
@@ -215,7 +214,7 @@ export const getAbonentCardData = async (ticket: number) => {
       }
     );
 
-    if (response.statusText !== "No Content") {
+    if (response.statusText !== "OK") {
       throw new Error(response.statusText);
     }
 

@@ -19,7 +19,7 @@ import { OrganizationDataT } from "@/types";
 import Cookies from "js-cookie";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "@/components/custom-components/LocaleButton";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -64,10 +64,15 @@ export const LoginPage = () => {
                   </h1>
                   <p className="hidden sm:block">
                     {organizationData.description +
-                      t("address_label") + " " +
+                      t("address_label") +
+                      " " +
                       organizationData.contactAddress}
                   </p>
-                  <p>{t("phone_number_label") + " " + organizationData.contactPhone}</p>
+                  <p>
+                    {t("phone_number_label") +
+                      " " +
+                      organizationData.contactPhone}
+                  </p>
                 </>
               ) : (
                 <>
@@ -83,18 +88,20 @@ export const LoginPage = () => {
         <div className="lg:hidden absolute bottom-4 w-full flex justify-center">
           <Drawer>
             <DrawerTrigger className="w-full" asChild>
-              <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
-                {t("news")}
-              </Button>
+                <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
+                  {t("news")}
+                </Button>
             </DrawerTrigger>
             <DrawerContent className="h-full rounded-none">
               <DrawerHeader>
                 <DrawerTitle>{t("news")}</DrawerTitle>
               </DrawerHeader>
-              <NewsList />
+                <NewsList />
               <DrawerFooter>
-                <DrawerClose>
-                  <Button>{t("close")}</Button>
+                <DrawerClose asChild className="flex justify-center">
+                  <div>
+                    <Button>{t("close")}</Button>
+                  </div>
                 </DrawerClose>
               </DrawerFooter>
             </DrawerContent>
@@ -108,7 +115,7 @@ export const LoginPage = () => {
 
       <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">
         <div className="absolute top-4 right-4 flex flex-row items-center">
-          <LocaleButton isLabel={true}/>
+          <LocaleButton isLabel={true} />
 
           <Button
             className="hidden lg:block"

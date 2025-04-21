@@ -147,3 +147,10 @@ export interface getAbonentCardT {
     tsenaRezerv: number,
   },
 }
+
+export type AbonentInvoiceInfo = Partial<
+  Pick<
+    getAbonentCardT,
+    'ls' | 'fio' | 'addres' | 'telefon' | 'email' | 'kolGil' | 'ploshadM2'
+  >
+>;
