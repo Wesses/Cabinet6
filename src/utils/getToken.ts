@@ -1,10 +1,11 @@
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
+import { onMainPage } from './onMainPage';
 
 export const getToken = () => {
   const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
 
   if (!tokenString) {
+    onMainPage();
     throw "no-token";
   }
 
@@ -20,4 +21,4 @@ export const getToken = () => {
     console.error("Помилка парсинга токена:", error);
     throw "invalid-token";
   }
-}
+};

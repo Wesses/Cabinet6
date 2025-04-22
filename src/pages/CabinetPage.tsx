@@ -9,19 +9,16 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import MyTable from "../components/custom-components/MyTable";
-import { useNavigate } from "react-router";
 import { getPersonalacconts } from "../api/api";
 import { PersonalaccontsT } from "@/types";
 import { useEffect, useState } from "react";
 import TableSkeleton from "@/components/custom-components/TableSkeleton";
-import { localStorages } from "@/utils/constants";
-import Cookies from "js-cookie";
 import AddInvoiceButton from "@/components/custom-components/AddInvoiceButton";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useTranslation } from 'react-i18next';
+import { onMainPage } from '@/utils/onMainPage';
 
 const CabinetPage = () => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [tableData, setTableData] = useState<PersonalaccontsT[]>([]);
@@ -37,11 +34,7 @@ const CabinetPage = () => {
   );
 
   const onAlertLogin = () => {
-    Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
-      path: import.meta.env.VITE_BASE_URL,
-    });
-    navigate("/login");
-    localStorage.removeItem(localStorages.USER_DATA);
+    onMainPage();
   };
 
   const onAlertQuit = () => {

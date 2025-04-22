@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import Cookies from "js-cookie";
-import { history } from "@/utils/history";
-import { localStorages } from "@/utils/constants";
 import { getToken } from '@/utils/getToken';
+import { onMainPage } from '@/utils/onMainPage';
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -17,12 +16,8 @@ axios.interceptors.response.use(
   (r) => r,
   (error) => {
     if (error.response?.status === 401) {
-      if (history.navigate) {
-        history.navigate("/login");
-      }
-      localStorage.removeItem(localStorages.USER_DATA);
+      onMainPage();
     }
-
     throw error;
   }
 );
@@ -116,39 +111,6 @@ export const getPersonalacconts = async () => {
     throw e.response?.statusText || "Unknown error";
   }
 };
-
-// export const refreshTokenReq = async () => {
-//   const tokenString = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
-
-//   if (!tokenString) {
-//     return "no-token";
-//   }
-
-//   let token;
-//   try {
-//     token = JSON.parse(tokenString);
-//   } catch (error) {
-//     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
-//     console.error("Помилка парсинга токена:", error);
-//     return "invalid-token";
-//   }
-
-//   try {
-//     console.log({accessToken: token.token, refreshToken: token.refreshToken});
-
-//     const response = await axios.post(authenticate + "/refresh-token", {accessToken: token.token, refreshToken: token.refreshToken});
-
-//     if (response.statusText !== "OK") {
-//       throw new Error(response.statusText);
-//     }
-
-//     return response.statusText;
-//   } catch (e: any) {
-//     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
-//     console.error("Помилка при виконанні запиту:", e);
-//     throw e.response?.statusText || "Unknown error";
-//   }
-// };
 
 export const postPersonalaccont = async (pwd: string) => {
   const token = getToken();

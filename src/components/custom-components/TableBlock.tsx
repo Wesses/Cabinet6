@@ -28,7 +28,7 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
         {
           "bg-white": index % 2 === 0,
           "bg-gray-50": index % 2 !== 0,
-          "border-2 border-zinc-900": !isPopoverOpen,
+          "border-2 border-zinc-300": !isPopoverOpen,
           "border-4 border-green-400": createdInvoice === item.personalaccontsId,
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
@@ -55,7 +55,7 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
           <li>{t("mobile_address") + " "}</li>
         </ul>
         <ul className="sm:text-base text-xs">
-          <li>{item.personalaccontsId - 1}</li>
+          <li>{invoiceNum}</li>
           <li>{item.paLs}</li>
           <li>{item.fio}</li>
           <li>{item.addres}</li>
