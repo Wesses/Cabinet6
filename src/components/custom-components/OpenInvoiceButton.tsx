@@ -8,7 +8,8 @@ const OpenInvoiceButton = ({id}: {id: number}) => {
   const { t } = useTranslation();
 
   const handleOpenInvoice = (id: number) => {
-    navigate(`/cabinet/${id}`);
+
+    navigate(`/cabinet/${id}?tab=invoice-data`);
   };
 
   return (

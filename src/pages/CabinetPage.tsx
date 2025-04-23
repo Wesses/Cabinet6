@@ -15,8 +15,11 @@ import { useEffect, useState } from "react";
 import TableSkeleton from "@/components/custom-components/TableSkeleton";
 import AddInvoiceButton from "@/components/custom-components/AddInvoiceButton";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useTranslation } from 'react-i18next';
-import { onMainPage } from '@/utils/onMainPage';
+import { useTranslation } from "react-i18next";
+import { onMainPage } from "@/utils/onMainPage";
+import { useSearchParams } from "react-router-dom";
+
+const CURRENT_PAGE_PARAM_KEY = "currpage";
 
 const CabinetPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +29,7 @@ const CabinetPage = () => {
   const [createdInvoice, setCreatedInvoice] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const itemsPerPage = Math.floor(
     (window.innerHeight -
@@ -60,6 +64,10 @@ const CabinetPage = () => {
   };
 
   useEffect(() => {
+    if (!searchParams.get(CURRENT_PAGE_PARAM_KEY)) {
+      setSearchParams({[CURRENT_PAGE_PARAM_KEY]: "1"});
+    };
+
     getData();
   }, []);
 
@@ -67,22 +75,18 @@ const CabinetPage = () => {
     <div className="w-full h-full flex flex-col">
       <div className="px-10 py-5">
         {isLoading && <TableSkeleton />}
-        {isError && (
-          <h1 className="text-xl">{t("error_message")}</h1>
-        )}
+        {isError && <h1 className="text-xl">{t("error_message")}</h1>}
         {!isLoading && !tableData.length && !isError && (
           <div className="border-2 border-black shadow-lg w-full h-[200px] rounded-sm flex flex-col justify-center items-center gap-y-8">
-            <p className="text-lg">
-              {" " + t("message_add_first_invoice")}
-            </p>
+            <p className="text-lg">{" " + t("message_add_first_invoice")}</p>
             <div className="flex justify-center items-center w-full">
-               <ChevronRightIcon />
-               <ChevronRightIcon />
-               <ChevronRightIcon />
+              <ChevronRightIcon />
+              <ChevronRightIcon />
+              <ChevronRightIcon />
               <AddInvoiceButton getData={getData} lightInvoice={() => {}} />
-                <ChevronLeftIcon />
-                <ChevronLeftIcon />
-                <ChevronLeftIcon />
+              <ChevronLeftIcon />
+              <ChevronLeftIcon />
+              <ChevronLeftIcon />
             </div>
           </div>
         )}

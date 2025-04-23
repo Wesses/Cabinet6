@@ -183,3 +183,10 @@ export type VodaAbplStokiDataT = Partial<Pick<getAbonentCardT['vodaAbplStoki'],
   'saldoNachVodaAbplStoki' | 
   'nAbplStokiTarifa'
 >>;
+
+export enum TabsNamesT {
+  Invoice_data = "invoice-data",
+  Water_supply = "water-supply",
+  Water_supply_fee = "water-supply-fee",
+  Water_supply_drainage = "water-supply-drainage",
+}

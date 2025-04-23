@@ -7,7 +7,7 @@ type Props = {
 };
 
 function WaterSupplyAbplPodachaTab({ waterSupplyAbplPodachaRowData }: Props) {
-  const waterSupplyAbplPodachaCookedData = [["Абонентська плата за подачу води, грн", waterSupplyAbplPodachaRowData.abplPodachaTsenaGrn]]
+  const waterSupplyAbplPodachaCookedData = [["Абонентська плата за подачу води (грн)", waterSupplyAbplPodachaRowData.abplPodachaTsenaGrn]]
 
   return (
     <Card>
