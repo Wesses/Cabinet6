@@ -169,3 +169,17 @@ export type WaterSupplyDataT = Partial<
     | "polivSchetchikiKolvo"
   >
 >;
+
+export type VodaAbplPodachaDataT = Partial<Pick<getAbonentCardT['vodaAbplPodacha'], 
+  'vodaAbplPodacha' | 
+  'abplPodachaTsenaGrn' | 
+  'saldoNachVodaAbplPodacha' | 
+  'nAbplPodachaTarifa'
+>>;
+
+export type VodaAbplStokiDataT = Partial<Pick<getAbonentCardT['vodaAbplStoki'], 
+  'vodaAbplStoki' | 
+  'abplStokiTsenaGrn' | 
+  'saldoNachVodaAbplStoki' | 
+  'nAbplStokiTarifa'
+>>;

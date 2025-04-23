@@ -1,21 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { AbonentInvoiceInfoT } from "@/types";
+import { VodaAbplStokiDataT } from '@/types';
 
 type Props = {
-  abonentInvoiceInfo: AbonentInvoiceInfoT;
+  waterSupplyAbplStokiRowData: VodaAbplStokiDataT;
 };
 
-const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
-  const gatheredData = [
-    ["Особовий рахунок", abonentInvoiceInfo.ls],
-    ["ФІО", abonentInvoiceInfo.fio],
-    ["Адреса", abonentInvoiceInfo.addres],
-    ["Номер телефону", abonentInvoiceInfo.telefon],
-    ["Електронна пошта", abonentInvoiceInfo.email],
-    ["Кількість мешканців", abonentInvoiceInfo.kolGil],
-    ["Площа (м²)", abonentInvoiceInfo.ploshadM2],
-  ];
+function WaterSupplyAbplStokiTab({ waterSupplyAbplStokiRowData }: Props) {
+  const waterSupplyAbplPodachaCookedData = [["Абонентська плата за водовідведення, грн", waterSupplyAbplStokiRowData.abplStokiTsenaGrn]]
 
   return (
     <Card>
@@ -23,8 +15,8 @@ const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
         <div className="hidden md:block overflow-auto w-full">
           <Table className="border border-muted rounded-xl">
             <TableBody>
-            {gatheredData.map(([label, value]) => (
-              <TableRow key={label} className="text-base">
+            {waterSupplyAbplPodachaCookedData.map(([label, value]) => (
+              <TableRow key={label} className="text-base flex justify-between">
                 <TableCell className="font-medium">{label}</TableCell>
                 <TableCell>{value || "-"}</TableCell>
               </TableRow>
@@ -34,7 +26,7 @@ const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
         </div>
 
         <div className="md:hidden space-y-4">
-          {gatheredData.map(([label, value]) => (
+          {waterSupplyAbplPodachaCookedData.map(([label, value]) => (
             <div
               key={label}
               className="border border-muted rounded-lg p-3 bg-white shadow-sm"
@@ -49,6 +41,6 @@ const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
       </CardContent>
     </Card>
   );
-};
+}
 
-export default InvoiceDataTab;
+export default WaterSupplyAbplStokiTab;
