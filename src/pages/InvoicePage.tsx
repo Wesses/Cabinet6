@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { getAbonentCardT, WaterSupplyDataT, TabsNamesT } from "@/types";
 import { getAbonentCardData } from "@/api/api";
 import { useParams } from "react-router";
@@ -168,7 +168,7 @@ const CabinetPage = () => {
         >
           <TabsList className="w-full flex justify-start sticky sm:top-24 top-32 z-10 overflow-x-auto whitespace-nowrap">
             {tabListParams.map(({ value, label, condition }) => (
-              <>
+              <Fragment key={value}>
                 {condition && (
                   <TabsTrigger
                     value={value}
@@ -177,16 +177,16 @@ const CabinetPage = () => {
                     {label}
                   </TabsTrigger>
                 )}
-              </>
+              </Fragment>
             ))}
           </TabsList>
 
           {tabListParams.map(({ value, condition, tab_component }) => (
-            <>
+            <Fragment key={value}>
               {condition && (
                 <TabsContent value={value}>{tab_component}</TabsContent>
               )}
-            </>
+            </Fragment>
           ))}
         </Tabs>
       )}

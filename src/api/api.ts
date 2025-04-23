@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import Cookies from "js-cookie";
-import { getToken } from '@/utils/getToken';
-import { onMainPage } from '@/utils/onMainPage';
+import { getToken } from "@/utils/getToken";
+import { onMainPage } from "@/utils/onMainPage";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -142,14 +142,11 @@ export const deletePersonalaccont = async (id: number) => {
   const token = getToken();
 
   try {
-    const response = await axios.delete(
-      personalacconts + "/" +id,
-      {
-        headers: {
-          Authorization: `Bearer ${token.token}`,
-        },
-      }
-    );
+    const response = await axios.delete(personalacconts + "/" + id, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
 
     if (response.statusText !== "No Content") {
       throw new Error(response.statusText);
@@ -167,14 +164,11 @@ export const getAbonentCardData = async (PersonalaccontsId: number) => {
   const token = getToken();
 
   try {
-    const response = await axios.get(
-      abonentCard + "/" + PersonalaccontsId,
-      {
-        headers: {
-          Authorization: `Bearer ${token.token}`,
-        },
-      }
-    );
+    const response = await axios.get(abonentCard + "/" + PersonalaccontsId, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
 
     if (response.statusText !== "OK") {
       throw new Error(response.statusText);
