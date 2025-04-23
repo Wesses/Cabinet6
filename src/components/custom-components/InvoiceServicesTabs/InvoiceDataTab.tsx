@@ -24,10 +24,10 @@ const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
           Параметри особового рахунку
         </h2>
         <div className="hidden md:block overflow-auto w-full">
-          <Table className="min-w-[600px] border border-muted rounded-xl">
+          <Table className="border border-muted rounded-xl">
             <TableBody>
             {gatheredData.map(([label, value]) => (
-              <TableRow key={label}>
+              <TableRow key={label} className="text-base">
                 <TableCell className="font-medium">{label}</TableCell>
                 <TableCell>{value || "-"}</TableCell>
               </TableRow>
