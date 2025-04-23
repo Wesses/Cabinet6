@@ -26,19 +26,19 @@ const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
         "Кількість побутових водомірів",
         rowData.vodaAbSchetchikiKolvo,
       ],
-      ["Тариф на подачу води, (грн./м³)", rowData.tsenaPodacha]
+      ["Тариф на подачу води (грн./м³)", rowData.tsenaPodacha]
     );
   }
 
   if (rowData.vodaStoki) {
-    cookedData.push(["Тариф на водовідведення, (грн./м³)", rowData.tsenaStoki]);
+    cookedData.push(["Тариф на водовідведення (грн./м³)", rowData.tsenaStoki]);
   }
 
   if (rowData.vodaPoliv) {
     cookedData.push(
       ["Кількість водомірів на полив", rowData.polivSchetchikiKolvo],
-      ["Площа поливу в (м²)", rowData.ploshadPolivaM2],
-      ["Тариф на полив, (грн./м³)", rowData.tsenaPoliv]
+      ["Площа поливу (м²)", rowData.ploshadPolivaM2],
+      ["Тариф на полив (грн./м³)", rowData.tsenaPoliv]
     );
   }
 
