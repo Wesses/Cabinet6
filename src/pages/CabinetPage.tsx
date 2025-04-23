@@ -27,7 +27,6 @@ const CabinetPage = () => {
   const [tableData, setTableData] = useState<PersonalaccontsT[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [createdInvoice, setCreatedInvoice] = useState(-1);
-  const [currentPage, setCurrentPage] = useState(1);
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -63,8 +62,24 @@ const CabinetPage = () => {
       });
   };
 
+  const currentPageParam = Number(searchParams.get(CURRENT_PAGE_PARAM_KEY) ?? 1);
+  const handleCurrentPageParam: React.Dispatch<React.SetStateAction<number>> = (value) => {
+    if (typeof value === "number") {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set(CURRENT_PAGE_PARAM_KEY, value.toString());
+      setSearchParams(newParams);
+    }
+    
+    if (typeof value === "function") {
+      const newParams = new URLSearchParams(searchParams);
+      const newValue = value(currentPageParam);
+      newParams.set(CURRENT_PAGE_PARAM_KEY, newValue.toString());
+      setSearchParams(newParams);
+    }
+  }
+
   useEffect(() => {
-    if (!searchParams.get(CURRENT_PAGE_PARAM_KEY)) {
+    if (!currentPageParam) {
       setSearchParams({[CURRENT_PAGE_PARAM_KEY]: "1"});
     };
 
@@ -96,8 +111,8 @@ const CabinetPage = () => {
             getData={getData}
             createdInvoice={createdInvoice}
             setCreatedInvoice={setCreatedInvoice}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            currentPage={currentPageParam}
+            setCurrentPage={handleCurrentPageParam}
             itemsPerPage={itemsPerPage}
           />
         )}

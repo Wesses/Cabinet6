@@ -45,7 +45,7 @@ export const LoginPage = () => {
       });
 
     if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
-      navigate("/cabinet");
+      navigate("/cabinet?currpage=1");
     }
   }, []);
 

@@ -52,7 +52,7 @@ const LoginForm = () => {
     postLoginReq(values)
       .then(() => {
         handleSetUsername(values.username);
-        navigate("/cabinet");
+        navigate("/cabinet?currpage=1");
       })
       .catch(() => {
         form.setError("username", {

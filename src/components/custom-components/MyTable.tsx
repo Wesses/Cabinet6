@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronsLeftIcon, ChevronsRightIcon, SearchIcon } from "lucide-react";
 import TableBlock from "./TableBlock";
@@ -9,12 +9,15 @@ import { deletePersonalaccont } from "@/api/api";
 import { showCustomToast } from "@/utils/showCustomComponent";
 import AddInvoiceButton from "./AddInvoiceButton";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from 'react-router-dom';
 
 const getInvoiceNumber = (
   currentPage: number,
   itemsPerPage: number,
   index: number
 ) => (currentPage - 1) * itemsPerPage + index + 1;
+
+const SEARCH_QUERY_PARAM_KEY = "searchq";
 
 type Props = {
   getData: (successFunction: () => void) => void;
@@ -35,12 +38,24 @@ function MyTable({
   setCurrentPage,
   itemsPerPage,
 }: Props) {
-  const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQueryParam = searchParams.get(SEARCH_QUERY_PARAM_KEY)?.trim() ?? "";
+  const handleSearchQueryParam = (query: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (query.trim() === "") {
+      newParams.delete(SEARCH_QUERY_PARAM_KEY);
+    } else {
+      newParams.set(SEARCH_QUERY_PARAM_KEY, query);
+    }
+  
+    setSearchParams(newParams);
+  };
 
   const filteredData = tableData.filter((item) => {
     const splitedFio = item.fio.toLowerCase().trim().split(" ");
-    const validInput = searchQuery.toLowerCase().trim();
+    const validInput = searchQueryParam.toLowerCase().trim();
     const validPaLs = item.paLs.toString().toLowerCase();
 
     return (
@@ -100,10 +115,6 @@ function MyTable({
   };
 
   useEffect(() => {
-    if (searchQuery) setCurrentPage(1);
-  }, [searchQuery]);
-
-  useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
@@ -119,8 +130,8 @@ function MyTable({
             <Input
               type="text"
               placeholder={t("table_search_placeholder")}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQueryParam}
+              onChange={(e) => handleSearchQueryParam(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded w-full text-base"
             />
 
