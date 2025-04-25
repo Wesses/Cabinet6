@@ -20,6 +20,10 @@ export const CabinetHeader = () => {
     localStorage.removeItem(localStorages.USER_DATA);
   };
 
+  const hadnleBackToCabinet = () => {
+    navigate("/cabinet?currpage=1");
+  }
+
   return (
     <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[88px]">
       <div className="flex sm:items-center gap-4 sm:justify-normal justify-between">
@@ -42,7 +46,7 @@ export const CabinetHeader = () => {
 
           <Button
             className="bg-white text-zinc-900 hover:bg-gray-300 transition-all duration-300 rounded-md h-6"
-            onClick={handleLogout}
+            onClick={hadnleBackToCabinet}
           >
             {t("back_to_cabinet_page")}
           </Button>
