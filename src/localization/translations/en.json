@@ -71,5 +71,6 @@
   "message_add_first_invoice": "Add your first invoice account to get started.",
   "message_please_login": "Please log in",
   "message_need_to_login": "You need to log in to view invoice information.",
-  "leave_website": "Leave site"
+  "leave_website": "Leave site",
+  "back_to_cabinet_page": "Return to the list"
 }

@@ -65,7 +65,7 @@ const LocaleButton = ({ isLabel }: Props) => {
                     fontSize: "1.5em",
                     lineHeight: "1em",
                   }}
-                  aria-label="United States"
+                  aria-label={locale}
                 />
               </div>
 

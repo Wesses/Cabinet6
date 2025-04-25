@@ -71,5 +71,6 @@
   "message_add_first_invoice": "Добавьте первый лицевой счет, чтобы начать работу.",
   "message_please_login": "Пожалуйста, войдите в систему",
   "message_need_to_login": "Необходимо войти в систему, чтобы просматривать счета.",
-  "leave_website": "Покинуть сайт"
+  "leave_website": "Покинуть сайт",
+  "back_to_cabinet_page": "Вернуться к счетам"
 }

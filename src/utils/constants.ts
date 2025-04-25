@@ -6,5 +6,5 @@ export const localStorages = {
 export const locales = {
   EN: "en",
   UA: "ua",
-  RU: "ru",
+  // RU: "ru",
 }

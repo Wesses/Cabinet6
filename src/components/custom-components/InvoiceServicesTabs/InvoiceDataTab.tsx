@@ -24,7 +24,7 @@ const InvoiceDataTab = ({ abonentInvoiceInfo }: Props) => {
           <Table className="border border-muted rounded-xl">
             <TableBody>
             {gatheredData.map(([label, value]) => (
-              <TableRow key={label} className="text-base">
+              <TableRow key={label} className="text-base flex justify-between">
                 <TableCell className="font-medium">{label}</TableCell>
                 <TableCell>{value || "-"}</TableCell>
               </TableRow>
