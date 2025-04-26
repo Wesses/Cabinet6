@@ -20,6 +20,7 @@ import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
 import { UserContext } from "@/contexts/UserContext";
 import { useTranslation } from "react-i18next";
+import { CURRENT_PAGE_PARAM_KEY } from '@/utils/constants';
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -52,7 +53,7 @@ const LoginForm = () => {
     postLoginReq(values)
       .then(() => {
         handleSetUsername(values.username);
-        navigate("/cabinet?currpage=1");
+        navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
       })
       .catch(() => {
         form.setError("username", {

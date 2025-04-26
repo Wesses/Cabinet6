@@ -8,3 +8,5 @@ export const locales = {
   UA: "ua",
   // RU: "ru",
 }
+
+export const CURRENT_PAGE_PARAM_KEY = "currpage";

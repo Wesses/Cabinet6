@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "@/components/custom-components/LocaleButton";
 import { useTranslation } from "react-i18next";
+import { CURRENT_PAGE_PARAM_KEY } from '@/utils/constants';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const LoginPage = () => {
       });
 
     if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
-      navigate("/cabinet?currpage=1");
+      navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
     }
   }, []);
 

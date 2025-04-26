@@ -2,16 +2,19 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useContext } from "react";
-import { localStorages } from "@/utils/constants";
+import { CURRENT_PAGE_PARAM_KEY, localStorages } from "@/utils/constants";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "./LocaleButton";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 export const CabinetHeader = () => {
   const navigate = useNavigate();
   const { username, companyName } = useContext(UserContext);
   const { t } = useTranslation();
-
+  const [SearchParams] = useSearchParams();
+  
   const handleLogout = () => {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
       path: import.meta.env.VITE_BASE_URL,
@@ -21,8 +24,10 @@ export const CabinetHeader = () => {
   };
 
   const hadnleBackToCabinet = () => {
-    navigate("/cabinet?currpage=1");
+    navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
   }
+
+  const isCabinetPage = SearchParams.get(CURRENT_PAGE_PARAM_KEY);
 
   return (
     <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[88px]">
@@ -38,14 +43,14 @@ export const CabinetHeader = () => {
 
         <div className='flex flex-col gap-y-2'>
           <Button
-            className="bg-white text-zinc-900 hover:bg-gray-300 transition-all duration-300 rounded-md h-6"
+            className={cn({"h-6": !isCabinetPage}, "bg-white text-zinc-900 hover:bg-gray-300 transition-all duration-300 rounded-md" )}
             onClick={handleLogout}
           >
             {t("button_left_cabinet")}
           </Button>
 
           <Button
-            className="bg-white text-zinc-900 hover:bg-gray-300 transition-all duration-300 rounded-md h-6"
+            className={cn({"hidden": isCabinetPage}, "bg-white text-zinc-900 hover:bg-gray-300 transition-all duration-300 rounded-md h-6" )}
             onClick={hadnleBackToCabinet}
           >
             {t("back_to_cabinet_page")}
