@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { getAbonentCardT, WaterSupplyDataT, TabsNamesT } from "@/types";
+import { getAbonentCardT, TabsNamesT } from "@/types";
 import { getAbonentCardData } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
@@ -16,34 +16,6 @@ import { ArrowLeftToLine } from "lucide-react";
 import { cn } from '@/lib/utils';
 
 const SEARCH_PARAM_TAB_KEY = "tab";
-
-const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
-  const cookedData = [];
-  if (!rowData) {
-    return [];
-  }
-
-  if (rowData.vodaPodacha) {
-    cookedData.push(
-      ["Кількість побутових водомірів", rowData.vodaAbSchetchikiKolvo],
-      ["Тариф на подачу води (грн./м³)", rowData.tsenaPodacha]
-    );
-  }
-
-  if (rowData.vodaStoki) {
-    cookedData.push(["Тариф на водовідведення (грн./м³)", rowData.tsenaStoki]);
-  }
-
-  if (rowData.vodaPoliv) {
-    cookedData.push(
-      ["Кількість водомірів на полив", rowData.polivSchetchikiKolvo],
-      ["Площа поливу (м²)", rowData.ploshadPolivaM2],
-      ["Тариф на полив (грн./м³)", rowData.tsenaPoliv]
-    );
-  }
-
-  return cookedData;
-};
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
@@ -100,7 +72,7 @@ const CabinetPage = () => {
         label: "Особовий рахунок",
         condition: true,
         tab_component: (
-          <InvoiceDataTab abonentInvoiceInfo={{ ...abonentCardData }} />
+          <InvoiceDataTab abonentInvoiceData={{ ...abonentCardData }} />
         ),
       },
       {
@@ -109,7 +81,7 @@ const CabinetPage = () => {
         condition: isWaterSupply,
         tab_component: (
           <WaterSupplyTab
-            waterSupplyData={getWaterSupplyData(abonentCardData?.voda)}
+            waterSupplyData={abonentCardData?.voda}
           />
         ),
       },

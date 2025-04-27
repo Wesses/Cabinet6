@@ -1,44 +1,40 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { WaterSupplyDataT } from "@/types";
+import SimpleTable from "../SimpleTable";
+
+const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
+  const cookedData = [];
+  if (!rowData) {
+    return [];
+  }
+
+  if (rowData.vodaPodacha) {
+    cookedData.push(
+      ["Кількість побутових водомірів", rowData.vodaAbSchetchikiKolvo],
+      ["Тариф на подачу води (грн./м³)", rowData.tsenaPodacha]
+    );
+  }
+
+  if (rowData.vodaStoki) {
+    cookedData.push(["Тариф на водовідведення (грн./м³)", rowData.tsenaStoki]);
+  }
+
+  if (rowData.vodaPoliv) {
+    cookedData.push(
+      ["Кількість водомірів на полив", rowData.polivSchetchikiKolvo],
+      ["Площа поливу (м²)", rowData.ploshadPolivaM2],
+      ["Тариф на полив (грн./м³)", rowData.tsenaPoliv]
+    );
+  }
+
+  return cookedData;
+};
 
 type Props = {
-  waterSupplyData: (string | number | undefined)[][];
+  waterSupplyData: WaterSupplyDataT | undefined;
 };
 
 function WaterSupplyTab({ waterSupplyData }: Props) {
-
-  return (
-    <Card>
-      <CardContent className="p-4">
-        <div className="hidden md:block overflow-auto w-full">
-          <Table className="border border-muted rounded-xl">
-            <TableBody>
-            {waterSupplyData.map(([label, value]) => (
-              <TableRow key={label} className="text-base flex justify-between">
-                <TableCell className="font-medium">{label}</TableCell>
-                <TableCell>{value || "-"}</TableCell>
-              </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-
-        <div className="md:hidden space-y-4">
-          {waterSupplyData.map(([label, value]) => (
-            <div
-              key={label}
-              className="border border-muted rounded-lg p-3 bg-white shadow-sm"
-            >
-              <p className="text-sm text-gray-500">{label}</p>
-              <p className="text-base font-medium text-zinc-900">
-                {value || "-"}
-              </p>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
+  return <SimpleTable data={getWaterSupplyData(waterSupplyData)} />;
 }
 
 export default WaterSupplyTab;
