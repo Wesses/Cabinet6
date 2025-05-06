@@ -1,5 +1,16 @@
-import { WaterSupplyDataT } from "@/types";
+import { ArchiveItemT, WaterSupplyDataT } from "@/types";
 import SimpleTable from "../SimpleTable";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useEffect, useState } from "react";
+import { getArchivData } from "@/api/api";
+import { useParams } from "react-router";
+import ErrorBlock from "../ErrorBlock";
+import Spinner from "../Spinner";
 
 const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
   const cookedData = [];
@@ -29,12 +40,66 @@ const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
   return cookedData;
 };
 
+const getFiltredArchiveData = (archiveRowData: ArchiveItemT[]) => {
+  return archiveRowData.map((item) => [
+    ["Дата", item.saldoNVoda],
+    ["Борг на початок нарахування", item.nachislVoda],
+    ["Повернення(перерахунок)", item.vozvratVoda],
+    ["Оплата", item.oplataVoda],
+    ["Субсидія(пільги)", item.subsVoda],
+    ["Борг на кінець", item.saldoKVoda],
+  ]);
+};
+
 type Props = {
   waterSupplyData: WaterSupplyDataT | undefined;
 };
 
 function WaterSupplyTab({ waterSupplyData }: Props) {
-  return <SimpleTable data={getWaterSupplyData(waterSupplyData)} />;
+  const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const { id } = useParams();
+
+  useEffect(() => {
+    setIsError(false);
+
+    if (id) {
+      setIsLoading(true);
+      getArchivData(+id)
+        .then(setArchivData)
+        .catch(() => setIsError(true))
+        .finally(() => setIsLoading(false));
+    }
+  }, []);
+
+  const isContent = !isError && !isLoading;
+  return (
+    <div className="flex flex-col gap-y-2">
+      <SimpleTable data={getWaterSupplyData(waterSupplyData)} />
+
+      <Accordion
+        type="single"
+        collapsible
+        className="p-4 border border-muted rounded-xl"
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Розрахунки</AccordionTrigger>
+          <AccordionContent>
+          {isError && <ErrorBlock />}
+          {isLoading && <Spinner />}
+          {isContent && (
+            
+              getFiltredArchiveData(archivData).map((tableData) => (
+                <SimpleTable data={tableData} />
+              ))
+            
+          )}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  );
 }
 
 export default WaterSupplyTab;

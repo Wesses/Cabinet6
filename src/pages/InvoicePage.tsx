@@ -7,13 +7,13 @@ import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import InvoiceDataTab from "@/components/custom-components/InvoiceServicesTabs/InvoiceDataTab";
 import WaterSupplyTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyTab";
-import { onMainPage } from "@/utils/onMainPage";
 import WaterSupplyAbplPodachaTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplPodachaTab";
 import WaterSupplyAbplStokiTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplStokiTab";
 import { useSearchParams } from "react-router-dom";
 import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
 import { ArrowLeftToLine } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ErrorBlock from "@/components/custom-components/ErrorBlock";
 
 const SEARCH_PARAM_TAB_KEY = "tab";
 
@@ -122,10 +122,10 @@ const CabinetPage = () => {
   return (
     <div className="px-5 py-2 flex-1 h-full w-full">
       {isLoading && (
-        <div className="w-full h-full">
-          <Skeleton className="w-1/6 h-8 min-w-[200px] mb-2 bg-slate-300" />
-          <Skeleton className="md:w-1/2 w-full h-[40px] mb-2 bg-slate-300" />
-          <Skeleton className="md:w-1/2 w-full h-5/6 bg-slate-300" />
+        <div className="w-full h-full md:w-1/2 md:min-w-[700px]">
+          <Skeleton className="w-1/3 h-8 min-w-[200px] mb-2 bg-slate-300" />
+          <Skeleton className="w-full h-[40px] mb-2 bg-slate-300" />
+          <Skeleton className="w-full h-2/3 bg-slate-300" />
         </div>
       )}
 
@@ -135,7 +135,7 @@ const CabinetPage = () => {
             "md:w-1/2 md:min-w-[700px]": isContent,
             "items-center h-full": isError,
           },
-          "flex flex-col gap-y-1 w-full"
+          "flex flex-col gap-y-2 w-full"
         )}
       >
         <Button
@@ -148,15 +148,7 @@ const CabinetPage = () => {
           </div>
         </Button>
 
-        {isError && (
-          <div className="flex flex-col gap-1 justify-center items-center w-full h-full">
-            <h1>Сталася попилка оновіть сторінку</h1>
-            <div className="flex flex-row gap-2">
-              <Button onClick={() => window.location.reload()}>Оновити</Button>
-              <Button onClick={onMainPage}>На головну</Button>
-            </div>
-          </div>
-        )}
+        {isError && <ErrorBlock />}
 
         {isContent && (
           <Tabs

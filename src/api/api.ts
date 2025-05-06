@@ -10,6 +10,7 @@ const news = "/api/News";
 const organizationData = "/api/OrganizationData";
 const personalacconts = "/api/Personalacconts";
 const abonentCard = "/api/AbonentCard";
+const archiv = "/api/Arhiv";
 const baseName = import.meta.env.BASE_URL;
 
 axios.interceptors.response.use(
@@ -167,6 +168,28 @@ export const getAbonentCardData = async (PersonalaccontsId: number) => {
 
   try {
     const response = await axios.get(abonentCard + "/" + PersonalaccontsId, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const getArchivData = async (PersonalaccontsId: number) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(archiv + "/" + PersonalaccontsId, {
       headers: {
         Authorization: `Bearer ${token.token}`,
       },
