@@ -9,7 +9,7 @@ const SimpleTable = ({ data }: Props) => {
   if (!data.length) return null;
 
   return (
-    <Card>
+    <Card className="max-w-[700px]">
       <CardContent className="p-4">
         <div className="hidden md:block overflow-auto w-full">
           <Table className="border border-muted rounded-xl">
