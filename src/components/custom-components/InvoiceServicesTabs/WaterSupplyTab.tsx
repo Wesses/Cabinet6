@@ -11,6 +11,15 @@ import { getArchivData } from "@/api/api";
 import { useParams } from "react-router";
 import ErrorBlock from "../ErrorBlock";
 import Spinner from "../Spinner";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
   const cookedData = [];
@@ -40,16 +49,15 @@ const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
   return cookedData;
 };
 
-const getFiltredArchiveData = (archiveRowData: ArchiveItemT[]) => {
-  return archiveRowData.map((item) => [
-    ["Дата", item.saldoNVoda],
-    ["Борг на початок нарахування", item.nachislVoda],
-    ["Повернення(перерахунок)", item.vozvratVoda],
-    ["Оплата", item.oplataVoda],
-    ["Субсидія(пільги)", item.subsVoda],
-    ["Борг на кінець", item.saldoKVoda],
-  ]);
-};
+const tableHeads = [
+  "Дата",
+  "Залишок за нарахуванням за водопостачання",
+  "Борг на початок нарахування",
+  "Повернення(перерахунок)",
+  "Оплата",
+  "Субсидія(пільги)",
+  "Борг на кінець",
+];
 
 type Props = {
   waterSupplyData: WaterSupplyDataT | undefined;
@@ -73,7 +81,10 @@ function WaterSupplyTab({ waterSupplyData }: Props) {
     }
   }, []);
 
-  const isContent = !isError && !isLoading;
+  
+  const isContent = !isError && !isLoading && archivData.length;
+  const isntContent = !isError && !isLoading && !archivData.length;
+
   return (
     <div className="flex flex-col gap-y-2">
       <SimpleTable data={getWaterSupplyData(waterSupplyData)} />
@@ -86,15 +97,38 @@ function WaterSupplyTab({ waterSupplyData }: Props) {
         <AccordionItem value="item-1">
           <AccordionTrigger>Розрахунки</AccordionTrigger>
           <AccordionContent>
-          {isError && <ErrorBlock />}
-          {isLoading && <Spinner />}
-          {isContent && (
-            
-              getFiltredArchiveData(archivData).map((tableData) => (
-                <SimpleTable data={tableData} />
-              ))
-            
-          )}
+            {isError && <ErrorBlock />}
+            {isLoading && <Spinner />}
+            {isntContent && (
+              <p className="text-black py-2 px-4 text-[40px] font-semibold">
+                Немає розрахунків
+              </p>
+            )}
+            {isContent && (
+              <Table>
+                <TableCaption>Список ваших розрахунків</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    {tableHeads.map(elem => (
+                      <TableHead key={elem}>{elem}</TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {archivData.map(row => (
+                    <TableRow key={row.idx}>
+                        <TableCell className="font-medium text-center">{row.mes}</TableCell>
+                        <TableCell className="font-medium text-left">{row.saldoNVoda}</TableCell>
+                        <TableCell className="font-medium text-left">{row.nachislVoda}</TableCell>
+                        <TableCell className="font-medium text-center">{row.vozvratVoda}</TableCell>
+                        <TableCell className="font-medium text-center">{row.oplataVoda}</TableCell>
+                        <TableCell className="font-medium text-center">{row.subsVoda}</TableCell>
+                        <TableCell className="font-medium text-left">{row.saldoKVoda}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>

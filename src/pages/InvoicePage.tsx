@@ -132,17 +132,17 @@ const CabinetPage = () => {
       <div
         className={cn(
           {
-            "md:w-1/2 md:min-w-[700px]": isContent,
+            "md:w-3/4 md:min-w-[700px]": isContent,
             "items-center h-full": isError,
           },
           "flex flex-col gap-y-2 w-full"
         )}
       >
         <Button
-          className="bg-gray-300 hover:bg-gray-500  text-zinc-900 transition-all duration-300 rounded-md h-8 w-1/3 min-w-[200px]"
+          className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8 w-1/3 min-w-[200px] max-w-[250px]"
           onClick={hadnleBackToCabinet}
         >
-          <div className="flex w-auto justify-center items-center gap-x-2">
+          <div className="flex w-full justify-start items-center gap-x-2">
             <ArrowLeftToLine />
             <p>Повернутися до списку</p>
           </div>
@@ -157,7 +157,7 @@ const CabinetPage = () => {
               searchParams.get(SEARCH_PARAM_TAB_KEY) || TabsNamesT.Invoice_data
             }
           >
-            <TabsList className="w-full flex justify-start sticky sm:top-24 top-32 z-10 overflow-x-auto whitespace-nowrap">
+            <TabsList className="w-full flex justify-start sticky top-[88px] z-10 overflow-x-auto whitespace-nowrap">
               {tabListParams.map(({ value, label, condition }) =>
                 condition ? (
                   <TabsTrigger
