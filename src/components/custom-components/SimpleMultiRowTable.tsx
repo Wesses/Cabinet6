@@ -3,13 +3,11 @@ import { Card, CardContent } from "../ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   rowsData: {rows: (string | number | Date)[], index: number}[];
@@ -18,13 +16,10 @@ type Props = {
 };
 
 function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
-   const { t } = useTranslation();
-
   return (
     <Card className="border-white md:border-neutral-200">
       <CardContent>
         <Table className="hidden md:block">
-          <TableCaption>{t("calculations_list")}</TableCaption>
           <TableHeader>
             <TableRow>
               {heads.map((head, i) => (

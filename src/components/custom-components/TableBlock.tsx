@@ -42,7 +42,7 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
         <DeleteInvoiceButton
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}
-          invoiceNum={invoiceNum}
+          invoiceNum={item.paLs}
           deleteInvoice={() => deleteInvoice({setIsPopoverOpen, setIsDeleteProcessing, personalaccontsId: item.personalaccontsId})}
         />
       </div>
