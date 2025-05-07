@@ -14,6 +14,7 @@ import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
 import { ArrowLeftToLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
+import { useTranslation } from 'react-i18next';
 
 const SEARCH_PARAM_TAB_KEY = "tab";
 
@@ -25,6 +26,7 @@ const CabinetPage = () => {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsError(false);
@@ -65,11 +67,10 @@ const CabinetPage = () => {
     setSearchParams({ [SEARCH_PARAM_TAB_KEY]: value });
   };
 
-  const tabListParams = useMemo(
-    () => [
+  const tabListParams = [
       {
         value: TabsNamesT.Invoice_data,
-        label: "Особовий рахунок",
+        label: t("invoice"),
         condition: true,
         tab_component: (
           <InvoiceDataTab abonentInvoiceData={{ ...abonentCardData }} />
@@ -77,7 +78,7 @@ const CabinetPage = () => {
       },
       {
         value: TabsNamesT.Water_supply,
-        label: "Водопостачання",
+        label: t("water_supply"),
         condition: isWaterSupply,
         tab_component: (
           <WaterSupplyTab waterSupplyData={abonentCardData?.voda} />
@@ -86,7 +87,7 @@ const CabinetPage = () => {
 
       {
         value: TabsNamesT.Water_supply_fee,
-        label: "Абон.плата по водопостачанню",
+        label: t("water_supply_subscription_fee"),
         condition: isWaterSupplyFee,
         tab_component: (
           <WaterSupplyAbplPodachaTab
@@ -99,7 +100,7 @@ const CabinetPage = () => {
 
       {
         value: TabsNamesT.Water_supply_drainage,
-        label: "Абон.плата по водовідведенню",
+        label: t("subscription_fee_for_water_disposal"),
         condition: isWaterSupplyDrainage,
         tab_component: (
           <WaterSupplyAbplStokiTab
@@ -109,9 +110,7 @@ const CabinetPage = () => {
           />
         ),
       },
-    ],
-    [abonentCardData, isWaterSupply, isWaterSupplyFee, isWaterSupplyDrainage]
-  );
+    ];
 
   const hadnleBackToCabinet = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
@@ -132,10 +131,10 @@ const CabinetPage = () => {
       <div
         className={cn(
           {
-            "md:w-3/4 md:min-w-[700px]": isContent,
-            "items-center h-full": isError,
+            "xl:w-3/4 w-full": isContent,
+            "items-center h-full w-full": isError,
           },
-          "flex flex-col gap-y-2 w-full"
+          "flex flex-col gap-y-2"
         )}
       >
         <Button
@@ -144,7 +143,7 @@ const CabinetPage = () => {
         >
           <div className="flex w-full justify-start items-center gap-x-2">
             <ArrowLeftToLine />
-            <p>Повернутися до списку</p>
+            <p>{t("back_to_list")}</p>
           </div>
         </Button>
 
