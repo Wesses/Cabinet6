@@ -19,7 +19,6 @@
   "form_error_email_length": "Email must be at least 2 characters long.",
   "form_error_confirm_password_length_6": "Password must be at least 6 characters long.",
   "form_error_passwords_not_same": "Passwords do not match",
-  "form_error_service": "Service error.",
   "register_title": "Register a new account",
   "register_second_title": "Enter the required details below to create your account",
   "registration_success": "Registration successful",
@@ -99,5 +98,7 @@
   "return": "Return (recalculation)",
   "payment": "Payment",
   "subsidy": "Subsidy (benefits)",
-  "end_debt": "Debt at the end"
+  "end_debt": "Debt at the end",
+  "form_error_service": "Failed to create a new user. Please check the entered data and try again.",
+  "form_error_user_alredy_exist": "A user with this name already exists, please try another."
 }

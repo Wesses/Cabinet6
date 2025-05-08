@@ -57,7 +57,8 @@ export const postRegistrationReq = async (data: object) => {
     return response.data;
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
-    throw e.response?.statusText || "Unknown error";
+
+    throw e.status || "Unknown error";
   }
 };
 

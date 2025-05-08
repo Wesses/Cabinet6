@@ -29,7 +29,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { showCustomToast } from "@/utils/showCustomComponent";
 
 const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,53 +39,53 @@ const RegistrationForm = () => {
   const { t } = useTranslation();
 
   const formSchema = z
-  .object({
-    username: z.string().min(2, {
-      message: t("form_error_username_length"),
-    }),
+    .object({
+      username: z.string().min(2, {
+        message: t("form_error_username_length"),
+      }),
 
-    password: z
-      .string()
-      .min(6, t("form_error_password_length_6"))
-      .refine((value) => /[0-9]/.test(value), {
-        message: t("form_error_password_any_symbol"),
-      })
-      .refine((value) => /[a-z]/.test(value), {
-        message: t("form_error_password_any_lowercase_letter"),
-      })
-      .refine((value) => /[A-Z]/.test(value), {
-        message: t("form_error_password_any_uppercase_letter"),
-      })
-      .refine((value) => /[^a-zA-Z0-9]/.test(value), {
-        message: t("form_error_password_any_special_symbol"),
-      })
-      .refine(
-        (value) => {
-          const uniqueChars = new Set(value).size;
-          return uniqueChars >= 6;
-        },
-        {
-          message: t("form_error_password_more_special_symbols"),
-        }
-      ),
+      password: z
+        .string()
+        .min(6, t("form_error_password_length_6"))
+        .refine((value) => /[0-9]/.test(value), {
+          message: t("form_error_password_any_symbol"),
+        })
+        .refine((value) => /[a-z]/.test(value), {
+          message: t("form_error_password_any_lowercase_letter"),
+        })
+        .refine((value) => /[A-Z]/.test(value), {
+          message: t("form_error_password_any_uppercase_letter"),
+        })
+        .refine((value) => /[^a-zA-Z0-9]/.test(value), {
+          message: t("form_error_password_any_special_symbol"),
+        })
+        .refine(
+          (value) => {
+            const uniqueChars = new Set(value).size;
+            return uniqueChars >= 6;
+          },
+          {
+            message: t("form_error_password_more_special_symbols"),
+          }
+        ),
 
-    email: z.string().min(2, {
-      message: t("form_error_email_length"),
-    }),
+      email: z.string().min(2, {
+        message: t("form_error_email_length"),
+      }),
 
-    confirmPassword: z.string().min(6, {
-      message: t("form_error_confirm_password_length_6"),
-    }),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: t("form_error_passwords_not_same"),
-        path: ["confirmPassword"],
-      });
-    }
-  });
+      confirmPassword: z.string().min(6, {
+        message: t("form_error_confirm_password_length_6"),
+      }),
+    })
+    .superRefine(({ confirmPassword, password }, ctx) => {
+      if (confirmPassword !== password) {
+        ctx.addIssue({
+          code: "custom",
+          message: t("form_error_passwords_not_same"),
+          path: ["confirmPassword"],
+        });
+      }
+    });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -103,21 +104,47 @@ const RegistrationForm = () => {
       .then(() => {
         setIsAlertOpen(true);
       })
-      .catch(() => {
+      .catch((errorCode) => {
+        if (errorCode === 551) {
+          showCustomToast(
+            "Користувач з таким ім'ям вже існує, спробуйте інше.",
+            "bg-red-400"
+          );
+
+          form.setError("username", {
+            type: "551",
+            message: "",
+          });
+          form.setError("password", {
+            type: "551",
+            message: "",
+          });
+          form.setError("confirmPassword", {
+            type: "551",
+            message: "",
+          });
+          form.setError("email", {
+            type: "551",
+            message: "",
+          });
+
+          return;
+        }
+
         form.setError("username", {
-          type: "500",
+          type: "552",
           message: t("form_error_service"),
         });
         form.setError("password", {
-          type: "500",
+          type: "552",
           message: t("form_error_service"),
         });
         form.setError("confirmPassword", {
-          type: "500",
+          type: "552",
           message: t("form_error_service"),
         });
         form.setError("email", {
-          type: "500",
+          type: "552",
           message: t("form_error_service"),
         });
       })
@@ -150,7 +177,9 @@ const RegistrationForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_username")}</FormLabel>
+                <FormLabel className="text-black">
+                  {t("form_username")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -205,7 +234,9 @@ const RegistrationForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_password")}</FormLabel>
+                <FormLabel className="text-black">
+                  {t("form_password")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -233,7 +264,9 @@ const RegistrationForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_confirm_password")}</FormLabel>
+                <FormLabel className="text-black">
+                  {t("form_confirm_password")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}

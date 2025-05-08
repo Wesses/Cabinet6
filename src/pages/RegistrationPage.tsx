@@ -13,7 +13,7 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center overflow-y-auto">
+    <div className="w-full h-full flex justify-center items-center overflow-y-auto">
       <div className="w-1/2 h-full flex items-center justify-center">
       <div className="absolute top-4 right-4 flex flex-row items-center">
       <LocaleButton isLabel={true}/>
@@ -26,7 +26,6 @@ export const RegistrationPage = () => {
           {t("button_login")}
         </Button>
       </div>
-
         <RegistrationForm />
       </div>
     </div>
