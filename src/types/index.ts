@@ -321,3 +321,5 @@ export interface ArchiveItemT {
   saldoKVodaStokiVnes: number;
   saldoKKvplataVnes: number;
 }
+
+

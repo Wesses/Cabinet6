@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useMemo, useState } from "react";
-import { getAbonentCardT, TabsNamesT } from "@/types";
-import { getAbonentCardData } from "@/api/api";
+import { ArchiveItemT, getAbonentCardT, TabsNamesT } from "@/types";
+import { getAbonentCardData, getArchivData } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import InvoiceDataTab from "@/components/custom-components/InvoiceServicesTabs/InvoiceDataTab";
@@ -14,13 +14,14 @@ import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
 import { ArrowLeftToLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const SEARCH_PARAM_TAB_KEY = "tab";
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
     useState<getAbonentCardT | null>(null);
+  const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id } = useParams();
@@ -36,6 +37,20 @@ const CabinetPage = () => {
 
     if (id) {
       setIsLoading(true);
+      (async () => {
+        try {
+          const [abonentCardPromiseData, archivPromiseData] = await Promise.all(
+            [getAbonentCardData(+id), getArchivData(+id)]
+          );
+          setAbonentCardData(abonentCardPromiseData);
+          setArchivData(archivPromiseData);
+        } catch {
+          setIsError(true);
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+
       getAbonentCardData(+id)
         .then(setAbonentCardData)
         .catch(() => {
@@ -64,53 +79,55 @@ const CabinetPage = () => {
   );
 
   const handlSetSearchParams = (value: string) => {
+    if (searchParams.get(SEARCH_PARAM_TAB_KEY) === value) return;
+
     setSearchParams({ [SEARCH_PARAM_TAB_KEY]: value });
   };
 
   const tabListParams = [
-      {
-        value: TabsNamesT.Invoice_data,
-        label: t("invoice"),
-        condition: true,
-        tab_component: (
-          <InvoiceDataTab abonentInvoiceData={{ ...abonentCardData }} />
-        ),
-      },
-      {
-        value: TabsNamesT.Water_supply,
-        label: t("water_supply"),
-        condition: isWaterSupply,
-        tab_component: (
-          <WaterSupplyTab waterSupplyData={abonentCardData?.voda} />
-        ),
-      },
+    {
+      value: TabsNamesT.Invoice_data,
+      label: t("invoice"),
+      condition: true,
+      tab_component: (
+        <InvoiceDataTab abonentInvoiceData={{ ...abonentCardData }} />
+      ),
+    },
+    {
+      value: TabsNamesT.Water_supply,
+      label: t("water_supply"),
+      condition: isWaterSupply,
+      tab_component: <WaterSupplyTab waterSupplyData={abonentCardData?.voda} archivData={archivData} />,
+    },
 
-      {
-        value: TabsNamesT.Water_supply_fee,
-        label: t("water_supply_subscription_fee"),
-        condition: isWaterSupplyFee,
-        tab_component: (
-          <WaterSupplyAbplPodachaTab
-            waterSupplyAbplPodachaRowData={{
-              ...abonentCardData?.vodaAbplPodacha,
-            }}
-          />
-        ),
-      },
+    {
+      value: TabsNamesT.Water_supply_fee,
+      label: t("water_supply_subscription_fee"),
+      condition: isWaterSupplyFee,
+      tab_component: (
+        <WaterSupplyAbplPodachaTab
+          waterSupplyAbplPodachaRowData={{
+            ...abonentCardData?.vodaAbplPodacha,
+          }}
+          archivData={archivData}
+        />
+      ),
+    },
 
-      {
-        value: TabsNamesT.Water_supply_drainage,
-        label: t("subscription_fee_for_water_disposal"),
-        condition: isWaterSupplyDrainage,
-        tab_component: (
-          <WaterSupplyAbplStokiTab
-            waterSupplyAbplStokiRowData={{
-              ...abonentCardData?.vodaAbplStoki,
-            }}
-          />
-        ),
-      },
-    ];
+    {
+      value: TabsNamesT.Water_supply_drainage,
+      label: t("subscription_fee_for_water_disposal"),
+      condition: isWaterSupplyDrainage,
+      tab_component: (
+        <WaterSupplyAbplStokiTab
+          waterSupplyAbplStokiRowData={{
+            ...abonentCardData?.vodaAbplStoki,
+          }}
+          archivData={archivData}
+        />
+      ),
+    },
+  ];
 
   const hadnleBackToCabinet = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
@@ -120,21 +137,13 @@ const CabinetPage = () => {
 
   return (
     <div className="px-5 py-2 flex-1 h-full w-full">
-      {isLoading && (
-        <div className="w-full h-full md:w-1/2 md:min-w-[700px]">
-          <Skeleton className="w-1/3 h-8 min-w-[200px] mb-2 bg-slate-300" />
-          <Skeleton className="w-full h-[40px] mb-2 bg-slate-300" />
-          <Skeleton className="w-full h-2/3 bg-slate-300" />
-        </div>
-      )}
-
       <div
         className={cn(
           {
             "xl:w-3/4 w-full": isContent,
             "items-center h-full w-full": isError,
           },
-          "flex flex-col gap-y-2"
+          "flex flex-col gap-y-2 h-fit"
         )}
       >
         <Button
@@ -146,6 +155,14 @@ const CabinetPage = () => {
             <p>{t("back_to_list")}</p>
           </div>
         </Button>
+
+        {isLoading && (
+          <div className="w-full md:min-w-[700px] h-full">
+            <Skeleton className="xl:w-3/4 w-full h-[40px] mb-2 bg-slate-300" />
+            <Skeleton className="w-full md:w-1/2 h-[300px] mb-2 bg-slate-300" />
+            <Skeleton className="xl:w-3/4 w-full h-[100px] bg-slate-300" />
+          </div>
+        )}
 
         {isError && <ErrorBlock />}
 

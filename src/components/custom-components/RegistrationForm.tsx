@@ -107,7 +107,7 @@ const RegistrationForm = () => {
       .catch((errorCode) => {
         if (errorCode === 551) {
           showCustomToast(
-            "Користувач з таким ім'ям вже існує, спробуйте інше.",
+            t("form_error_user_alredy_exist"),
             "bg-red-400"
           );
 

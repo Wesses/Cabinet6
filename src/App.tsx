@@ -18,7 +18,7 @@ function App() {
 
   const toastPosition = useMemo(() => {
     return screenWidth >= TABLET_SCREEN_WIDTH ? 'bottom-right' : 'top-left'
-  }, [screenWidth])
+  }, [screenWidth]);
 
   useEffect(() => {
     const handleResize = () => {
