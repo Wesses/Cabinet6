@@ -170,27 +170,33 @@ export type WaterSupplyDataT = Partial<
   >
 >;
 
-export type VodaAbplPodachaDataT = Partial<Pick<getAbonentCardT['vodaAbplPodacha'], 
-  'vodaAbplPodacha' | 
-  'abplPodachaTsenaGrn' | 
-  'saldoNachVodaAbplPodacha' | 
-  'nAbplPodachaTarifa'
->>;
+export type VodaAbplPodachaDataT = Partial<
+  Pick<
+    getAbonentCardT["vodaAbplPodacha"],
+    | "vodaAbplPodacha"
+    | "abplPodachaTsenaGrn"
+    | "saldoNachVodaAbplPodacha"
+    | "nAbplPodachaTarifa"
+  >
+>;
 
-export type VodaAbplStokiDataT = Partial<Pick<getAbonentCardT['vodaAbplStoki'], 
-  'vodaAbplStoki' | 
-  'abplStokiTsenaGrn' | 
-  'saldoNachVodaAbplStoki' | 
-  'nAbplStokiTarifa'
->>;
+export type VodaAbplStokiDataT = Partial<
+  Pick<
+    getAbonentCardT["vodaAbplStoki"],
+    | "vodaAbplStoki"
+    | "abplStokiTsenaGrn"
+    | "saldoNachVodaAbplStoki"
+    | "nAbplStokiTarifa"
+  >
+>;
 
 export enum TabsNamesT {
   Invoice_data = "invoice-data",
   Water_supply = "water-supply",
   Water_supply_fee = "water-supply-fee",
   Water_supply_drainage = "water-supply-drainage",
+  Rent_data = "rent-data",
 }
-
 
 export interface ArchiveItemT {
   idx: number;
@@ -322,4 +328,19 @@ export interface ArchiveItemT {
   saldoKKvplataVnes: number;
 }
 
+export interface OplataItemT {
+  dataPerevoda: Date;
+  sumOplata: number;
+  nOrg: string;
+  tag: string;
+  startDate: Date;
+  endDate: Date;
+  errorCode: number;
+  errorMsg: string;
+}
 
+export enum WaterSupplyRentEnum {
+  dataPerevoda = "dataPerevoda",
+  sumOplata = "sumOplata",
+  nOrg = "nOrg",
+}

@@ -1,9 +1,16 @@
-import { ArchiveItemT, WaterSupplyDataT } from "@/types";
+import {
+  ArchiveItemT,
+  OplataItemT,
+  WaterSupplyDataT,
+  WaterSupplyRentEnum,
+} from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccardionForWaterTabs from "./AccardionForWaterTabs";
 import { useTranslation } from "react-i18next";
+import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
+import { WATER_SUPPLY_TAG_VALUES } from "@/utils/constants";
 
-enum WaterSupplyEnum {
+enum WaterSupplyArchiveEnum {
   mes = "mes",
   saldoNVoda = "saldoNVoda",
   nachislVoda = "nachislVoda",
@@ -16,9 +23,14 @@ enum WaterSupplyEnum {
 type Props = {
   waterSupplyData: WaterSupplyDataT | undefined;
   archivData: ArchiveItemT[];
+  rentOplataData: OplataItemT[];
 };
 
-function WaterSupplyTab({ waterSupplyData, archivData }: Props) {
+function WaterSupplyTab({
+  waterSupplyData,
+  archivData,
+  rentOplataData,
+}: Props) {
   const { t } = useTranslation();
 
   const getWaterSupplyData = (rowData: WaterSupplyDataT | undefined) => {
@@ -49,36 +61,57 @@ function WaterSupplyTab({ waterSupplyData, archivData }: Props) {
     return cookedData;
   };
 
-  const tableStyles = [
-    "font-bold text-center bg-gray-300",
-    "font-medium text-right",
-    "font-medium text-right",
-    "font-medium text-right",
-    "font-medium text-right",
-    "font-medium text-right",
-    "font-medium text-right",
-  ];
-
-  const tableHeads = [
-    t("date"),
-    t("begin_debt"),
-    t("accrued"),
-    t("return"),
-    t("payment"),
-    t("subsidy"),
-    t("end_debt"),
+  const accordionData = [
+    {
+      label: t("calculations"),
+      accordValue: "archive",
+      heads: [
+        t("date"),
+        t("begin_debt"),
+        t("accrued"),
+        t("return"),
+        t("payment"),
+        t("subsidy"),
+        t("end_debt"),
+      ],
+      styles: [
+        "font-bold text-center bg-gray-300",
+        "font-medium text-right",
+        "font-medium text-right",
+        "font-medium text-right",
+        "font-medium text-right",
+        "font-medium text-right",
+        "font-medium text-right",
+      ],
+      data: getDataForWaterTab<ArchiveItemT>(
+        archivData,
+        WaterSupplyArchiveEnum,
+        () => true
+      ),
+    },
+    {
+      label: t("rent"),
+      accordValue: "oplata",
+      heads: ["Дата зарахування оплати", "Сума оплати", "Банк"],
+      styles: [
+        "font-bold text-center bg-gray-300",
+        "font-medium text-right",
+        "font-medium text-right",
+      ],
+      data: getDataForWaterTab<OplataItemT>(
+        rentOplataData,
+        WaterSupplyRentEnum,
+        ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
+        [WaterSupplyRentEnum.dataPerevoda],
+      ),
+    },
   ];
 
   return (
     <div className="flex flex-col gap-y-2">
       <SimpleTable data={getWaterSupplyData(waterSupplyData)} />
 
-      <AccardionForWaterTabs
-        enumMap={WaterSupplyEnum}
-        archivData={archivData}
-        tableHeads={tableHeads}
-        tableStyles={tableStyles}
-      />
+      <AccardionForWaterTabs accordionData={accordionData} />
     </div>
   );
 }

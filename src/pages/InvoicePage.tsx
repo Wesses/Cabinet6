@@ -1,8 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useMemo, useState } from "react";
-import { ArchiveItemT, getAbonentCardT, TabsNamesT } from "@/types";
-import { getAbonentCardData, getArchivData } from "@/api/api";
+import {
+  ArchiveItemT,
+  getAbonentCardT,
+  OplataItemT,
+  TabsNamesT,
+} from "@/types";
+import { getAbonentCardData, getArchivData, getOplataData } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import InvoiceDataTab from "@/components/custom-components/InvoiceServicesTabs/InvoiceDataTab";
@@ -15,6 +20,7 @@ import { ArrowLeftToLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
 import { useTranslation } from "react-i18next";
+import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/RentDataTab";
 
 const SEARCH_PARAM_TAB_KEY = "tab";
 
@@ -22,6 +28,7 @@ const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
     useState<getAbonentCardT | null>(null);
   const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
+  const [rentOplataData, setRentOplata] = useState<OplataItemT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id } = useParams();
@@ -39,11 +46,15 @@ const CabinetPage = () => {
       setIsLoading(true);
       (async () => {
         try {
-          const [abonentCardPromiseData, archivPromiseData] = await Promise.all(
-            [getAbonentCardData(+id), getArchivData(+id)]
-          );
+          const [abonentCardPromiseData, archivPromiseData, oplataPromiseData] =
+            await Promise.all([
+              getAbonentCardData(+id),
+              getArchivData(+id),
+              getOplataData(+id),
+            ]);
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
+          setRentOplata(oplataPromiseData);
         } catch {
           setIsError(true);
         } finally {
@@ -78,6 +89,11 @@ const CabinetPage = () => {
     [abonentCardData]
   );
 
+  // const isRentData = useMemo(
+  //   () => (abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false),
+  //   [abonentCardData]
+  // );
+
   const handlSetSearchParams = (value: string) => {
     if (searchParams.get(SEARCH_PARAM_TAB_KEY) === value) return;
 
@@ -97,7 +113,13 @@ const CabinetPage = () => {
       value: TabsNamesT.Water_supply,
       label: t("water_supply"),
       condition: isWaterSupply,
-      tab_component: <WaterSupplyTab waterSupplyData={abonentCardData?.voda} archivData={archivData} />,
+      tab_component: (
+        <WaterSupplyTab
+          waterSupplyData={abonentCardData?.voda}
+          archivData={archivData}
+          rentOplataData={rentOplataData}
+        />
+      ),
     },
 
     {
@@ -110,6 +132,7 @@ const CabinetPage = () => {
             ...abonentCardData?.vodaAbplPodacha,
           }}
           archivData={archivData}
+          rentOplataData={rentOplataData}
         />
       ),
     },
@@ -124,8 +147,15 @@ const CabinetPage = () => {
             ...abonentCardData?.vodaAbplStoki,
           }}
           archivData={archivData}
+          rentOplataData={rentOplataData}
         />
       ),
+    },
+    {
+      value: TabsNamesT.Rent_data,
+      label: t("rent"),
+      condition: true,
+      tab_component: <RentDataTab rentOplataData={rentOplataData} />,
     },
   ];
 

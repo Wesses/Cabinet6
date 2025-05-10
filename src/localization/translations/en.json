@@ -100,5 +100,6 @@
   "subsidy": "Subsidy (benefits)",
   "end_debt": "Debt at the end",
   "form_error_service": "Failed to create a new user. Please check the entered data and try again.",
-  "form_error_user_alredy_exist": "A user with this name already exists, please try another."
+  "form_error_user_alredy_exist": "A user with this name already exists, please try another.",
+  "rent": "Quarterly payment"
 }

@@ -5,43 +5,40 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import SimpleMultiRowTable from "../SimpleMultiRowTable";
-import { ArchiveItemT } from "@/types";
-import { useTranslation } from "react-i18next";
 
 type Props = {
-  enumMap: Record<string, keyof ArchiveItemT>,
-  archivData: ArchiveItemT[],
-  tableHeads: string[],
-  tableStyles: string[],
+accordionData: {
+    label: string,
+    accordValue: string,
+    heads: string[];
+    styles: string[];
+    data: {
+        rows: (string | number | Date)[];
+        index: number;
+    }[];
+}[]
 };
 
-const AccardionForWaterTabs = ({ enumMap, archivData, tableHeads, tableStyles }: Props) => {
-  const { t } = useTranslation();
-
-  const getDataForWaterTab = (data: ArchiveItemT[]) => {
-    const enumKeys = Object.keys(enumMap) as (keyof ArchiveItemT)[];
-
-    return data.map((item) => {
-      return { rows: enumKeys.map((key) => item[key]), index: item.idx };
-    });
-  };
-
-  return (
+const AccardionForWaterTabs = ({ accordionData }: Props) => {
+ return (
     <Accordion
       type="single"
       collapsible
       className="p-4 border border-muted rounded-xl"
     >
-      <AccordionItem value="item-1">
-        <AccordionTrigger>{t("calculations")}</AccordionTrigger>
+      {accordionData.map(({accordValue, heads, styles, data, label}) => (
+        <AccordionItem value={accordValue} key={accordValue}>
+        <AccordionTrigger>{label}</AccordionTrigger>
         <AccordionContent>
           <SimpleMultiRowTable
-            rowsData={getDataForWaterTab(archivData)}
-            heads={tableHeads}
-            styles={tableStyles}
+            rowsData={data}
+            heads={heads}
+            styles={styles}
           />
         </AccordionContent>
       </AccordionItem>
+      ))}
+
     </Accordion>
   );
 };
