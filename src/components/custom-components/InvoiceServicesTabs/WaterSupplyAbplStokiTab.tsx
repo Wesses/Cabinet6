@@ -66,7 +66,7 @@ function WaterSupplyAbplStokiTab({
       ),
     },
     {
-      label: t("rent"),
+      label: t("payment"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: [
