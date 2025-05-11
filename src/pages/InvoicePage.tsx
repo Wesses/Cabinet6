@@ -89,10 +89,10 @@ const CabinetPage = () => {
     [abonentCardData]
   );
 
-  // const isRentData = useMemo(
-  //   () => (abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false),
-  //   [abonentCardData]
-  // );
+  const isRentData = useMemo(
+    () => (abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false),
+    [abonentCardData]
+  );
 
   const handlSetSearchParams = (value: string) => {
     if (searchParams.get(SEARCH_PARAM_TAB_KEY) === value) return;
@@ -154,7 +154,7 @@ const CabinetPage = () => {
     {
       value: TabsNamesT.Rent_data,
       label: t("rent"),
-      condition: true,
+      condition: isRentData,
       tab_component: <RentDataTab rentOplataData={rentOplataData} />,
     },
   ];

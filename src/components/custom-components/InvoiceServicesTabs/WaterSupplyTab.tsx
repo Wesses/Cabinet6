@@ -92,7 +92,7 @@ function WaterSupplyTab({
     {
       label: t("rent"),
       accordValue: "oplata",
-      heads: ["Дата зарахування оплати", "Сума оплати", "Банк"],
+      heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: [
         "font-bold text-center bg-gray-300",
         "font-medium text-right",
