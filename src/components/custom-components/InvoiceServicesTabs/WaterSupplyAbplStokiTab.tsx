@@ -8,7 +8,7 @@ import SimpleTable from "../SimpleTable";
 import AccardionForWaterTabs from "./AccardionForWaterTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
-import { WATER_SUPPLY_TAG_VALUES } from "@/utils/constants";
+import { WATER_SUPPLY_STOKI_TAG_VALUES } from "@/utils/constants";
 
 enum WaterSupplyAbplStokiEnum {
   mes = "mes",
@@ -77,7 +77,7 @@ function WaterSupplyAbplStokiTab({
       data: getDataForWaterTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
-        ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
+        ({ tag }) => WATER_SUPPLY_STOKI_TAG_VALUES.includes(tag),
         [WaterSupplyRentEnum.dataPerevoda],
       ),
     },

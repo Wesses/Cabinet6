@@ -2,7 +2,7 @@ import { OplataItemT, WaterSupplyRentEnum } from '@/types'
 import AccardionForWaterTabs from './AccardionForWaterTabs'
 import { useTranslation } from 'react-i18next';
 import { getDataForWaterTab } from '@/utils/getValidDataFunctions';
-import { WATER_SUPPLY_TAG_VALUES } from '@/utils/constants';
+import { KVARTPLATA_TAG_VALUES } from '@/utils/constants';
 
 type Props = {
   rentOplataData: OplataItemT[],
@@ -24,7 +24,7 @@ const RentDataTab = ({ rentOplataData }: Props) => {
         data: getDataForWaterTab<OplataItemT>(
           rentOplataData,
           WaterSupplyRentEnum,
-          ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
+          ({ tag }) => KVARTPLATA_TAG_VALUES.includes(tag),
           [WaterSupplyRentEnum.dataPerevoda],
         ),
       },

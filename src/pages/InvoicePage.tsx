@@ -51,7 +51,7 @@ const CabinetPage = () => {
               getAbonentCardData(+id),
               getArchivData(+id),
               getOplataData(+id),
-            ]);
+            ]);  
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
