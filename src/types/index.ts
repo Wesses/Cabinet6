@@ -30,6 +30,58 @@ export interface PersonalaccontsT {
   organizationAlias: string;
 }
 
+export interface KvartplataT {
+  kvplata: number;
+  kvplataTbo: number;
+  kvplataOvds: number;
+  kvplataDymovent: number;
+  kvplataVygreb: number;
+  kvplataTekrem: number;
+  kvplataKnizh: number;
+  kvplataUborter: number;
+  kvplataDetploshad: number;
+  kvplataZima: number;
+  kvplataSvetobsh: number;
+  kvplataDeratiz: number;
+  kvplataDezinsec: number;
+  kvplataUborlest: number;
+  kvplataLiftTo: number;
+  kvplataLiftElectro: number;
+  kvplataOvdsDisp: number;
+  kvplataOvdsElectro: number;
+  kvplataOvdsGaz: number;
+  kvplataRemVds: number;
+  kvplataRemAvt: number;
+  kvplataRemElectro: number;
+  kvplataUprav: number;
+  kvplataRezerv: number;
+  saldoNachKvplata: number;
+  nKvplataTarifa: string;
+  tsenaTbo: number;
+  tsenaOvds: number;
+  tsenaDymovent: number;
+  tsenaVygreb: number;
+  tsenaTekrem: number;
+  tsenaKnizh: number;
+  tsenaUborter: number;
+  tsenaDetploshad: number;
+  tsenaZima: number;
+  tsenaSvetobsh: number;
+  tsenaDeratiz: number;
+  tsenaDezinsec: number;
+  tsenaUborlest: number;
+  tsenaLiftTo: number;
+  tsenaLiftElectro: number;
+  tsenaOvdsDisp: number;
+  tsenaOvdsElectro: number;
+  tsenaOvdsGaz: number;
+  tsenaRemVds: number;
+  tsenaRemAvt: number;
+  tsenaRemElectro: number;
+  tsenaUprav: number;
+  tsenaRezerv: number;
+}
+
 export interface getAbonentCardT {
   services: string;
   startDate: Date;
@@ -95,58 +147,8 @@ export interface getAbonentCardT {
     saldoNachVodaAbplStoki: number;
     nAbplStokiTarifa: string;
   };
-  kvartplata: {
-    kvplata: number;
-    kvplataTbo: number;
-    kvplataOvds: number;
-    kvplataDymovent: number;
-    kvplataVygreb: number;
-    kvplataTekrem: number;
-    kvplataKnizh: number;
-    kvplataUborter: number;
-    kvplataDetploshad: number;
-    kvplataZima: number;
-    kvplataSvetobsh: number;
-    kvplataDeratiz: number;
-    kvplataDezinsec: number;
-    kvplataUborlest: number;
-    kvplataLiftTo: number;
-    kvplataLiftElectro: number;
-    kvplataOvdsDisp: number;
-    kvplataOvdsElectro: number;
-    kvplataOvdsGaz: number;
-    kvplataRemVds: number;
-    kvplataRemAvt: number;
-    kvplataRemElectro: number;
-    kvplataUprav: number;
-    kvplataRezerv: number;
-    saldoNachKvplata: number;
-    nKvplataTarifa: string;
-    tsenaTbo: number;
-    tsenaOvds: number;
-    tsenaDymovent: number;
-    tsenaVygreb: number;
-    tsenaTekrem: number;
-    tsenaKnizh: number;
-    tsenaUborter: number;
-    tsenaDetploshad: number;
-    tsenaZima: number;
-    tsenaSvetobsh: number;
-    tsenaDeratiz: number;
-    tsenaDezinsec: number;
-    tsenaUborlest: number;
-    tsenaLiftTo: number;
-    tsenaLiftElectro: number;
-    tsenaOvdsDisp: number;
-    tsenaOvdsElectro: number;
-    tsenaOvdsGaz: number;
-    tsenaRemVds: number;
-    tsenaRemAvt: number;
-    tsenaRemElectro: number;
-    tsenaUprav: number;
-    tsenaRezerv: number;
-  };
-}
+  kvartplata: KvartplataT;
+};
 
 export type AbonentInvoiceInfoT = Partial<
   Pick<
@@ -196,7 +198,7 @@ export enum TabsNamesT {
   Water_supply_fee = "water-supply-fee",
   Water_supply_drainage = "water-supply-drainage",
   Rent_data = "rent-data",
-}
+};
 
 export interface ArchiveItemT {
   idx: number;
@@ -326,7 +328,7 @@ export interface ArchiveItemT {
   saldoKVodaPodachaVnes: number;
   saldoKVodaStokiVnes: number;
   saldoKKvplataVnes: number;
-}
+};
 
 export interface OplataItemT {
   dataPerevoda: Date;
@@ -337,10 +339,62 @@ export interface OplataItemT {
   endDate: Date;
   errorCode: number;
   errorMsg: string;
-}
+};
 
 export enum WaterSupplyRentEnum {
   dataPerevoda = "dataPerevoda",
   sumOplata = "sumOplata",
   nOrg = "nOrg",
-}
+};
+
+export const kvartplataObj = {
+  kvplata: 0,
+  kvplataTbo: 0,
+  kvplataOvds: 0,
+  kvplataDymovent: 0,
+  kvplataVygreb: 0,
+  kvplataTekrem: 0,
+  kvplataKnizh: 0,
+  kvplataUborter: 0,
+  kvplataDetploshad: 0,
+  kvplataZima: 0,
+  kvplataSvetobsh: 0,
+  kvplataDeratiz: 0,
+  kvplataDezinsec: 0,
+  kvplataUborlest: 0,
+  kvplataLiftTo: 0,
+  kvplataLiftElectro: 0,
+  kvplataOvdsDisp: 0,
+  kvplataOvdsElectro: 0,
+  kvplataOvdsGaz: 0,
+  kvplataRemVds: 0,
+  kvplataRemAvt: 0,
+  kvplataRemElectro: 0,
+  kvplataUprav: 0,
+  kvplataRezerv: 0,
+  saldoNachKvplata: 0,
+  nKvplataTarifa: "",
+  tsenaTbo: 0,
+  tsenaOvds: 0,
+  tsenaDymovent: 0,
+  tsenaVygreb: 0,
+  tsenaTekrem: 0,
+  tsenaKnizh: 0,
+  tsenaUborter: 0,
+  tsenaDetploshad: 0,
+  tsenaZima: 0,
+  tsenaSvetobsh: 0,
+  tsenaDeratiz: 0,
+  tsenaDezinsec: 0,
+  tsenaUborlest: 0,
+  tsenaLiftTo: 0,
+  tsenaLiftElectro: 0,
+  tsenaOvdsDisp: 0,
+  tsenaOvdsElectro: 0,
+  tsenaOvdsGaz: 0,
+  tsenaRemVds: 0,
+  tsenaRemAvt: 0,
+  tsenaRemElectro: 0,
+  tsenaUprav: 0,
+  tsenaRezerv: 0,
+};

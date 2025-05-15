@@ -76,12 +76,6 @@ function WaterSupplyTab({
       ],
       styles: [
         "font-bold text-center bg-gray-300",
-        "font-medium text-right",
-        "font-medium text-right",
-        "font-medium text-right",
-        "font-medium text-right",
-        "font-medium text-right",
-        "font-medium text-right",
       ],
       data: getDataForWaterTab<ArchiveItemT>(
         archivData,
@@ -95,8 +89,6 @@ function WaterSupplyTab({
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: [
         "font-bold text-center bg-gray-300",
-        "font-medium text-right",
-        "font-medium text-right",
       ],
       data: getDataForWaterTab<OplataItemT>(
         rentOplataData,

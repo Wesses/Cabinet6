@@ -155,7 +155,7 @@ const CabinetPage = () => {
       value: TabsNamesT.Rent_data,
       label: t("rent"),
       condition: isRentData,
-      tab_component: <RentDataTab rentOplataData={rentOplataData} />,
+      tab_component: <RentDataTab rentOplataData={rentOplataData} kvartplata={abonentCardData?.kvartplata} />,
     },
   ];
 
@@ -170,14 +170,14 @@ const CabinetPage = () => {
       <div
         className={cn(
           {
-            "xl:w-3/4 w-full": isContent,
+            "xl:w-3/4 w-full max-w-fit": isContent,
             "items-center h-full w-full": isError,
           },
           "flex flex-col gap-y-2 h-fit"
         )}
       >
         <Button
-          className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8 w-1/3 min-w-[200px] max-w-[250px]"
+          className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8 w-[250px]"
           onClick={hadnleBackToCabinet}
         >
           <div className="flex w-full justify-start items-center gap-x-2">
