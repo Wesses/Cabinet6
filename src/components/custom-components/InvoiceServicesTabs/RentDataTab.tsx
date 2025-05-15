@@ -40,14 +40,14 @@ const tsenaToKvplataMap: Record<string, string> = {
 
 type Props = {
   rentOplataData: OplataItemT[];
-  kvartplata: KvartplataT;
+  kvartplata: KvartplataT | undefined;
 };
 
 const getKvartplataData = (
-  kvartplata: KvartplataT,
+  kvartplata: KvartplataT | undefined,
   rentHeads: Record<string, string>
 ) => {
-  if (!kvartplata.kvplata) {
+  if (!kvartplata?.kvplata || !kvartplata) {
     return [];
   }
 
