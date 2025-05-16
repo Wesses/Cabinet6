@@ -77,7 +77,7 @@ const CabinetPage = () => {
     () =>
       abonentCardData
         ? abonentCardData.services.includes("ВОДА") &&
-          (abonentCardData?.voda?.vodaPodacha || abonentCardData?.voda?.vodaStoki)
+          (abonentCardData?.voda?.vodaPodacha || abonentCardData?.voda?.vodaStoki || abonentCardData?.voda?.vodaPoliv)
         : false,
     [abonentCardData]
   );
