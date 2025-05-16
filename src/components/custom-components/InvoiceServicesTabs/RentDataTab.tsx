@@ -56,7 +56,7 @@ const getKvartplataData = (
   ) as (keyof KvartplataT)[][];
 
   return validKeys
-    .filter(([, value]) => kvartplata[value])
+    .filter(([key, value]) => kvartplata[value] && kvartplata[key])
     .map(([key]) => [rentHeads[key], kvartplata[key]]);
 };
 

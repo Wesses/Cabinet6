@@ -51,7 +51,7 @@ const CabinetPage = () => {
               getAbonentCardData(+id),
               getArchivData(+id),
               getOplataData(+id),
-            ]);  
+            ]);
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
@@ -74,7 +74,11 @@ const CabinetPage = () => {
   }, []);
 
   const isWaterSupply = useMemo(
-    () => (abonentCardData ? abonentCardData.services.includes("ВОДА") : false),
+    () =>
+      abonentCardData
+        ? abonentCardData.services.includes("ВОДА") &&
+          (abonentCardData?.voda?.vodaPodacha || abonentCardData?.voda?.vodaStoki)
+        : false,
     [abonentCardData]
   );
 
@@ -90,7 +94,8 @@ const CabinetPage = () => {
   );
 
   const isRentData = useMemo(
-    () => (abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false),
+    () =>
+      abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false,
     [abonentCardData]
   );
 
@@ -155,7 +160,12 @@ const CabinetPage = () => {
       value: TabsNamesT.Rent_data,
       label: t("rent"),
       condition: isRentData,
-      tab_component: <RentDataTab rentOplataData={rentOplataData} kvartplata={abonentCardData?.kvartplata} />,
+      tab_component: (
+        <RentDataTab
+          rentOplataData={rentOplataData}
+          kvartplata={abonentCardData?.kvartplata}
+        />
+      ),
     },
   ];
 
