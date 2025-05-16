@@ -128,5 +128,5 @@
   "electrical_network_repair": "Electrical network repair (UAH)",
   "manager_fee": "Manager’s fee (UAH)",
   "reserve_fund": "Reserve fund (UAH)",
-  "total_payment_due": "Your total amount due (UAH)"
+  "total_payment_due": "Current rent rate (UAH/m²)"
 }
