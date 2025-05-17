@@ -214,7 +214,7 @@ const CabinetPage = () => {
               >
                 <div className="flex w-full justify-start items-center gap-x-2">
                   <Printer />
-                  <p className="sm:block hidden">Друк рахунку</p>
+                  <p className="sm:block hidden">{t("print_account")}</p>
                 </div>
               </Button>
             </AlertDialogTrigger>
