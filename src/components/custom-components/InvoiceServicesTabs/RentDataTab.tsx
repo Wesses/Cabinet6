@@ -120,7 +120,7 @@ const RentDataTab = ({ rentOplataData, kvartplata }: Props) => {
         <AccordionItem value="rent-data">
           <AccordionTrigger>
             <div className="w-full flex flex-row justify-between pr-2">
-              <p>Ваша загальна сума до сплати</p>
+              <p>{t("total_payment_due")}</p>
               {rentSum}
             </div>
           </AccordionTrigger>

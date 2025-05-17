@@ -16,11 +16,22 @@ import WaterSupplyAbplPodachaTab from "@/components/custom-components/InvoiceSer
 import WaterSupplyAbplStokiTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplStokiTab";
 import { useSearchParams } from "react-router-dom";
 import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
-import { ArrowLeftToLine } from "lucide-react";
+import { ArrowLeftToLine, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
 import { useTranslation } from "react-i18next";
 import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/RentDataTab";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const SEARCH_PARAM_TAB_KEY = "tab";
 
@@ -61,15 +72,6 @@ const CabinetPage = () => {
           setIsLoading(false);
         }
       })();
-
-      getAbonentCardData(+id)
-        .then(setAbonentCardData)
-        .catch(() => {
-          setIsError(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
     }
   }, []);
 
@@ -77,7 +79,9 @@ const CabinetPage = () => {
     () =>
       abonentCardData
         ? abonentCardData.services.includes("ВОДА") &&
-          (abonentCardData?.voda?.vodaPodacha || abonentCardData?.voda?.vodaStoki || abonentCardData?.voda?.vodaPoliv)
+          (abonentCardData?.voda?.vodaPodacha ||
+            abonentCardData?.voda?.vodaStoki ||
+            abonentCardData?.voda?.vodaPoliv)
         : false,
     [abonentCardData]
   );
@@ -180,27 +184,61 @@ const CabinetPage = () => {
       <div
         className={cn(
           {
-            "xl:w-3/4 w-full max-w-fit": isContent,
+            "xl:w-3/4 w-full md:max-w-fit max-w-none": isContent,
             "items-center h-full w-full": isError,
           },
           "flex flex-col gap-y-2 h-fit"
         )}
       >
-        <Button
-          className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8 w-[250px]"
-          onClick={hadnleBackToCabinet}
-        >
-          <div className="flex w-full justify-start items-center gap-x-2">
-            <ArrowLeftToLine />
-            <p>{t("back_to_list")}</p>
-          </div>
-        </Button>
+        <div className="flex items-center justify-start gap-x-2 w-full">
+          <Button
+            className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8"
+            onClick={hadnleBackToCabinet}
+          >
+            <div className="flex w-full justify-start items-center gap-x-2">
+              <ArrowLeftToLine />
+              <p className="sm:block hidden">{t("back_to_list")}</p>
+            </div>
+          </Button>
+
+          {isLoading && (
+            <Skeleton className="h-8 bg-slate-300 sm:w-[153px] w-[56px]" />
+          )}
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                className={cn("h-8 hidden", {
+                  "flex items-center justify-center": isContent,
+                })}
+              >
+                <div className="flex w-full justify-start items-center gap-x-2">
+                  <Printer />
+                  <p className="sm:block hidden">Друк рахунку</p>
+                </div>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
 
         {isLoading && (
           <div className="w-full md:min-w-[700px] h-full">
-            <Skeleton className="xl:w-3/4 w-full h-[40px] mb-2 bg-slate-300" />
+            <Skeleton className="md:w-1/2 w-full h-[40px] mb-2 bg-slate-300" />
             <Skeleton className="w-full md:w-1/2 h-[300px] mb-2 bg-slate-300" />
-            <Skeleton className="xl:w-3/4 w-full h-[100px] bg-slate-300" />
+            <Skeleton className="md:w-1/2 w-full h-[100px] bg-slate-300" />
           </div>
         )}
 
@@ -213,7 +251,7 @@ const CabinetPage = () => {
               searchParams.get(SEARCH_PARAM_TAB_KEY) || TabsNamesT.Invoice_data
             }
           >
-            <TabsList className="w-full flex justify-start sticky top-[88px] z-10 overflow-x-auto whitespace-nowrap">
+            <TabsList className="w-full flex justify-start sticky top-[88px] z-10 overflow-x-auto whitespace-nowrap max-w-fit">
               {tabListParams.map(({ value, label, condition }) =>
                 condition ? (
                   <TabsTrigger
