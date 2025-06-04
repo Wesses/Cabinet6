@@ -5,7 +5,7 @@ import {
   ArchiveItemT,
   getAbonentCardT,
   OplataItemT,
-  SEARCH_PARAM_TAB_KEY,
+  ServicesValuesT,
   TabsNamesT,
 } from "@/types";
 import { getAbonentCardData, getArchivData, getOplataData } from "@/api/api";
@@ -16,7 +16,7 @@ import WaterSupplyTab from "@/components/custom-components/InvoiceServicesTabs/W
 import WaterSupplyAbplPodachaTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplPodachaTab";
 import WaterSupplyAbplStokiTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplStokiTab";
 import { useSearchParams } from "react-router-dom";
-import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
+import { CURRENT_PAGE_PARAM_KEY, SEARCH_PARAM_TAB_KEY, TabsNamesValues } from "@/utils/constants";
 import { ArrowLeftToLine, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
@@ -69,8 +69,8 @@ const CabinetPage = () => {
   const isWaterSupply = useMemo(
     () =>
       abonentCardData
-        ? abonentCardData.services.includes("ВОДА") &&
-          (abonentCardData?.voda?.vodaPodacha ||
+        ? abonentCardData.services.includes(ServicesValuesT.water) &&
+          Boolean(abonentCardData?.voda?.vodaPodacha ||
             abonentCardData?.voda?.vodaStoki ||
             abonentCardData?.voda?.vodaPoliv)
         : false,
@@ -90,7 +90,7 @@ const CabinetPage = () => {
 
   const isRentData = useMemo(
     () =>
-      abonentCardData ? abonentCardData.services.includes("КВАРТПЛАТА") : false,
+      abonentCardData ? abonentCardData.services.includes(ServicesValuesT.rent) : false,
     [abonentCardData]
   );
 
@@ -159,10 +159,23 @@ const CabinetPage = () => {
         <RentDataTab
           rentOplataData={rentOplataData}
           kvartplata={abonentCardData?.kvartplata}
+          archivData={archivData}
         />
       ),
     },
   ];
+
+  const getCurrentTabsServices = (tabListParams: {
+    value: TabsNamesT;
+    label: string;
+    condition: boolean;
+    tab_component: JSX.Element;
+}[]) => {
+  const allSrvices = tabListParams.filter(({condition}) => condition).map(({ value }) => TabsNamesValues[value])
+  const existingUniqueServices = [...new Set(allSrvices)];
+
+  return existingUniqueServices;
+};
 
   const hadnleBackToCabinet = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
@@ -214,15 +227,15 @@ const CabinetPage = () => {
                 </div>
               </Button>
             </AlertDialogTrigger>
-            <PrintInvoiceForm onClose={() => setOpen(false)} open={open} />
+            <PrintInvoiceForm onClose={() => setOpen(false)} open={open} currentServices={getCurrentTabsServices(tabListParams)} />
           </AlertDialog>
         </div>
 
         {isLoading && (
           <div className="w-full md:min-w-[700px] h-full">
-            <Skeleton className="md:w-3/4 w-full h-[40px] mb-2 bg-slate-300" />
-            <Skeleton className="w-full md:w-3/4 h-[300px] mb-2 bg-slate-300" />
-            <Skeleton className="md:w-3/4 w-full h-[100px] bg-slate-300" />
+            <Skeleton className="md:w-1/2 w-full h-[40px] mb-2 bg-slate-300" />
+            <Skeleton className="w-full md:w-1/2 h-[300px] mb-2 bg-slate-300" />
+            <Skeleton className="md:w-1/2 w-full h-[100px] bg-slate-300" />
           </div>
         )}
 

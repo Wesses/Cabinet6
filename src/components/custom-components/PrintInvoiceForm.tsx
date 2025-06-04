@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,22 +26,42 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { useTranslation } from "react-i18next";
 import { getInvoiceBlob } from "@/api/api";
-import { useParams, useSearchParams } from "react-router-dom";
-import { SEARCH_PARAM_TAB_KEY, TabsNamesT, TabsNamesValues } from "@/types";
+import { useParams } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { ServicesValuesT } from '@/types';
 
 type Props = {
   open: boolean;
   onClose: () => void;
+  currentServices: string[];
 };
 
-export default function PrintInvoiceForm({ open, onClose }: Props) {
+export default function PrintInvoiceForm({
+  open,
+  onClose,
+  currentServices,
+}: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
   const { id } = useParams();
+
+  const sericesLabels: Record<ServicesValuesT, string> = {
+  [ServicesValuesT.invoice]: t("all_services"),
+  [ServicesValuesT.water]: t("water"),
+  [ServicesValuesT.rent]: t("rent"),
+  };
 
   const formSchema = z.object({
     month: z.string({
+      message: t("required"),
+    }),
+    service: z.string({
       message: t("required"),
     }),
   });
@@ -53,9 +74,7 @@ export default function PrintInvoiceForm({ open, onClose }: Props) {
     setIsLoading(true);
 
     try {
-      const currentTab = searchParams.get(SEARCH_PARAM_TAB_KEY);
-
-      if (!currentTab || !id) {
+      if (!id) {
         showCustomToast(t("error_refresh"), "bg-red-300");
 
         return;
@@ -63,7 +82,7 @@ export default function PrintInvoiceForm({ open, onClose }: Props) {
 
       const { blob, fileName } = await getInvoiceBlob(
         +id,
-        TabsNamesValues[currentTab as TabsNamesT],
+        values.service,
         +values.month
       );
 
@@ -108,7 +127,49 @@ export default function PrintInvoiceForm({ open, onClose }: Props) {
         </AlertDialogDescription>
       </AlertDialogHeader>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 flex flex-col px-14"
+        >
+          <FormField
+            control={form.control}
+            name="service"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("service")}</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger
+                      className={field.value ? "text-black" : "text-gray-400"}
+                    >
+                      <SelectValue
+                        placeholder={t("select_service_placeholder")}
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {currentServices.map((value) => (
+                      <SelectItem key={value} value={value}>
+                        {sericesLabels[value as ServicesValuesT]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  {t("select_service_description")}
+                </FormDescription>
+                {form.formState.errors.service ? (
+                  <FormMessage />
+                ) : (
+                  <div className="h-5" />
+                )}
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="month"
@@ -138,6 +199,9 @@ export default function PrintInvoiceForm({ open, onClose }: Props) {
                     ))}
                   </RadioGroup>
                 </FormControl>
+                <FormDescription>
+                  {t("select_month_description")}
+                </FormDescription>
                 {form.formState.errors.month ? (
                   <FormMessage />
                 ) : (
@@ -148,7 +212,7 @@ export default function PrintInvoiceForm({ open, onClose }: Props) {
           />
 
           <Button
-            className="w-full disabled:bg-gray-600 max-w-"
+            className="w-full disabled:bg-gray-600"
             type="submit"
             disabled={isLoading}
           >

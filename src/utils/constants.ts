@@ -1,3 +1,5 @@
+import { ServicesValuesT, TabsNamesT } from '@/types';
+
 export const localStorages = {
   USER_DATA: "user_data",
   LOCALE: "locale",
@@ -27,3 +29,13 @@ export const WATER_SUPPLY_PODACHA_TAG_VALUES = ["VODA_ABPL_PODACHA"];
 export const WATER_SUPPLY_STOKI_TAG_VALUES = ["VODA_ABPL_STOKI"];
 
 export const KVARTPLATA_TAG_VALUES = ["KVPLATA"];
+
+export const TabsNamesValues: Record<TabsNamesT, ServicesValuesT> = {
+  [TabsNamesT.Invoice_data]: ServicesValuesT.invoice,
+  [TabsNamesT.Water_supply]: ServicesValuesT.water,
+  [TabsNamesT.Water_supply_fee]: ServicesValuesT.water,
+  [TabsNamesT.Water_supply_drainage]: ServicesValuesT.water,
+  [TabsNamesT.Rent_data]: ServicesValuesT.rent,
+};
+
+export const SEARCH_PARAM_TAB_KEY = "tab";

@@ -40,7 +40,7 @@ function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
               <TableRow key={index}>
                 {rows.map((text, i) => (
                   <TableCell className={cn("md:text-xs lg:text-base font-medium text-right", styles[i])} key={i}>
-                    {"" + text}
+                    {"" + ((typeof text === "number" && text) ? text.toFixed(2) : text)}
                   </TableCell>
                 ))}
               </TableRow>

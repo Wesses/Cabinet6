@@ -60,7 +60,7 @@ function WaterSupplyAbplStokiTab({
       ),
     },
     {
-      label: t("payment"),
+      label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: [

@@ -1,4 +1,9 @@
-import { KvartplataT, OplataItemT, WaterSupplyRentEnum } from "@/types";
+import {
+  ArchiveItemT,
+  KvartplataT,
+  OplataItemT,
+  WaterSupplyRentEnum,
+} from "@/types";
 import AccardionForWaterTabs from "./AccardionForWaterTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
@@ -38,9 +43,20 @@ const tsenaToKvplataMap: Record<string, string> = {
   tsenaRezerv: "kvplataRezerv",
 };
 
+enum RentDataArchiveEnum {
+  mes = "mes",
+  saldoNKvplata = "saldoNKvplata",
+  nachislKvplata = "nachislKvplata",
+  vozvratKvplata = "vozvratKvplata",
+  oplataKvplata = "oplataKvplata",
+  subsKvplata = "subsKvplata",
+  saldoKKvplata = "saldoKKvplata",
+}
+
 type Props = {
   rentOplataData: OplataItemT[];
   kvartplata: KvartplataT | undefined;
+  archivData: ArchiveItemT[];
 };
 
 const getKvartplataData = (
@@ -60,7 +76,7 @@ const getKvartplataData = (
     .map(([key]) => [rentHeads[key], kvartplata[key]]);
 };
 
-const RentDataTab = ({ rentOplataData, kvartplata }: Props) => {
+const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
   const { t } = useTranslation();
 
   const RentHeads = {
@@ -91,7 +107,26 @@ const RentDataTab = ({ rentOplataData, kvartplata }: Props) => {
 
   const accordionData = [
     {
-      label: t("payment"),
+      label: t("calculations"),
+      accordValue: "archive",
+      heads: [
+        t("date"),
+        t("begin_debt"),
+        t("accrued"),
+        t("return"),
+        t("payment"),
+        t("subsidy"),
+        t("end_debt"),
+      ],
+      styles: ["font-bold text-center bg-gray-300"],
+      data: getDataForWaterTab<ArchiveItemT>(
+        archivData,
+        RentDataArchiveEnum,
+        () => true
+      ),
+    },
+    {
+      label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: ["font-bold text-center bg-gray-300"],
