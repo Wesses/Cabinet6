@@ -109,7 +109,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 max-w-3xl mx-auto pb-10 "
+          className="space-y-8 max-w-3xl mx-auto pb-10"
         >
           <FormField
             control={form.control}
@@ -134,7 +134,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
             )}
           />
           <Button
-            className="w-full disabled:bg-green-600"
+            className="w-full disabled:bg-gray-600"
             type="submit"
             disabled={isLoading || !form.formState.isValid}
           >

@@ -5,6 +5,7 @@ import {
   ArchiveItemT,
   getAbonentCardT,
   OplataItemT,
+  SEARCH_PARAM_TAB_KEY,
   TabsNamesT,
 } from "@/types";
 import { getAbonentCardData, getArchivData, getOplataData } from "@/api/api";
@@ -23,17 +24,9 @@ import { useTranslation } from "react-i18next";
 import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/RentDataTab";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
-const SEARCH_PARAM_TAB_KEY = "tab";
+import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
@@ -218,27 +211,15 @@ const CabinetPage = () => {
                 </div>
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
+            <PrintInvoiceForm />
           </AlertDialog>
         </div>
 
         {isLoading && (
           <div className="w-full md:min-w-[700px] h-full">
-            <Skeleton className="md:w-1/2 w-full h-[40px] mb-2 bg-slate-300" />
-            <Skeleton className="w-full md:w-1/2 h-[300px] mb-2 bg-slate-300" />
-            <Skeleton className="md:w-1/2 w-full h-[100px] bg-slate-300" />
+            <Skeleton className="md:w-3/4 w-full h-[40px] mb-2 bg-slate-300" />
+            <Skeleton className="w-full md:w-3/4 h-[300px] mb-2 bg-slate-300" />
+            <Skeleton className="md:w-3/4 w-full h-[100px] bg-slate-300" />
           </div>
         )}
 

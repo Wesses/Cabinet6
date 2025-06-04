@@ -12,6 +12,7 @@ const personalacconts = "/api/Personalacconts";
 const abonentCard = "/api/AbonentCard";
 const archiv = "/api/Arhiv";
 const oplata = "/api/Oplata";
+const invoice = "/api/Invoice";
 const baseName = import.meta.env.BASE_URL;
 
 axios.interceptors.response.use(
@@ -222,6 +223,46 @@ export const getOplataData = async (PersonalaccontsId: number) => {
     }
 
     return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const getInvoiceBlob = async (
+  PersonalaccontsId: number,
+  utilityService: string,
+  useCurrentMonth: boolean
+) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(
+      invoice +
+        "/" +
+        PersonalaccontsId +
+        "/" +
+        utilityService +
+        "/" +
+        +useCurrentMonth,
+      {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+        responseType: "blob",
+      }
+    );
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    const disposition = response.headers["content-disposition"];
+    const fileNameMatch = disposition?.match(/filename="?(.+?)"?$/);
+    const fileName = fileNameMatch?.[1] || "invoice.pdf";
+
+    return { blob: response.data, fileName };
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
 

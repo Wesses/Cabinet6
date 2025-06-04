@@ -53,9 +53,9 @@ const DeleteInvoiceButton = ({
         side="bottom"
         className="flex flex-col items-center px-4 gap-y-2 w-full"
       >
-        <p className="sm:text-xl text-base">
+        <p className="text-base">
           {t("button_delete_invoice_2") + " "}
-          <span className="text-orange-600 sm:text-2xl text-lg">
+          <span className="text-orange-600 sm:text-xl text-lg">
             {invoiceNum}
           </span>
           ?
@@ -65,13 +65,13 @@ const DeleteInvoiceButton = ({
             className="bg-green-400 hover:bg-green-800"
             onClick={handleChekPopover}
           >
-            <CheckIcon className="sm:size-8 size-5" />
+            <CheckIcon className="sm:size-6 size-5" />
           </Button>
           <Button
             className="bg-red-400 hover:bg-red-800"
             onClick={handleXPopover}
           >
-            <XIcon className="sm:size-8 size-5" />
+            <XIcon className="sm:size-6 size-5" />
           </Button>
         </div>
       </PopoverContent>

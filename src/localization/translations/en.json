@@ -129,5 +129,6 @@
   "manager_fee": "Manager’s fee (UAH)",
   "reserve_fund": "Reserve fund (UAH)",
   "total_payment_due": "Current rent rate (UAH/m²)",
-  "print_account": "Invoice printing"
+  "print_account": "Invoice printing",
+  "required": "Required"
 }

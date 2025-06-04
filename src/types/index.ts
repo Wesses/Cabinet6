@@ -200,6 +200,8 @@ export enum TabsNamesT {
   Rent_data = "rent-data",
 };
 
+export const SEARCH_PARAM_TAB_KEY = "tab";
+
 export interface ArchiveItemT {
   idx: number;
   mes: string;
