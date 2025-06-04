@@ -130,5 +130,12 @@
   "reserve_fund": "Reserve fund (UAH)",
   "total_payment_due": "Current rent rate (UAH/m²)",
   "print_account": "Invoice printing",
-  "required": "Required"
+  "required": "Required",
+  "downloading": "Downloading...",
+  "print_invoice": "Print Invoice",
+  "choose_month_to_create": "Choose a month to generate the account",
+  "month": "Month",
+  "prev_month": "Previous Month",
+  "cur_month": "Current Month",
+  "download": "Download"
 }

@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 import { UserProvider } from "./contexts/UserProvider";
 import { history } from './utils/history';
 
-const TABLET_SCREEN_WIDTH = 768
+const TABLET_SCREEN_WIDTH = 640;
 
 function App() {
   const { pathname } = useLocation();

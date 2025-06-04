@@ -233,7 +233,7 @@ export const getOplataData = async (PersonalaccontsId: number) => {
 export const getInvoiceBlob = async (
   PersonalaccontsId: number,
   utilityService: string,
-  useCurrentMonth: boolean
+  useCurrentMonth: number
 ) => {
   const token = getToken();
 

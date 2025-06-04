@@ -130,5 +130,12 @@
   "reserve_fund": "Резервный фонд (грн)",
   "total_payment_due": "Текущий тариф на квартплату (грн./м²)",
   "print_account": "Печать счета",
-  "required": "Обязательно"
+  "required": "Обязательно",
+  "downloading": "Загрузка...",
+  "print_invoice": "Печать счёта",
+  "choose_month_to_create": "Выберите месяц для создания лицевого счёта",
+  "month": "Месяц",
+  "prev_month": "Предыдущий месяц",
+  "cur_month": "Текущий месяц",
+  "download": "Скачать"
 }

@@ -200,6 +200,14 @@ export enum TabsNamesT {
   Rent_data = "rent-data",
 };
 
+export const TabsNamesValues: Record<TabsNamesT, string> = {
+  [TabsNamesT.Invoice_data]: "",
+  [TabsNamesT.Water_supply]: "ВОДА",
+  [TabsNamesT.Water_supply_fee]: "ВОДА",
+  [TabsNamesT.Water_supply_drainage]: "ВОДА",
+  [TabsNamesT.Rent_data]: "КВАРТПЛАТА",
+};
+
 export const SEARCH_PARAM_TAB_KEY = "tab";
 
 export interface ArchiveItemT {

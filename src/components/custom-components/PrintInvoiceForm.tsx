@@ -21,17 +21,23 @@ import {
 } from "../ui/alert-dialog";
 import { showCustomToast } from "@/utils/showCustomComponent";
 import { XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { useTranslation } from "react-i18next";
-import { getInvoiceBlob } from '@/api/api';
-import { useSearchParams } from 'react-router-dom';
-import { SEARCH_PARAM_TAB_KEY } from '@/types';
+import { getInvoiceBlob } from "@/api/api";
+import { useParams, useSearchParams } from "react-router-dom";
+import { SEARCH_PARAM_TAB_KEY, TabsNamesT, TabsNamesValues } from "@/types";
 
-export default function PrintInvoiceForm() {
+type Props = {
+  open: boolean;
+  onClose: () => void;
+};
+
+export default function PrintInvoiceForm({ open, onClose }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const { id } = useParams();
 
   const formSchema = z.object({
     month: z.string({
@@ -47,12 +53,18 @@ export default function PrintInvoiceForm() {
     setIsLoading(true);
 
     try {
-      const PersonalaccontsId = searchParams.get(SEARCH_PARAM_TAB_KEY) ?? 0;
+      const currentTab = searchParams.get(SEARCH_PARAM_TAB_KEY);
+
+      if (!currentTab || !id) {
+        showCustomToast(t("error_refresh"), "bg-red-300");
+
+        return;
+      }
 
       const { blob, fileName } = await getInvoiceBlob(
-        +PersonalaccontsId,
-        "electricity",
-        true
+        +id,
+        TabsNamesValues[currentTab as TabsNamesT],
+        +values.month
       );
 
       const url = window.URL.createObjectURL(blob);
@@ -65,15 +77,20 @@ export default function PrintInvoiceForm() {
       link.remove();
       window.URL.revokeObjectURL(url);
 
-      console.log(values);
-      showCustomToast("Завантаження...", "bg-yellow-300");
-    } catch (error) {
-      console.error("Form submission error", error);
-      showCustomToast("Помилка", "bg-red-300");
+      showCustomToast(t("downloading"), "bg-green-400");
+      onClose();
+    } catch {
+      showCustomToast(t("toast_error_try_later"), "bg-red-300");
     } finally {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (open) {
+      form.reset();
+    }
+  }, [open]);
 
   return (
     <AlertDialogContent>
@@ -84,10 +101,10 @@ export default function PrintInvoiceForm() {
           </AlertDialogCancel>
         </div>
         <AlertDialogTitle className="text-left p-none">
-          Друк рахунку
+          {t("print_invoice")}
         </AlertDialogTitle>
         <AlertDialogDescription className="text-left p-none">
-          Оберіть місяць, для створення особового рахунку
+          {t("choose_month_to_create")}
         </AlertDialogDescription>
       </AlertDialogHeader>
       <Form {...form}>
@@ -97,15 +114,15 @@ export default function PrintInvoiceForm() {
             name="month"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel>Місяць</FormLabel>
+                <FormLabel>{t("month")}</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
                     className="flex flex-col space-y-1"
                   >
                     {[
-                      ["Попередній місяць", "false"],
-                      ["Поточний місяць", "true"],
+                      [t("prev_month"), "0"],
+                      [t("cur_month"), "1"],
                     ].map((option, index) => (
                       <FormItem
                         className="flex items-center space-x-3 space-y-0"
@@ -135,7 +152,7 @@ export default function PrintInvoiceForm() {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : t("send")}
+            {isLoading ? <Spinner /> : t("download")}
           </Button>
         </form>
       </Form>

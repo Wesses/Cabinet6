@@ -22,10 +22,7 @@ import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
 import { useTranslation } from "react-i18next";
 import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/RentDataTab";
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
 
 const CabinetPage = () => {
@@ -39,6 +36,7 @@ const CabinetPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setIsError(false);
@@ -198,7 +196,12 @@ const CabinetPage = () => {
             <Skeleton className="h-8 bg-slate-300 sm:w-[153px] w-[56px]" />
           )}
 
-          <AlertDialog>
+          <AlertDialog
+            open={open}
+            onOpenChange={(isOpen) => {
+              setOpen(isOpen);
+            }}
+          >
             <AlertDialogTrigger asChild>
               <Button
                 className={cn("h-8 hidden", {
@@ -211,7 +214,7 @@ const CabinetPage = () => {
                 </div>
               </Button>
             </AlertDialogTrigger>
-            <PrintInvoiceForm />
+            <PrintInvoiceForm onClose={() => setOpen(false)} open={open} />
           </AlertDialog>
         </div>
 
