@@ -20,7 +20,7 @@ import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
 import { UserContext } from "@/contexts/UserContext";
 import { useTranslation } from "react-i18next";
-import { CURRENT_PAGE_PARAM_KEY } from '@/utils/constants';
+import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const LoginForm = () => {
     username: z.string().min(2, {
       message: t("form_error_username_length"),
     }),
-  
+
     password: z.string().min(2, {
       message: t("form_error_password_length"),
     }),
@@ -55,7 +55,20 @@ const LoginForm = () => {
         handleSetUsername(values.username);
         navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e !== 401) {
+          form.setError("username", {
+            type: "500",
+            message: t("toast_error_try_later"),
+          });
+          form.setError("password", {
+            type: "500",
+            message: t("toast_error_try_later"),
+          });
+
+          return;
+        }    
+
         form.setError("username", {
           type: "401",
           message: t("form_error_login_or_pass"),
@@ -94,7 +107,9 @@ const LoginForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_username")}</FormLabel>
+                <FormLabel className="text-black">
+                  {t("form_username")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -121,7 +136,9 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_password")}</FormLabel>
+                <FormLabel className="text-black">
+                  {t("form_password")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}

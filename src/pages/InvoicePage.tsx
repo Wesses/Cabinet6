@@ -232,10 +232,10 @@ const CabinetPage = () => {
         </div>
 
         {isLoading && (
-          <div className="w-full md:min-w-[700px] h-full">
-            <Skeleton className="md:w-1/2 w-full h-[40px] mb-2 bg-slate-300" />
-            <Skeleton className="w-full md:w-1/2 h-[300px] mb-2 bg-slate-300" />
-            <Skeleton className="md:w-1/2 w-full h-[100px] bg-slate-300" />
+          <div className="w-full h-full">
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[40px] mb-2 bg-slate-300" />
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[300px] mb-2 bg-slate-300" />
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[100px] bg-slate-300" />
           </div>
         )}
 

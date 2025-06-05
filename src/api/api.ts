@@ -42,7 +42,7 @@ export const postLoginReq = async (data: object) => {
     return response.data;
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
-    throw e.response?.statusText || "Unknown error";
+    throw e?.response?.status || "Unknown error";
   }
 };
 
@@ -259,8 +259,19 @@ export const getInvoiceBlob = async (
     }
 
     const disposition = response.headers["content-disposition"];
-    const fileNameMatch = disposition?.match(/filename="?(.+?)"?$/);
-    const fileName = fileNameMatch?.[1] || "invoice.pdf";
+    let fileName = "invoice.pdf";
+
+    if (disposition) {
+      let match = disposition.match(/filename\*\s*=\s*UTF-8''([^;]+)/i);
+      if (match && match[1]) {
+        fileName = decodeURIComponent(match[1]);
+      } else {
+        match = disposition.match(/filename\s*=\s*"?([^";]+)"?/i);
+        if (match && match[1]) {
+          fileName = match[1];
+        }
+      }
+    }
 
     return { blob: response.data, fileName };
   } catch (e: any) {
