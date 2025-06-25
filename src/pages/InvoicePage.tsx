@@ -9,7 +9,12 @@ import {
   TabsNamesT,
   WmShowDataT,
 } from "@/types";
-import { getAbonentCardData, getArchivData, getOplataData, getWMShowData } from "@/api/api";
+import {
+  getAbonentCardData,
+  getArchivData,
+  getOplataData,
+  getWMShowData,
+} from "@/api/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import InvoiceDataTab from "@/components/custom-components/InvoiceServicesTabs/InvoiceDataTab";
@@ -17,7 +22,11 @@ import WaterSupplyTab from "@/components/custom-components/InvoiceServicesTabs/W
 import WaterSupplyAbplPodachaTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplPodachaTab";
 import WaterSupplyAbplStokiTab from "@/components/custom-components/InvoiceServicesTabs/WaterSupplyAbplStokiTab";
 import { useSearchParams } from "react-router-dom";
-import { CURRENT_PAGE_PARAM_KEY, SEARCH_PARAM_TAB_KEY, TabsNamesValues } from "@/utils/constants";
+import {
+  CURRENT_PAGE_PARAM_KEY,
+  SEARCH_PARAM_TAB_KEY,
+  TabsNamesValues,
+} from "@/utils/constants";
 import { ArrowLeftToLine, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ErrorBlock from "@/components/custom-components/ErrorBlock";
@@ -56,13 +65,18 @@ const CabinetPage = () => {
               getArchivData(+id),
               getOplataData(+id),
             ]);
+          if (
+            abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo &&
+            abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo > 0
+          ) {
+            const wMShowData = await getWMShowData(+id);
+
+            setWmShowData(wMShowData);
+          }
+
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
-
-          if (abonentCardData?.voda?.vodaAbSchetchikiKolvo && abonentCardData?.voda?.vodaAbSchetchikiKolvo > 0) {
-            setWmShowData(await getWMShowData(+id));
-          }
         } catch {
           setIsError(true);
         } finally {
@@ -76,9 +90,11 @@ const CabinetPage = () => {
     () =>
       abonentCardData
         ? abonentCardData.services.includes(ServicesValuesT.water) &&
-          Boolean(abonentCardData?.voda?.vodaPodacha ||
-            abonentCardData?.voda?.vodaStoki ||
-            abonentCardData?.voda?.vodaPoliv)
+          Boolean(
+            abonentCardData?.voda?.vodaPodacha ||
+              abonentCardData?.voda?.vodaStoki ||
+              abonentCardData?.voda?.vodaPoliv
+          )
         : false,
     [abonentCardData]
   );
@@ -96,7 +112,9 @@ const CabinetPage = () => {
 
   const isRentData = useMemo(
     () =>
-      abonentCardData ? abonentCardData.services.includes(ServicesValuesT.rent) : false,
+      abonentCardData
+        ? abonentCardData.services.includes(ServicesValuesT.rent)
+        : false,
     [abonentCardData]
   );
 
@@ -172,17 +190,21 @@ const CabinetPage = () => {
     },
   ];
 
-  const getCurrentTabsServices = (tabListParams: {
-    value: TabsNamesT;
-    label: string;
-    condition: boolean;
-    tab_component: JSX.Element;
-}[]) => {
-  const allSrvices = tabListParams.filter(({condition}) => condition).map(({ value }) => TabsNamesValues[value])
-  const existingUniqueServices = [...new Set(allSrvices)];
+  const getCurrentTabsServices = (
+    tabListParams: {
+      value: TabsNamesT;
+      label: string;
+      condition: boolean;
+      tab_component: JSX.Element;
+    }[]
+  ) => {
+    const allSrvices = tabListParams
+      .filter(({ condition }) => condition)
+      .map(({ value }) => TabsNamesValues[value]);
+    const existingUniqueServices = [...new Set(allSrvices)];
 
-  return existingUniqueServices;
-};
+    return existingUniqueServices;
+  };
 
   const hadnleBackToCabinet = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
@@ -234,7 +256,11 @@ const CabinetPage = () => {
                 </div>
               </Button>
             </AlertDialogTrigger>
-            <PrintInvoiceForm onClose={() => setOpen(false)} open={open} currentServices={getCurrentTabsServices(tabListParams)} />
+            <PrintInvoiceForm
+              onClose={() => setOpen(false)}
+              open={open}
+              currentServices={getCurrentTabsServices(tabListParams)}
+            />
           </AlertDialog>
         </div>
 
