@@ -404,3 +404,14 @@ export const kvartplataObj = {
   tsenaUprav: 0,
   tsenaRezerv: 0,
 };
+
+export interface WmShowDataT {
+  data: string;
+  tipVm: string;
+  vmPokaz: string;
+  doc: string;
+  startDate: string;
+  endDate: string;
+  errorCode: number;
+  errorMsg: string;
+};

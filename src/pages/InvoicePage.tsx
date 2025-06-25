@@ -7,8 +7,9 @@ import {
   OplataItemT,
   ServicesValuesT,
   TabsNamesT,
+  WmShowDataT,
 } from "@/types";
-import { getAbonentCardData, getArchivData, getOplataData } from "@/api/api";
+import { getAbonentCardData, getArchivData, getOplataData, getWMShowData } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import InvoiceDataTab from "@/components/custom-components/InvoiceServicesTabs/InvoiceDataTab";
@@ -30,6 +31,7 @@ const CabinetPage = () => {
     useState<getAbonentCardT | null>(null);
   const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
   const [rentOplataData, setRentOplata] = useState<OplataItemT[]>([]);
+  const [wmShowData, setWmShowData] = useState<WmShowDataT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id } = useParams();
@@ -57,6 +59,10 @@ const CabinetPage = () => {
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
+
+          if (abonentCardData?.voda?.vodaAbSchetchikiKolvo && abonentCardData?.voda?.vodaAbSchetchikiKolvo > 0) {
+            setWmShowData(await getWMShowData(+id));
+          }
         } catch {
           setIsError(true);
         } finally {
@@ -118,6 +124,7 @@ const CabinetPage = () => {
           waterSupplyData={abonentCardData?.voda}
           archivData={archivData}
           rentOplataData={rentOplataData}
+          wmShowData={wmShowData}
         />
       ),
     },

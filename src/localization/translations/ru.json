@@ -144,5 +144,10 @@
   "select_service_description": "Выберите, по какой услуге вам нужен счёт.",
   "select_month_description": "Выберите, за какой месяц вам нужен счёт.",
   "all_services": "По всем услугам",
-  "water": "Вода"
+  "water": "Вода",
+  "watermeters_count": "Количество водомеров",
+  "indications_date": "Дата показаний",
+  "watermeter_type": "Тип водомера",
+  "indications": "Показания",
+  "description": "Описание"
 }

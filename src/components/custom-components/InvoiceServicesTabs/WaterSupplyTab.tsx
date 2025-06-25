@@ -3,6 +3,7 @@ import {
   OplataItemT,
   WaterSupplyDataT,
   WaterSupplyRentEnum,
+  WmShowDataT,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccardionForWaterTabs from "./AccardionForWaterTabs";
@@ -20,16 +21,25 @@ enum WaterSupplyArchiveEnum {
   saldoKVoda = "saldoKVoda",
 }
 
+enum WaterSupplyWmShowEnum {
+  data = "data",
+  tipVm = "tipVm",
+  vmPokaz = "vmPokaz",
+  doc = "doc",
+}
+
 type Props = {
   waterSupplyData: WaterSupplyDataT | undefined;
   archivData: ArchiveItemT[];
   rentOplataData: OplataItemT[];
+  wmShowData: WmShowDataT[];
 };
 
 function WaterSupplyTab({
   waterSupplyData,
   archivData,
   rentOplataData,
+  wmShowData,
 }: Props) {
   const { t } = useTranslation();
 
@@ -74,9 +84,7 @@ function WaterSupplyTab({
         t("subsidy"),
         t("end_debt"),
       ],
-      styles: [
-        "font-bold text-center bg-gray-300",
-      ],
+      styles: ["font-bold text-center bg-gray-300"],
       data: getDataForWaterTab<ArchiveItemT>(
         archivData,
         WaterSupplyArchiveEnum,
@@ -87,14 +95,24 @@ function WaterSupplyTab({
       label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
-      styles: [
-        "font-bold text-center bg-gray-300",
-      ],
+      styles: ["font-bold text-center bg-gray-300"],
       data: getDataForWaterTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda],
+        [WaterSupplyRentEnum.dataPerevoda]
+      ),
+    },
+    {
+      label: t("watermeters_count"),
+      accordValue: "wmshow",
+      heads: [t("indications_date"), t("watermeter_type"), t("indications"), t("description")],
+      styles: ["font-bold text-center bg-gray-300", "capitalize"],
+      data: getDataForWaterTab<WmShowDataT>(
+        wmShowData,
+        WaterSupplyWmShowEnum,
+        () => true,
+        [WaterSupplyWmShowEnum.data]
       ),
     },
   ];
