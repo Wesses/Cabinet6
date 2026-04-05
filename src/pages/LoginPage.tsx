@@ -20,7 +20,8 @@ import Cookies from "js-cookie";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "@/components/custom-components/LocaleButton";
 import { useTranslation } from "react-i18next";
-import { CURRENT_PAGE_PARAM_KEY } from '@/utils/constants';
+import { CURRENT_PAGE_PARAM_KEY, izmteploTag } from "@/utils/constants";
+import PaymentGif from "@/components/custom-components/izmteploComponents/PaymentGif";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -53,26 +54,26 @@ export const LoginPage = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
       <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-zinc-900 rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
-        <div className="absolute text-white z-10 top-4 left-4 flex lg:flex-col flex-row gap-y-2 gap-x-8 lg:gap-x-0 items-center lg:items-baseline">
+        <div className="absolute z-10 flex flex-row items-center text-white top-0 left-0 right-0 px-4 pt-4 pb-2 bg-zinc-900 lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
             <>
               {organizationData ? (
                 <>
-                  <h1 className="text-2xl xl:text-3xl font-bold">
-                    {organizationData.name}
+                  <h1 className="text-2xl font-bold xl:text-3xl">
+                    {organizationData.name ?? "-"}
                   </h1>
                   <p className="hidden sm:block">
-                    {organizationData.description +
+                    {(organizationData.description ?? "-") +
                       t("address_label") +
                       " " +
-                      organizationData.contactAddress}
+                      (organizationData.contactAddress ?? "-")}
                   </p>
                   <p>
                     {t("phone_number_label") +
                       " " +
-                      organizationData.contactPhone}
+                      (organizationData.contactPhone ?? "-")}
                   </p>
                 </>
               ) : (
@@ -85,37 +86,42 @@ export const LoginPage = () => {
             </>
           )}
         </div>
+        {import.meta.env.VITE_ALIAS === izmteploTag ? (
+          <PaymentGif />
+        ) : (
+          <>
+            <div className="absolute flex justify-center w-full lg:hidden bottom-4">
+              <Drawer>
+                <DrawerTrigger className="w-full" asChild>
+                  <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
+                    {t("news")}
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent className="h-full rounded-none">
+                  <DrawerHeader>
+                    <DrawerTitle>{t("news")}</DrawerTitle>
+                  </DrawerHeader>
+                  <NewsList />
+                  <DrawerFooter>
+                    <DrawerClose asChild className="flex justify-center">
+                      <div>
+                        <Button>{t("close")}</Button>
+                      </div>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+            </div>
 
-        <div className="lg:hidden absolute bottom-4 w-full flex justify-center">
-          <Drawer>
-            <DrawerTrigger className="w-full" asChild>
-                <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
-                  {t("news")}
-                </Button>
-            </DrawerTrigger>
-            <DrawerContent className="h-full rounded-none">
-              <DrawerHeader>
-                <DrawerTitle>{t("news")}</DrawerTitle>
-              </DrawerHeader>
-                <NewsList />
-              <DrawerFooter>
-                <DrawerClose asChild className="flex justify-center">
-                  <div>
-                    <Button>{t("close")}</Button>
-                  </div>
-                </DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </div>
-
-        <div className="lg:block hidden h-full">
-          <NewsList />
-        </div>
+            <div className="hidden h-full lg:block">
+              <NewsList />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">
-        <div className="absolute top-4 right-4 flex flex-row items-center">
+        <div className="absolute flex flex-row items-center top-4 right-4">
           <LocaleButton isLabel={true} />
 
           <Button

@@ -39,3 +39,5 @@ export const TabsNamesValues: Record<TabsNamesT, ServicesValuesT> = {
 };
 
 export const SEARCH_PARAM_TAB_KEY = "tab";
+
+export const izmteploTag = "izmteplo";
