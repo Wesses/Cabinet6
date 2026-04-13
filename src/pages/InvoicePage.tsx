@@ -89,7 +89,7 @@ const CabinetPage = () => {
   const isWaterSupply = useMemo(
     () =>
       abonentCardData
-        ? abonentCardData.services.includes(ServicesValuesT.water) &&
+        ? abonentCardData?.services?.includes(ServicesValuesT.water) &&
           Boolean(
             abonentCardData?.voda?.vodaPodacha ||
               abonentCardData?.voda?.vodaStoki ||
@@ -101,19 +101,19 @@ const CabinetPage = () => {
 
   const isWaterSupplyFee = useMemo(
     () =>
-      isWaterSupply && abonentCardData?.vodaAbplPodacha.vodaAbplPodacha === 1,
+      isWaterSupply && abonentCardData?.vodaAbplPodacha?.vodaAbplPodacha === 1,
     [abonentCardData]
   );
 
   const isWaterSupplyDrainage = useMemo(
-    () => isWaterSupply && abonentCardData?.vodaAbplStoki.vodaAbplStoki === 1,
+    () => isWaterSupply && abonentCardData?.vodaAbplStoki?.vodaAbplStoki === 1,
     [abonentCardData]
   );
 
   const isRentData = useMemo(
     () =>
       abonentCardData
-        ? abonentCardData.services.includes(ServicesValuesT.rent)
+        ? abonentCardData?.services?.includes(ServicesValuesT.rent)
         : false,
     [abonentCardData]
   );
@@ -213,7 +213,7 @@ const CabinetPage = () => {
   const isContent = !isLoading && !isError;
 
   return (
-    <div className="px-5 py-2 flex-1 h-full w-full">
+    <div className="flex-1 w-full h-full px-5 py-2">
       <div
         className={cn(
           {
@@ -223,14 +223,14 @@ const CabinetPage = () => {
           "flex flex-col gap-y-2 h-fit"
         )}
       >
-        <div className="flex items-center justify-start gap-x-2 w-full">
+        <div className="flex items-center justify-start w-full gap-x-2">
           <Button
-            className="bg-gray-300 hover:bg-gray-500 text-zinc-900 transition-all duration-300 rounded-md h-8"
+            className="h-8 transition-all duration-300 bg-gray-300 rounded-md hover:bg-gray-500 text-zinc-900"
             onClick={hadnleBackToCabinet}
           >
-            <div className="flex w-full justify-start items-center gap-x-2">
+            <div className="flex items-center justify-start w-full gap-x-2">
               <ArrowLeftToLine />
-              <p className="sm:block hidden">{t("back_to_list")}</p>
+              <p className="hidden sm:block">{t("back_to_list")}</p>
             </div>
           </Button>
 
@@ -250,9 +250,9 @@ const CabinetPage = () => {
                   "flex items-center justify-center": isContent,
                 })}
               >
-                <div className="flex w-full justify-start items-center gap-x-2">
+                <div className="flex items-center justify-start w-full gap-x-2">
                   <Printer />
-                  <p className="sm:block hidden">{t("print_account")}</p>
+                  <p className="hidden sm:block">{t("print_account")}</p>
                 </div>
               </Button>
             </AlertDialogTrigger>

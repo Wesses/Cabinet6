@@ -6,7 +6,7 @@ import {
   WmShowDataT,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
-import AccardionForWaterTabs from "./AccardionForWaterTabs";
+import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
 import { WATER_SUPPLY_TAG_VALUES } from "@/utils/constants";
@@ -52,7 +52,7 @@ function WaterSupplyTab({
     if (rowData.vodaPodacha) {
       cookedData.push(
         [t("vodaAbSchetchikiKolvo"), rowData.vodaAbSchetchikiKolvo],
-        [t("tsenaPodacha"), rowData.tsenaPodacha]
+        [t("tsenaPodacha"), rowData.tsenaPodacha],
       );
     }
 
@@ -64,7 +64,7 @@ function WaterSupplyTab({
       cookedData.push(
         [t("polivSchetchikiKolvo"), rowData.polivSchetchikiKolvo],
         [t("ploshadPolivaM2"), rowData.ploshadPolivaM2],
-        [t("tsenaPoliv"), rowData.tsenaPoliv]
+        [t("tsenaPoliv"), rowData.tsenaPoliv],
       );
     }
 
@@ -88,7 +88,7 @@ function WaterSupplyTab({
       data: getDataForWaterTab<ArchiveItemT>(
         archivData,
         WaterSupplyArchiveEnum,
-        () => true
+        () => true,
       ),
     },
     {
@@ -100,19 +100,24 @@ function WaterSupplyTab({
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda]
+        [WaterSupplyRentEnum.dataPerevoda],
       ),
     },
     {
       label: t("watermeters_count"),
       accordValue: "wmshow",
-      heads: [t("indications_date"), t("watermeter_type"), t("indications"), t("description")],
+      heads: [
+        t("indications_date"),
+        t("watermeter_type"),
+        t("indications"),
+        t("description"),
+      ],
       styles: ["font-bold text-center bg-gray-300", "capitalize"],
       data: getDataForWaterTab<WmShowDataT>(
         wmShowData,
         WaterSupplyWmShowEnum,
         () => true,
-        [WaterSupplyWmShowEnum.data]
+        [WaterSupplyWmShowEnum.data],
       ),
     },
   ];
@@ -121,7 +126,7 @@ function WaterSupplyTab({
     <div className="flex flex-col gap-y-2">
       <SimpleTable data={getWaterSupplyData(waterSupplyData)} />
 
-      <AccardionForWaterTabs accordionData={accordionData} />
+      <AccordionForTabs accordionData={accordionData} />
     </div>
   );
 }

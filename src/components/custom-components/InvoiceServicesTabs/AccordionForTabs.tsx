@@ -19,7 +19,7 @@ type Props = {
   }[];
 };
 
-const AccardionForWaterTabs = ({ accordionData }: Props) => {
+const AccordionForTabs = ({ accordionData }: Props) => {
   return (
     <Accordion
       type="single"
@@ -44,4 +44,4 @@ const AccardionForWaterTabs = ({ accordionData }: Props) => {
   );
 };
 
-export default AccardionForWaterTabs;
+export default AccordionForTabs;

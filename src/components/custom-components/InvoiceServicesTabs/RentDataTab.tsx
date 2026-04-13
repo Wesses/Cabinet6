@@ -4,7 +4,7 @@ import {
   OplataItemT,
   WaterSupplyRentEnum,
 } from "@/types";
-import AccardionForWaterTabs from "./AccardionForWaterTabs";
+import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
 import { KVARTPLATA_TAG_VALUES } from "@/utils/constants";
@@ -61,14 +61,14 @@ type Props = {
 
 const getKvartplataData = (
   kvartplata: KvartplataT | undefined,
-  rentHeads: Record<string, string>
+  rentHeads: Record<string, string>,
 ) => {
   if (!kvartplata?.kvplata || !kvartplata) {
     return [];
   }
 
   const validKeys = Object.entries(
-    tsenaToKvplataMap
+    tsenaToKvplataMap,
   ) as (keyof KvartplataT)[][];
 
   return validKeys
@@ -122,7 +122,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
       data: getDataForWaterTab<ArchiveItemT>(
         archivData,
         RentDataArchiveEnum,
-        () => true
+        () => true,
       ),
     },
     {
@@ -134,7 +134,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => KVARTPLATA_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda]
+        [WaterSupplyRentEnum.dataPerevoda],
       ),
     },
   ];
@@ -142,7 +142,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
   const kvartptalaValidData = getKvartplataData(kvartplata, RentHeads);
   const rentSum = kvartptalaValidData.reduce(
     (acc, [, value]) => acc + +value,
-    0
+    0,
   );
 
   return (
@@ -165,7 +165,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
         </AccordionItem>
       </Accordion>
 
-      <AccardionForWaterTabs accordionData={accordionData} />
+      <AccordionForTabs accordionData={accordionData} />
     </div>
   );
 };

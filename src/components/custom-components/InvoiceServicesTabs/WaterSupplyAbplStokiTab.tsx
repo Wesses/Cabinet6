@@ -5,7 +5,7 @@ import {
   WaterSupplyRentEnum,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
-import AccardionForWaterTabs from "./AccardionForWaterTabs";
+import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
 import { WATER_SUPPLY_STOKI_TAG_VALUES } from "@/utils/constants";
@@ -50,22 +50,18 @@ function WaterSupplyAbplStokiTab({
         t("subsidy"),
         t("end_debt"),
       ],
-      styles: [
-        "font-bold text-center bg-gray-300",
-      ],
+      styles: ["font-bold text-center bg-gray-300"],
       data: getDataForWaterTab<ArchiveItemT>(
         archivData,
         WaterSupplyAbplStokiEnum,
-        () => true
+        () => true,
       ),
     },
     {
       label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
-      styles: [
-        "font-bold text-center bg-gray-300",
-      ],
+      styles: ["font-bold text-center bg-gray-300"],
       data: getDataForWaterTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
@@ -79,7 +75,7 @@ function WaterSupplyAbplStokiTab({
     <div className="flex flex-col gap-y-2">
       <SimpleTable data={waterSupplyAbplPodachaCookedData} />
 
-      <AccardionForWaterTabs accordionData={accordionData} />
+      <AccordionForTabs accordionData={accordionData} />
     </div>
   );
 }

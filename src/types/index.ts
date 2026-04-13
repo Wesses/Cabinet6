@@ -147,7 +147,31 @@ export interface getAbonentCardT {
     saldoNachVodaAbplStoki: number;
     nAbplStokiTarifa: string;
   };
+  
   kvartplata: KvartplataT;
+
+  teploOtop: {
+    otoplenie: number;
+    otopObsluga: number;
+    ploshadOtopM2: number;
+    otopMop: number;
+    otopMopGkZaMes: number;
+    saldoNachOtop: number;
+    nOtoplenieTarifa: string;
+    tsenaGigaKal: number;
+    tarifOtopGrnM2: number;
+    tarifObslugaGrnM2: number;
+    otopRaspredProc: number;
+    teploschetId: number;
+    nTeploschet: string;
+    individ: number;
+  };
+  otopAbpl: {
+    otopAbpl: number;
+    otopAbplTsenaGrn: number;
+    saldoNachOtopAbpl: number;
+    nOtopAbplTarifa: string;
+  };
 };
 
 export type AbonentInvoiceInfoT = Partial<
