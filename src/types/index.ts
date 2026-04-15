@@ -218,6 +218,7 @@ export type VodaAbplStokiDataT = Partial<
 
 export enum TabsNamesT {
   Invoice_data = "invoice-data",
+  Heating_supply = "heating-supply",
   Water_supply = "water-supply",
   Water_supply_fee = "water-supply-fee",
   Water_supply_drainage = "water-supply-drainage",
@@ -227,6 +228,7 @@ export enum TabsNamesT {
 export enum ServicesValuesT {
   invoice = "ALL",
   water = "ВОДА",
+  heating = "ОПАЛЕННЯ",
   rent = "КВАРТПЛАТА"
 }
 

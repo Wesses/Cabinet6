@@ -34,6 +34,7 @@ import { useTranslation } from "react-i18next";
 import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/RentDataTab";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
+import HeatingSupplyTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyTab";
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
@@ -65,6 +66,7 @@ const CabinetPage = () => {
               getArchivData(+id),
               getOplataData(+id),
             ]);
+
           if (
             abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo &&
             abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo > 0
@@ -88,34 +90,34 @@ const CabinetPage = () => {
 
   const isWaterSupply = useMemo(
     () =>
-      abonentCardData
-        ? abonentCardData?.services?.includes(ServicesValuesT.water) &&
-          Boolean(
-            abonentCardData?.voda?.vodaPodacha ||
-              abonentCardData?.voda?.vodaStoki ||
-              abonentCardData?.voda?.vodaPoliv
-          )
-        : false,
-    [abonentCardData]
+      !!abonentCardData?.services?.includes(ServicesValuesT.water) &&
+      Boolean(
+        abonentCardData?.voda?.vodaPodacha ||
+        abonentCardData?.voda?.vodaStoki ||
+        abonentCardData?.voda?.vodaPoliv,
+      ),
+    [abonentCardData],
   );
 
   const isWaterSupplyFee = useMemo(
     () =>
       isWaterSupply && abonentCardData?.vodaAbplPodacha?.vodaAbplPodacha === 1,
-    [abonentCardData]
+    [abonentCardData],
   );
 
   const isWaterSupplyDrainage = useMemo(
     () => isWaterSupply && abonentCardData?.vodaAbplStoki?.vodaAbplStoki === 1,
-    [abonentCardData]
+    [abonentCardData],
+  );
+
+  const isHeatingSupply = useMemo(
+    () => !!abonentCardData?.services?.includes(ServicesValuesT.heating),
+    [abonentCardData],
   );
 
   const isRentData = useMemo(
-    () =>
-      abonentCardData
-        ? abonentCardData?.services?.includes(ServicesValuesT.rent)
-        : false,
-    [abonentCardData]
+    () => !!abonentCardData?.services?.includes(ServicesValuesT.rent),
+    [abonentCardData],
   );
 
   const handlSetSearchParams = (value: string) => {
@@ -133,6 +135,7 @@ const CabinetPage = () => {
         <InvoiceDataTab abonentInvoiceData={{ ...abonentCardData }} />
       ),
     },
+
     {
       value: TabsNamesT.Water_supply,
       label: t("water_supply"),
@@ -153,9 +156,7 @@ const CabinetPage = () => {
       condition: isWaterSupplyFee,
       tab_component: (
         <WaterSupplyAbplPodachaTab
-          waterSupplyAbplPodachaRowData={{
-            ...abonentCardData?.vodaAbplPodacha,
-          }}
+          waterSupplyAbplPodachaRowData={abonentCardData?.vodaAbplPodacha ?? {}}
           archivData={archivData}
           rentOplataData={rentOplataData}
         />
@@ -176,6 +177,14 @@ const CabinetPage = () => {
         />
       ),
     },
+
+    {
+      value: TabsNamesT.Heating_supply,
+      label: t("heating_supply"),
+      condition: isHeatingSupply,
+      tab_component: <HeatingSupplyTab />,
+    },
+
     {
       value: TabsNamesT.Rent_data,
       label: t("rent"),
@@ -196,7 +205,7 @@ const CabinetPage = () => {
       label: string;
       condition: boolean;
       tab_component: JSX.Element;
-    }[]
+    }[],
   ) => {
     const allSrvices = tabListParams
       .filter(({ condition }) => condition)
@@ -220,7 +229,7 @@ const CabinetPage = () => {
             "xl:w-3/4 w-full md:max-w-fit max-w-none": isContent,
             "items-center h-full w-full": isError,
           },
-          "flex flex-col gap-y-2 h-fit"
+          "flex flex-col gap-y-2 h-fit",
         )}
       >
         <div className="flex items-center justify-start w-full gap-x-2">
@@ -291,7 +300,7 @@ const CabinetPage = () => {
                   >
                     {label}
                   </TabsTrigger>
-                ) : null
+                ) : null,
               )}
             </TabsList>
 
@@ -300,7 +309,7 @@ const CabinetPage = () => {
                 <TabsContent key={value} value={value}>
                   {tab_component}
                 </TabsContent>
-              ) : null
+              ) : null,
             )}
           </Tabs>
         )}

@@ -145,9 +145,10 @@
   "select_month_description": "Select which month you need an invoice for.",
   "all_services": "All services",
   "water": "Water",
-  "watermeters_count": "Number of water meters",
+  "watermeters_indicators": "Water meter readings",
   "indications_date": "Reading date",
   "watermeter_type": "Water meter type",
   "indications": "Readings",
-  "description": "Description"
+  "description": "Description",
+  "heating_supply": "Heat supply"
 }

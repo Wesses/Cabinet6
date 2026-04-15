@@ -145,9 +145,10 @@
   "select_month_description": "Оберіть за який місяць вам потрібен рахунок.",
   "all_services": "По всім послугам",
   "water": "Вода",
-  "watermeters_count": "Кількість водомірів",
+  "watermeters_indicators": "Показники водомірів",
   "indications_date": "Дата показників",
   "watermeter_type": "Тип водоміру",
   "indications": "Показники",
-  "description": "Опис"
+  "description": "Опис",
+  "heating_supply": "Теплопостачання"
 }

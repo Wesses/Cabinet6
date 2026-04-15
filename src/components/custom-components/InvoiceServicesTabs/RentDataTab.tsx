@@ -6,7 +6,7 @@ import {
 } from "@/types";
 import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
-import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
+import { getDataForTab } from "@/utils/getValidDataFunctions";
 import { KVARTPLATA_TAG_VALUES } from "@/utils/constants";
 import SimpleTable from "../SimpleTable";
 
@@ -119,7 +119,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
         t("end_debt"),
       ],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<ArchiveItemT>(
+      data: getDataForTab<ArchiveItemT>(
         archivData,
         RentDataArchiveEnum,
         () => true,
@@ -130,7 +130,7 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<OplataItemT>(
+      data: getDataForTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => KVARTPLATA_TAG_VALUES.includes(tag),
@@ -150,11 +150,11 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
       <Accordion
         type="single"
         collapsible
-        className="p-4 border border-muted rounded-xl mb-2"
+        className="p-4 mb-2 border border-muted rounded-xl"
       >
         <AccordionItem value="rent-data">
           <AccordionTrigger>
-            <div className="w-full flex flex-row justify-between pr-2">
+            <div className="flex flex-row justify-between w-full pr-2">
               <p>{t("total_payment_due")}</p>
               {rentSum}
             </div>

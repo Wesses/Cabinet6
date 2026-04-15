@@ -7,7 +7,7 @@ import {
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
-import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
+import { getDataForTab } from "@/utils/getValidDataFunctions";
 import { WATER_SUPPLY_STOKI_TAG_VALUES } from "@/utils/constants";
 
 enum WaterSupplyAbplStokiEnum {
@@ -51,7 +51,7 @@ function WaterSupplyAbplStokiTab({
         t("end_debt"),
       ],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<ArchiveItemT>(
+      data: getDataForTab<ArchiveItemT>(
         archivData,
         WaterSupplyAbplStokiEnum,
         () => true,
@@ -62,7 +62,7 @@ function WaterSupplyAbplStokiTab({
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<OplataItemT>(
+      data: getDataForTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_STOKI_TAG_VALUES.includes(tag),

@@ -8,7 +8,7 @@ import {
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
-import { getDataForWaterTab } from "@/utils/getValidDataFunctions";
+import { getDataForTab } from "@/utils/getValidDataFunctions";
 import { WATER_SUPPLY_TAG_VALUES } from "@/utils/constants";
 
 enum WaterSupplyArchiveEnum {
@@ -85,7 +85,7 @@ function WaterSupplyTab({
         t("end_debt"),
       ],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<ArchiveItemT>(
+      data: getDataForTab<ArchiveItemT>(
         archivData,
         WaterSupplyArchiveEnum,
         () => true,
@@ -96,7 +96,7 @@ function WaterSupplyTab({
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
       styles: ["font-bold text-center bg-gray-300"],
-      data: getDataForWaterTab<OplataItemT>(
+      data: getDataForTab<OplataItemT>(
         rentOplataData,
         WaterSupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
@@ -104,7 +104,7 @@ function WaterSupplyTab({
       ),
     },
     {
-      label: t("watermeters_count"),
+      label: t("watermeters_indicators"),
       accordValue: "wmshow",
       heads: [
         t("indications_date"),
@@ -113,7 +113,7 @@ function WaterSupplyTab({
         t("description"),
       ],
       styles: ["font-bold text-center bg-gray-300", "capitalize"],
-      data: getDataForWaterTab<WmShowDataT>(
+      data: getDataForTab<WmShowDataT>(
         wmShowData,
         WaterSupplyWmShowEnum,
         () => true,

@@ -1,8 +1,8 @@
-export function getDataForWaterTab<T>(
+export function getDataForTab<T>(
   data: T[],
   enumObject: object,
   filterFn: (item: T) => boolean,
-  dateKeys?: (keyof T)[]
+  dateKeys?: (keyof T)[],
 ) {
   const enumKeys = Object.keys(enumObject) as (keyof T)[];
 
