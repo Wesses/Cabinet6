@@ -24,6 +24,7 @@ import WaterSupplyAbplStokiTab from "@/components/custom-components/InvoiceServi
 import { useSearchParams } from "react-router-dom";
 import {
   CURRENT_PAGE_PARAM_KEY,
+  izmteploTag,
   SEARCH_PARAM_TAB_KEY,
   TabsNamesValues,
 } from "@/utils/constants";
@@ -35,6 +36,7 @@ import RentDataTab from "@/components/custom-components/InvoiceServicesTabs/Rent
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
 import HeatingSupplyTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyTab";
+import HeatingSupplyAbplOtopTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyAbplOtopTab";
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
@@ -66,14 +68,12 @@ const CabinetPage = () => {
               getArchivData(+id),
               getOplataData(+id),
             ]);
-
-          if (
-            abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo &&
-            abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo > 0
-          ) {
+            
+          if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo || abonentCardPromiseData?.teploOtop?.teploschetId) {
             const wMShowData = await getWMShowData(+id);
 
             setWmShowData(wMShowData);
+            
           }
 
           setAbonentCardData(abonentCardPromiseData);
@@ -111,12 +111,23 @@ const CabinetPage = () => {
   );
 
   const isHeatingSupply = useMemo(
-    () => !!abonentCardData?.services?.includes(ServicesValuesT.heating),
+    () =>
+      !!abonentCardData?.services?.includes(ServicesValuesT.heating) &&
+      !!abonentCardData?.teploOtop,
+    [abonentCardData],
+  );
+
+    const isHeatingSupplySubscribtionFee = useMemo(
+    () =>
+      !!abonentCardData?.services?.includes(ServicesValuesT.heating) &&
+      !!abonentCardData?.otopAbpl,
     [abonentCardData],
   );
 
   const isRentData = useMemo(
-    () => !!abonentCardData?.services?.includes(ServicesValuesT.rent),
+    () =>
+      !!abonentCardData?.services?.includes(ServicesValuesT.rent) &&
+      !!abonentCardData?.kvartplata,
     [abonentCardData],
   );
 
@@ -182,12 +193,34 @@ const CabinetPage = () => {
       value: TabsNamesT.Heating_supply,
       label: t("heating_supply"),
       condition: isHeatingSupply,
-      tab_component: <HeatingSupplyTab />,
+      tab_component: (
+        <HeatingSupplyTab
+          tableData={abonentCardData?.teploOtop}
+          archivData={archivData}
+          rentOplataData={rentOplataData}
+          wmShowData={wmShowData}
+        />
+      ),
+    },
+
+    {
+      value: TabsNamesT.Heating_supply_subscription_fee,
+      label: t("heating_subscription_fee"),
+      condition: isHeatingSupplySubscribtionFee,
+      tab_component: (
+        <HeatingSupplyAbplOtopTab
+          HeatingSupplyAbplOtop={{
+            ...abonentCardData?.otopAbpl,
+          }}
+          archivData={archivData}
+          rentOplataData={rentOplataData}
+        />
+      ),
     },
 
     {
       value: TabsNamesT.Rent_data,
-      label: t("rent"),
+      label: import.meta.env.VITE_ALIAS === izmteploTag ? t("ovds") : t("rent"),
       condition: isRentData,
       tab_component: (
         <RentDataTab
@@ -290,7 +323,7 @@ const CabinetPage = () => {
               searchParams.get(SEARCH_PARAM_TAB_KEY) || TabsNamesT.Invoice_data
             }
           >
-            <TabsList className="w-full flex justify-start sticky top-[88px] z-10 overflow-x-auto whitespace-nowrap max-w-fit">
+            <TabsList className="w-full flex justify-start sticky top-[108px] z-10 overflow-x-auto whitespace-nowrap max-w-fit">
               {tabListParams.map(({ value, label, condition }) =>
                 condition ? (
                   <TabsTrigger

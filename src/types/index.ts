@@ -82,6 +82,30 @@ export interface KvartplataT {
   tsenaRezerv: number;
 }
 
+export interface TeploOtopT {
+  otoplenie: number;
+  otopObsluga: number;
+  ploshadOtopM2: number;
+  otopMop: number;
+  otopMopGkZaMes: number;
+  saldoNachOtop: number;
+  nOtoplenieTarifa: string;
+  tsenaGigaKal: number;
+  tarifOtopGrnM2: number;
+  tarifObslugaGrnM2: number;
+  otopRaspredProc: number;
+  teploschetId: number;
+  nTeploschet: string;
+  individ: number;
+}
+
+export interface OtopAbplT {
+  otopAbpl: number;
+  otopAbplTsenaGrn: number;
+  saldoNachOtopAbpl: number;
+  nOtopAbplTarifa: string;
+}
+
 export interface getAbonentCardT {
   services: string;
   startDate: Date;
@@ -115,7 +139,7 @@ export interface getAbonentCardT {
         nomPlombi: string;
         snSchet: string;
         dataProvSchet: Date;
-      }
+      },
     ];
     vodaPoliv: number;
     ploshadPolivaM2: number;
@@ -130,7 +154,7 @@ export interface getAbonentCardT {
         nomPlombi: string;
         snSchet: string;
         dataProvSchet: Date;
-      }
+      },
     ];
     vodaDomSchetchikFlag: number;
     saldoNachVoda: number;
@@ -147,32 +171,12 @@ export interface getAbonentCardT {
     saldoNachVodaAbplStoki: number;
     nAbplStokiTarifa: string;
   };
-  
+
   kvartplata: KvartplataT;
 
-  teploOtop: {
-    otoplenie: number;
-    otopObsluga: number;
-    ploshadOtopM2: number;
-    otopMop: number;
-    otopMopGkZaMes: number;
-    saldoNachOtop: number;
-    nOtoplenieTarifa: string;
-    tsenaGigaKal: number;
-    tarifOtopGrnM2: number;
-    tarifObslugaGrnM2: number;
-    otopRaspredProc: number;
-    teploschetId: number;
-    nTeploschet: string;
-    individ: number;
-  };
-  otopAbpl: {
-    otopAbpl: number;
-    otopAbplTsenaGrn: number;
-    saldoNachOtopAbpl: number;
-    nOtopAbplTarifa: string;
-  };
-};
+  teploOtop: TeploOtopT;
+  otopAbpl: OtopAbplT;
+}
 
 export type AbonentInvoiceInfoT = Partial<
   Pick<
@@ -216,20 +220,28 @@ export type VodaAbplStokiDataT = Partial<
   >
 >;
 
+export type OtopAbplDataT = Partial<
+  Pick<
+    getAbonentCardT["otopAbpl"],
+    "otopAbpl" | "otopAbplTsenaGrn" | "saldoNachOtopAbpl" | "nOtopAbplTarifa"
+  >
+>;
+
 export enum TabsNamesT {
   Invoice_data = "invoice-data",
-  Heating_supply = "heating-supply",
   Water_supply = "water-supply",
   Water_supply_fee = "water-supply-fee",
   Water_supply_drainage = "water-supply-drainage",
+  Heating_supply = "heating-supply",
+  Heating_supply_subscription_fee = "heating-supply-subscribtion-fee",
   Rent_data = "rent-data",
-};
+}
 
 export enum ServicesValuesT {
   invoice = "ALL",
   water = "ВОДА",
   heating = "ОПАЛЕННЯ",
-  rent = "КВАРТПЛАТА"
+  rent = "КВАРТПЛАТА",
 }
 
 export interface ArchiveItemT {
@@ -360,7 +372,7 @@ export interface ArchiveItemT {
   saldoKVodaPodachaVnes: number;
   saldoKVodaStokiVnes: number;
   saldoKKvplataVnes: number;
-};
+}
 
 export interface OplataItemT {
   dataPerevoda: Date;
@@ -371,13 +383,20 @@ export interface OplataItemT {
   endDate: Date;
   errorCode: number;
   errorMsg: string;
-};
+}
 
-export enum WaterSupplyRentEnum {
+export enum AnySupplyRentEnum {
   dataPerevoda = "dataPerevoda",
   sumOplata = "sumOplata",
   nOrg = "nOrg",
-};
+}
+
+export enum AnySupplyWmShowEnum {
+  data = "data",
+  tipVm = "tipVm",
+  vmPokaz = "vmPokaz",
+  doc = "doc",
+}
 
 export const kvartplataObj = {
   kvplata: 0,
@@ -440,4 +459,4 @@ export interface WmShowDataT {
   endDate: string;
   errorCode: number;
   errorMsg: string;
-};
+}

@@ -28,6 +28,10 @@ export const WATER_SUPPLY_PODACHA_TAG_VALUES = ["VODA_ABPL_PODACHA"];
 
 export const WATER_SUPPLY_STOKI_TAG_VALUES = ["VODA_ABPL_STOKI"];
 
+export const HEATING_SUPPLY_OTOP_TAG_VALUES = ["OTOP"];
+
+export const HEATING_SUPPLY_ABPL_OTOP_TAG_VALUES = ["OTOP_ABPL"];
+
 export const KVARTPLATA_TAG_VALUES = ["KVPLATA"];
 
 export const TabsNamesValues: Record<TabsNamesT, ServicesValuesT> = {
@@ -35,6 +39,8 @@ export const TabsNamesValues: Record<TabsNamesT, ServicesValuesT> = {
   [TabsNamesT.Water_supply]: ServicesValuesT.water,
   [TabsNamesT.Water_supply_fee]: ServicesValuesT.water,
   [TabsNamesT.Water_supply_drainage]: ServicesValuesT.water,
+  [TabsNamesT.Heating_supply]: ServicesValuesT.heating,
+  [TabsNamesT.Heating_supply_subscription_fee]: ServicesValuesT.heating,
   [TabsNamesT.Rent_data]: ServicesValuesT.rent,
 };
 

@@ -2,8 +2,9 @@ import {
   ArchiveItemT,
   OplataItemT,
   WaterSupplyDataT,
-  WaterSupplyRentEnum,
+  AnySupplyRentEnum,
   WmShowDataT,
+  AnySupplyWmShowEnum,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
@@ -19,13 +20,6 @@ enum WaterSupplyArchiveEnum {
   oplataVoda = "oplataVoda",
   subsVoda = "subsVoda",
   saldoKVoda = "saldoKVoda",
-}
-
-enum WaterSupplyWmShowEnum {
-  data = "data",
-  tipVm = "tipVm",
-  vmPokaz = "vmPokaz",
-  doc = "doc",
 }
 
 type Props = {
@@ -98,9 +92,9 @@ function WaterSupplyTab({
       styles: ["font-bold text-center bg-gray-300"],
       data: getDataForTab<OplataItemT>(
         rentOplataData,
-        WaterSupplyRentEnum,
+        AnySupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda],
+        [AnySupplyRentEnum.dataPerevoda],
       ),
     },
     {
@@ -115,9 +109,9 @@ function WaterSupplyTab({
       styles: ["font-bold text-center bg-gray-300", "capitalize"],
       data: getDataForTab<WmShowDataT>(
         wmShowData,
-        WaterSupplyWmShowEnum,
+        AnySupplyWmShowEnum,
         () => true,
-        [WaterSupplyWmShowEnum.data],
+        [AnySupplyWmShowEnum.data],
       ),
     },
   ];

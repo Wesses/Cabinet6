@@ -87,6 +87,7 @@
   "tsenaPoliv": "Тариф на полив (грн./м³)",
   "abplStokiTsenaGrn": "Абонентская плата за водоотведение (грн)",
   "abplPodachaTsenaGrn": "Абонентская плата за подачу воды (грн)",
+  "abplOtopTsenaGrn": "Абонентская плата за отопление (грн)",
   "phone_number_label_2": "Номер телефона",
   "inhabitants_number": "Количество жителей",
   "area_m2": "Площадь (м²)",
@@ -130,6 +131,7 @@
   "manager_fee": "Вознаграждение управляющему (грн)",
   "reserve_fund": "Резервный фонд (грн)",
   "total_payment_due": "Текущий тариф на квартплату (грн./м²)",
+  "total_ovds_due": "Текущий тариф на ОВДС (грн./м²)",
   "print_account": "Печать счета",
   "required": "Обязательно",
   "downloading": "Загрузка...",
@@ -150,5 +152,9 @@
   "watermeter_type": "Тип водомера",
   "indications": "Показания",
   "description": "Описание",
-  "heating_supply": "Теплоснабжение"
+  "heating_supply": "Теплоснабжение",
+  "yes": "Да",
+  "no": "Нет",
+  "heating_subscription_fee": "Абонплата на отопление",
+  "ovds": "ОВДС"
 }

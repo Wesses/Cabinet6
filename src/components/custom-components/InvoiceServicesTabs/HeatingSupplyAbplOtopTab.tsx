@@ -1,43 +1,40 @@
 import {
   ArchiveItemT,
   OplataItemT,
-  VodaAbplPodachaDataT,
+  OtopAbplDataT,
   AnySupplyRentEnum,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForTab } from "@/utils/getValidDataFunctions";
-import { WATER_SUPPLY_PODACHA_TAG_VALUES } from "@/utils/constants";
+import { HEATING_SUPPLY_ABPL_OTOP_TAG_VALUES } from "@/utils/constants";
 
-enum WaterSupplyAbplPodachaEnum {
+enum HeatingSupplyAbplOtopEnum {
   mes = "mes",
-  saldoNVodaAbplPodacha = "saldoNVodaAbplPodacha",
-  nachislVodaAbplPodacha = "nachislVodaAbplPodacha",
-  vozvratVodaAbplPodacha = "vozvratVodaAbplPodacha",
-  oplataVodaAbplPodacha = "oplataVodaAbplPodacha",
-  subsVodaAbplPodacha = "subsVodaAbplPodacha",
-  saldoKVodaAbplPodacha = "saldoKVodaAbplPodacha",
+  saldoNOtopAbpl = "saldoNOtopAbpl",
+  nachislOtopAbpl = "nachislOtopAbpl",
+  vozvratOtopAbpl = "vozvratOtopAbpl",
+  oplataOtopAbpl = "oplataOtopAbpl",
+  subsOtopAbpl = "subsOtopAbpl",
+  saldoKOtopAbpl = "saldoKOtopAbpl",
 }
 
 type Props = {
-  waterSupplyAbplPodachaRowData: VodaAbplPodachaDataT;
+  HeatingSupplyAbplOtop: OtopAbplDataT;
   archivData: ArchiveItemT[];
   rentOplataData: OplataItemT[];
 };
 
-function WaterSupplyAbplPodachaTab({
-  waterSupplyAbplPodachaRowData,
+function HeatingSupplyOtopAbpl({
+  HeatingSupplyAbplOtop,
   archivData,
   rentOplataData,
 }: Props) {
   const { t } = useTranslation();
 
-  const waterSupplyAbplPodachaCookedData = [
-    [
-      t("abplPodachaTsenaGrn"),
-      waterSupplyAbplPodachaRowData.abplPodachaTsenaGrn,
-    ],
+  const heatingSupplyAbplCookedData = [
+    [t("abplOtopTsenaGrn"), HeatingSupplyAbplOtop.otopAbplTsenaGrn],
   ];
 
   const accordionData = [
@@ -56,7 +53,7 @@ function WaterSupplyAbplPodachaTab({
       styles: ["font-bold text-center bg-gray-300"],
       data: getDataForTab<ArchiveItemT>(
         archivData,
-        WaterSupplyAbplPodachaEnum,
+        HeatingSupplyAbplOtopEnum,
         () => true,
       ),
     },
@@ -68,7 +65,7 @@ function WaterSupplyAbplPodachaTab({
       data: getDataForTab<OplataItemT>(
         rentOplataData,
         AnySupplyRentEnum,
-        ({ tag }) => WATER_SUPPLY_PODACHA_TAG_VALUES.includes(tag),
+        ({ tag }) => HEATING_SUPPLY_ABPL_OTOP_TAG_VALUES.includes(tag),
         [AnySupplyRentEnum.dataPerevoda],
       ),
     },
@@ -76,11 +73,11 @@ function WaterSupplyAbplPodachaTab({
 
   return (
     <div className="flex flex-col gap-y-2">
-      <SimpleTable data={waterSupplyAbplPodachaCookedData} />
+      <SimpleTable data={heatingSupplyAbplCookedData} />
 
       <AccordionForTabs accordionData={accordionData} />
     </div>
   );
 }
 
-export default WaterSupplyAbplPodachaTab;
+export default HeatingSupplyOtopAbpl;

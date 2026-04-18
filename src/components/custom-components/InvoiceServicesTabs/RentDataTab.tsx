@@ -2,12 +2,12 @@ import {
   ArchiveItemT,
   KvartplataT,
   OplataItemT,
-  WaterSupplyRentEnum,
+  AnySupplyRentEnum,
 } from "@/types";
 import AccordionForTabs from "./AccordionForTabs";
 import { useTranslation } from "react-i18next";
 import { getDataForTab } from "@/utils/getValidDataFunctions";
-import { KVARTPLATA_TAG_VALUES } from "@/utils/constants";
+import { izmteploTag, KVARTPLATA_TAG_VALUES } from "@/utils/constants";
 import SimpleTable from "../SimpleTable";
 
 import {
@@ -132,9 +132,9 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
       styles: ["font-bold text-center bg-gray-300"],
       data: getDataForTab<OplataItemT>(
         rentOplataData,
-        WaterSupplyRentEnum,
+        AnySupplyRentEnum,
         ({ tag }) => KVARTPLATA_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda],
+        [AnySupplyRentEnum.dataPerevoda],
       ),
     },
   ];
@@ -155,7 +155,11 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
         <AccordionItem value="rent-data">
           <AccordionTrigger>
             <div className="flex flex-row justify-between w-full pr-2">
-              <p>{t("total_payment_due")}</p>
+              <p>
+                {import.meta.env.VITE_ALIAS === izmteploTag
+                  ? t("total_ovds_due")
+                  : t("total_payment_due")}
+              </p>
               {rentSum}
             </div>
           </AccordionTrigger>

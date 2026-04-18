@@ -87,6 +87,7 @@
   "tsenaPoliv": "Irrigation tariff (UAH/m³)",
   "abplStokiTsenaGrn": "Sewerage subscription fee (UAH)",
   "abplPodachaTsenaGrn": "Water supply subscription fee (UAH)",
+  "abplOtopTsenaGrn": "Heating subscription fee (UAH)",
   "phone_number_label_2": "Phone number",
   "inhabitants_number": "Number of inhabitants",
   "area_m2": "Area (m²)",
@@ -130,6 +131,7 @@
   "manager_fee": "Manager’s fee (UAH)",
   "reserve_fund": "Reserve fund (UAH)",
   "total_payment_due": "Current rent rate (UAH/m²)",
+  "total_ovds_due": "Current OVDS rate (UAH/m²)",
   "print_account": "Invoice printing",
   "required": "Required",
   "downloading": "Downloading...",
@@ -150,5 +152,9 @@
   "watermeter_type": "Water meter type",
   "indications": "Readings",
   "description": "Description",
-  "heating_supply": "Heat supply"
+  "heating_supply": "Heat supply",
+  "yes": "Yes",
+  "no": "No",
+  "heating_subscription_fee": "Heating subscription fee",
+  "ovds": "OVDS"
 }

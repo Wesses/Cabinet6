@@ -2,7 +2,7 @@ import {
   ArchiveItemT,
   OplataItemT,
   VodaAbplStokiDataT,
-  WaterSupplyRentEnum,
+  AnySupplyRentEnum,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
@@ -64,9 +64,9 @@ function WaterSupplyAbplStokiTab({
       styles: ["font-bold text-center bg-gray-300"],
       data: getDataForTab<OplataItemT>(
         rentOplataData,
-        WaterSupplyRentEnum,
+        AnySupplyRentEnum,
         ({ tag }) => WATER_SUPPLY_STOKI_TAG_VALUES.includes(tag),
-        [WaterSupplyRentEnum.dataPerevoda],
+        [AnySupplyRentEnum.dataPerevoda],
       ),
     },
   ];
