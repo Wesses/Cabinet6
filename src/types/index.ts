@@ -459,4 +459,10 @@ export interface WmShowDataT {
   endDate: string;
   errorCode: number;
   errorMsg: string;
-}
+};
+
+export interface Bill_RaxTypeT {
+    id: number,
+    name: string,
+    service: string,
+};

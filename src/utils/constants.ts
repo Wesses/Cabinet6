@@ -1,5 +1,3 @@
-import { ServicesValuesT, TabsNamesT } from '@/types';
-
 export const localStorages = {
   USER_DATA: "user_data",
   LOCALE: "locale",
@@ -33,16 +31,6 @@ export const HEATING_SUPPLY_OTOP_TAG_VALUES = ["OTOP"];
 export const HEATING_SUPPLY_ABPL_OTOP_TAG_VALUES = ["OTOP_ABPL"];
 
 export const KVARTPLATA_TAG_VALUES = ["KVPLATA"];
-
-export const TabsNamesValues: Record<TabsNamesT, ServicesValuesT> = {
-  [TabsNamesT.Invoice_data]: ServicesValuesT.invoice,
-  [TabsNamesT.Water_supply]: ServicesValuesT.water,
-  [TabsNamesT.Water_supply_fee]: ServicesValuesT.water,
-  [TabsNamesT.Water_supply_drainage]: ServicesValuesT.water,
-  [TabsNamesT.Heating_supply]: ServicesValuesT.heating,
-  [TabsNamesT.Heating_supply_subscription_fee]: ServicesValuesT.heating,
-  [TabsNamesT.Rent_data]: ServicesValuesT.rent,
-};
 
 export const SEARCH_PARAM_TAB_KEY = "tab";
 

@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useMemo, useState } from "react";
 import {
   ArchiveItemT,
+  Bill_RaxTypeT,
   getAbonentCardT,
   OplataItemT,
   ServicesValuesT,
@@ -12,6 +13,7 @@ import {
 import {
   getAbonentCardData,
   getArchivData,
+  getBills_RaxTypes,
   getOplataData,
   getWMShowData,
 } from "@/api/api";
@@ -26,7 +28,6 @@ import {
   CURRENT_PAGE_PARAM_KEY,
   izmteploTag,
   SEARCH_PARAM_TAB_KEY,
-  TabsNamesValues,
 } from "@/utils/constants";
 import { ArrowLeftToLine, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -44,6 +45,7 @@ const CabinetPage = () => {
   const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
   const [rentOplataData, setRentOplata] = useState<OplataItemT[]>([]);
   const [wmShowData, setWmShowData] = useState<WmShowDataT[]>([]);
+  const [bills_RaxTypes, setBills_RaxTypes] = useState<Bill_RaxTypeT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id } = useParams();
@@ -62,11 +64,12 @@ const CabinetPage = () => {
       setIsLoading(true);
       (async () => {
         try {
-          const [abonentCardPromiseData, archivPromiseData, oplataPromiseData] =
+          const [abonentCardPromiseData, archivPromiseData, oplataPromiseData, billsTypesData] =
             await Promise.all([
               getAbonentCardData(+id),
               getArchivData(+id),
               getOplataData(+id),
+              getBills_RaxTypes(+id),
             ]);
             
           if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo || abonentCardPromiseData?.teploOtop?.teploschetId) {
@@ -79,6 +82,7 @@ const CabinetPage = () => {
           setAbonentCardData(abonentCardPromiseData);
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
+          setBills_RaxTypes(billsTypesData);
         } catch {
           setIsError(true);
         } finally {
@@ -232,28 +236,13 @@ const CabinetPage = () => {
     },
   ];
 
-  const getCurrentTabsServices = (
-    tabListParams: {
-      value: TabsNamesT;
-      label: string;
-      condition: boolean;
-      tab_component: JSX.Element;
-    }[],
-  ) => {
-    const allSrvices = tabListParams
-      .filter(({ condition }) => condition)
-      .map(({ value }) => TabsNamesValues[value]);
-    const existingUniqueServices = [...new Set(allSrvices)];
-
-    return existingUniqueServices;
-  };
-
   const hadnleBackToCabinet = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
   };
 
   const isContent = !isLoading && !isError;
-
+  console.log(bills_RaxTypes);
+  
   return (
     <div className="flex-1 w-full h-full px-5 py-2">
       <div
@@ -301,7 +290,7 @@ const CabinetPage = () => {
             <PrintInvoiceForm
               onClose={() => setOpen(false)}
               open={open}
-              currentServices={getCurrentTabsServices(tabListParams)}
+              bills_raxTypes={bills_RaxTypes}
             />
           </AlertDialog>
         </div>

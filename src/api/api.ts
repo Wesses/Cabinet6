@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { getToken } from "@/utils/getToken";
 import { onMainPage } from "@/utils/onMainPage";
+import { Bill_RaxTypeT } from "@/types";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -14,6 +15,7 @@ const archiv = "/api/Arhiv";
 const oplata = "/api/Oplata";
 const invoice = "/api/Invoice";
 const wmShow = "/api/VmPokaz";
+const rax = "/api/RaxParam";
 const baseName = import.meta.env.BASE_URL;
 
 axios.interceptors.response.use(
@@ -233,8 +235,8 @@ export const getOplataData = async (PersonalaccontsId: number) => {
 
 export const getInvoiceBlob = async (
   PersonalaccontsId: number,
-  utilityService: string,
-  useCurrentMonth: number
+  useCurrentMonth: number,
+  raxParamId: string,
 ) => {
   const token = getToken();
 
@@ -244,9 +246,9 @@ export const getInvoiceBlob = async (
         "/" +
         PersonalaccontsId +
         "/" +
-        utilityService +
+        useCurrentMonth +
         "/" +
-        +useCurrentMonth,
+        raxParamId,
       {
         headers: {
           Authorization: `Bearer ${token.token}`,
@@ -287,6 +289,28 @@ export const getWMShowData = async (PersonalaccontsId: number) => {
 
   try {
     const response = await axios.get(wmShow + "/" + PersonalaccontsId, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const getBills_RaxTypes = async (PersonalaccontsId: number): Promise<Bill_RaxTypeT[]> => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(rax + "/" + PersonalaccontsId, {
       headers: {
         Authorization: `Bearer ${token.token}`,
       },

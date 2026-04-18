@@ -34,18 +34,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { ServicesValuesT } from '@/types';
+import { Bill_RaxTypeT, ServicesValuesT } from '@/types';
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  currentServices: string[];
+  bills_raxTypes: Bill_RaxTypeT[];
 };
 
 export default function PrintInvoiceForm({
   open,
   onClose,
-  currentServices,
+  bills_raxTypes,
 }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
@@ -54,6 +54,7 @@ export default function PrintInvoiceForm({
   const sericesLabels: Record<ServicesValuesT, string> = {
   [ServicesValuesT.invoice]: t("all_services"),
   [ServicesValuesT.water]: t("water"),
+  [ServicesValuesT.heating]: t("heating_supply"),
   [ServicesValuesT.rent]: t("rent"),
   };
 
@@ -61,7 +62,7 @@ export default function PrintInvoiceForm({
     month: z.string({
       message: t("required"),
     }),
-    service: z.string({
+    serviceId: z.string({
       message: t("required"),
     }),
   });
@@ -82,8 +83,8 @@ export default function PrintInvoiceForm({
 
       const { blob, fileName } = await getInvoiceBlob(
         +id,
-        values.service,
-        +values.month
+        +values.month,
+        values.serviceId,
       );
 
       const url = window.URL.createObjectURL(blob);
@@ -129,11 +130,11 @@ export default function PrintInvoiceForm({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 flex flex-col px-14"
+          className="flex flex-col space-y-6 px-14"
         >
           <FormField
             control={form.control}
-            name="service"
+            name="serviceId"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("service")}</FormLabel>
@@ -151,9 +152,9 @@ export default function PrintInvoiceForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {currentServices.map((value) => (
-                      <SelectItem key={value} value={value}>
-                        {sericesLabels[value as ServicesValuesT]}
+                    {bills_raxTypes.map(({name, id, service}) => (
+                      <SelectItem key={id} value={id + ""}>
+                        {sericesLabels[service as ServicesValuesT] ?? name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -161,7 +162,7 @@ export default function PrintInvoiceForm({
                 <FormDescription>
                   {t("select_service_description")}
                 </FormDescription>
-                {form.formState.errors.service ? (
+                {form.formState.errors.serviceId ? (
                   <FormMessage />
                 ) : (
                   <div className="h-5" />
