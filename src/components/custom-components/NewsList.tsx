@@ -28,30 +28,30 @@ const NewsList = () => {
   return (
     <div className="w-full h-full flex items-center justify-center flex-col">
       {isError && (
-        <p className="lg:text-white text-black py-2 px-4 text-[40px] font-semibold">
+        <p className="lg:text-primary-foreground text-foreground py-2 px-4 text-[40px] font-semibold">
           {t("toast_error_try_later")}
         </p>
       )}
       {isLoading && (
         <div className="lg:w-5/6 px-4 w-full lg:h-1/2 h-[500px] rounded-sm flex flex-row flex-wrap overflow-auto gap-y-2 disable-scrollbars">
           <div className="flex flex-col gap-y-2 w-full">
-            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12 bg-slate-300" />
-            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-slate-300" />
+            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12" />
+            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-muted lg:bg-primary-foreground/20" />
           </div>
 
           <div className="flex flex-col gap-y-2 w-full">
-            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12 bg-slate-300" />
-            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-slate-300" />
+            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12" />
+            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-muted lg:bg-primary-foreground/20" />
           </div>
 
           <div className="flex flex-col gap-y-2 w-full">
-            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12 bg-slate-300" />
-            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-slate-300" />
+            <Skeleton className="lg:hidden w-2/3 h-6 lg:h-12" />
+            <Skeleton className="w-full lg:h-full h-[150px] lg:border lg:rounded-xl bg-muted lg:bg-primary-foreground/20" />
           </div>
         </div>
       )}{" "}
       {!isLoading && !isError && !news.length && (
-        <p className="lg:text-white text-black py-2 px-4 text-[40px] font-semibold">
+        <p className="lg:text-primary-foreground text-foreground py-2 px-4 text-[40px] font-semibold">
           {t("no_news")}
         </p>
       )}
@@ -60,7 +60,7 @@ const NewsList = () => {
           {news.map((data) => (
             <li
               key={data.newsDate}
-              className="w-full bg-white text-zinc-900 lg:border lg:rounded-xl py-2 px-4"
+              className="w-full bg-background text-foreground lg:border lg:rounded-xl py-2 px-4"
             >
               <h3 className="font-semibold capitalize">
                 {moment(data.newsDate).format("L")}

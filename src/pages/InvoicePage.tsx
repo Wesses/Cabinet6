@@ -266,7 +266,7 @@ const CabinetPage = () => {
       >
         <div className="flex items-center justify-start w-full gap-x-2">
           <Button
-            className="h-8 transition-all duration-300 bg-gray-300 rounded-md hover:bg-gray-500 text-zinc-900"
+            className="h-8 transition-all duration-300 bg-secondary rounded-md hover:bg-secondary/70 text-secondary-foreground"
             onClick={hadnleBackToCabinet}
           >
             <div className="flex items-center justify-start w-full gap-x-2">
@@ -276,7 +276,7 @@ const CabinetPage = () => {
           </Button>
 
           {isLoading && (
-            <Skeleton className="h-8 bg-slate-300 sm:w-[153px] w-[56px]" />
+            <Skeleton className="h-8 sm:w-[153px] w-[56px]" />
           )}
 
           <AlertDialog
@@ -307,9 +307,9 @@ const CabinetPage = () => {
 
         {isLoading && (
           <div className="w-full h-full">
-            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[40px] mb-2 bg-slate-300" />
-            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[300px] mb-2 bg-slate-300" />
-            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[100px] bg-slate-300" />
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[40px] mb-2" />
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[300px] mb-2" />
+            <Skeleton className="w-full md:w-3/4 lg:w-1/2 h-[100px]" />
           </div>
         )}
 

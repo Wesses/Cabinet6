@@ -28,10 +28,10 @@ const SimpleTable = ({ data }: Props) => {
           {data.map(([label, value]) => (
             <div
               key={label}
-              className="border border-muted rounded-lg p-3 bg-white shadow"
+              className="border border-border rounded-lg p-3 bg-card shadow"
             >
-              <div className="text-sm text-gray-500">{label}</div>
-              <div className="text-base font-semibold text-zinc-900">
+              <div className="text-sm text-muted-foreground">{label}</div>
+              <div className="text-base font-semibold text-card-foreground">
                 {((typeof value === "number" && value) ? value.toFixed(2) : value) || "-"}
               </div>
             </div>

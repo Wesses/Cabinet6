@@ -121,7 +121,7 @@ function MyTable({
   }, [currentPage]);
 
   return (
-    <Card className="shadow-xl border border-gray-300 rounded-lg">
+    <Card className="shadow-xl border border-border rounded-lg">
       <CardContent className="p-4">
         <>
           <div className="mb-4 flex gap-x-4">
@@ -132,7 +132,7 @@ function MyTable({
               placeholder={t("table_search_placeholder")}
               value={searchQueryParam}
               onChange={(e) => handleSearchQueryParam(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded w-full text-base"
+              className="px-4 py-2 border border-border rounded w-full text-base"
             />
 
             <AddInvoiceButton getData={getData} lightInvoice={lightInvoice} />
@@ -141,22 +141,22 @@ function MyTable({
           {filteredData.length ? (
             <div>
               <div className="hidden md:block overflow-x-auto">
-                <table className="table-auto w-full border border-gray-300 text-sm">
+                <table className="table-auto w-full border border-border text-sm">
                   <thead>
-                    <tr className="bg-gray-100 text-gray-700">
-                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                    <tr className="bg-muted text-muted-foreground">
+                      <th className="px-4 py-2 border-b border-border text-left">
                         #
                       </th>
-                      <th className="px-4 py-2 border-b border-gray-300 text-right">
+                      <th className="px-4 py-2 border-b border-border text-right">
                         {t("invoice")}
                       </th>
-                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                      <th className="px-4 py-2 border-b border-border text-left">
                         {t("full_name")}
                       </th>
-                      <th className="px-4 py-2 border-b border-gray-300 text-left">
+                      <th className="px-4 py-2 border-b border-border text-left">
                         {t("address")}
                       </th>
-                      <th className="px-4 py-2 border-b border-gray-300 text-left"></th>
+                      <th className="px-4 py-2 border-b border-border text-left"></th>
                     </tr>
                   </thead>
 
@@ -201,7 +201,7 @@ function MyTable({
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 md:block hidden"
+                    className="px-4 py-2 bg-secondary text-secondary-foreground rounded disabled:opacity-50 md:block hidden"
                   >
                     {t("previous")}
                   </button>
@@ -210,7 +210,7 @@ function MyTable({
                     <button
                       disabled={currentPage === 1}
                       onClick={() => handlePageChange(currentPage - 1)}
-                      className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                      className="text-foreground disabled:opacity-50 w-full h-full flex justify-center items-center"
                     >
                       <ChevronsLeftIcon className="size-8" />
                     </button>
@@ -223,14 +223,14 @@ function MyTable({
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="md:block hidden px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                    className="md:block hidden px-4 py-2 bg-secondary text-secondary-foreground rounded disabled:opacity-50"
                   >
                     {t("next")}
                   </button>
 
                   <div className="block md:hidden cursor-pointer h-16 w-16">
                     <button
-                      className="text-black disabled:opacity-50 w-full h-full flex justify-center items-center"
+                      className="text-foreground disabled:opacity-50 w-full h-full flex justify-center items-center"
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
                     >

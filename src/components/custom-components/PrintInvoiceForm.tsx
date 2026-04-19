@@ -144,7 +144,7 @@ export default function PrintInvoiceForm({
                 >
                   <FormControl>
                     <SelectTrigger
-                      className={field.value ? "text-black" : "text-gray-400"}
+                      className={field.value ? "text-foreground" : "text-muted-foreground"}
                     >
                       <SelectValue
                         placeholder={t("select_service_placeholder")}
@@ -213,7 +213,7 @@ export default function PrintInvoiceForm({
           />
 
           <Button
-            className="w-full disabled:bg-gray-600"
+            className="w-full disabled:bg-primary/60"
             type="submit"
             disabled={isLoading}
           >

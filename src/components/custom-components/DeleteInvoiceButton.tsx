@@ -39,8 +39,8 @@ const DeleteInvoiceButton = ({
         <div>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
-                <TrashIcon className="text-white" />
+              <TooltipTrigger className="bg-primary p-2 rounded-lg">
+                <TrashIcon className="text-primary-foreground" />
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("button_delete_invoice")}</p>

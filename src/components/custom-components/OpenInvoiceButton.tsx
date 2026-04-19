@@ -16,10 +16,10 @@ const OpenInvoiceButton = ({id}: {id: number}) => {
     <TooltipProvider>
     <Tooltip>
       <TooltipTrigger
-        className="bg-zinc-900 p-2 rounded-lg"
+        className="bg-primary p-2 rounded-lg"
         onClick={() => handleOpenInvoice(id)}
       >
-        <EyeIcon className="text-white" />
+        <EyeIcon className="text-primary-foreground" />
       </TooltipTrigger>
       <TooltipContent>
         <p>{t("button_open_invoice")}</p>

@@ -134,7 +134,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
             )}
           />
           <Button
-            className="w-full disabled:bg-gray-600"
+            className="w-full disabled:bg-primary/60"
             type="submit"
             disabled={isLoading || !form.formState.isValid}
           >

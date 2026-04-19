@@ -162,7 +162,7 @@ const RegistrationForm = () => {
           {t("register_title")}
         </h3>
 
-        <p className="text-neutral-500 xl:text-base text-sm">
+        <p className="text-muted-foreground xl:text-base text-sm">
           {t("register_second_title")}
         </p>
       </div>
@@ -177,7 +177,7 @@ const RegistrationForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">
+                <FormLabel className="text-foreground">
                   {t("form_username")}
                 </FormLabel>
                 <FormControl>
@@ -187,7 +187,7 @@ const RegistrationForm = () => {
                     autoComplete="off"
                     id="registration-email"
                     className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                      "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.username,
                     })}
                   />
@@ -206,7 +206,7 @@ const RegistrationForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">{t("form_email")}</FormLabel>
+                <FormLabel className="text-foreground">{t("form_email")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -215,7 +215,7 @@ const RegistrationForm = () => {
                     id="registration-email"
                     type="email"
                     className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                      "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.email,
                     })}
                   />
@@ -234,7 +234,7 @@ const RegistrationForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">
+                <FormLabel className="text-foreground">
                   {t("form_password")}
                 </FormLabel>
                 <FormControl>
@@ -245,7 +245,7 @@ const RegistrationForm = () => {
                     id="registration-password"
                     type="password"
                     className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                      "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.password,
                     })}
                   />
@@ -264,7 +264,7 @@ const RegistrationForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">
+                <FormLabel className="text-foreground">
                   {t("form_confirm_password")}
                 </FormLabel>
                 <FormControl>
@@ -275,7 +275,7 @@ const RegistrationForm = () => {
                     id="registration-confirm-password"
                     autoComplete="off"
                     className={cn({
-                      "ring-2 ring-red-400 ring-offset-2 focus-visible:ring-red-400":
+                      "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.confirmPassword,
                     })}
                   />
@@ -309,7 +309,7 @@ const RegistrationForm = () => {
           </AlertDialog>
 
           <Button
-            className="w-full disabled:bg-green-600"
+            className="w-full disabled:bg-primary/60"
             type="submit"
             disabled={isLoading}
           >
@@ -317,11 +317,11 @@ const RegistrationForm = () => {
           </Button>
 
           <div className="flex justify-center items-center gap-x-2">
-            <Separator className="bg-neutral-200 h-[1px] w-full" />
-            <span className="uppercase text-neutral-500 text-sm whitespace-nowrap">
+            <Separator className="h-[1px] w-full" />
+            <span className="uppercase text-muted-foreground text-sm whitespace-nowrap">
               {t("or_login")}
             </span>
-            <Separator className="bg-neutral-200 h-[1px] w-full" />
+            <Separator className="h-[1px] w-full" />
           </div>
 
           <Button

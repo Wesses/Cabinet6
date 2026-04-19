@@ -17,7 +17,7 @@ type Props = {
 
 function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
   return (
-    <Card className="border-white md:border-neutral-200">
+    <Card className="border-transparent md:border-border">
       <CardContent>
         <Table className="hidden md:block">
           <TableHeader>
@@ -26,7 +26,7 @@ function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
                 <TableHead
                   key={head}
                   className={cn({
-                    "bg-gray-200 font-bold": i === 0,
+                    "bg-muted font-bold": i === 0,
                     "text-right": i !== 0,
                   }, "md:text-xs lg:text-base")}
                 >
@@ -52,14 +52,14 @@ function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
           {rowsData.map(({rows, index}) => (
             <div
               key={index}
-              className="border p-3 rounded-md shadow-sm bg-white"
+              className="border p-3 rounded-md shadow-sm bg-card text-card-foreground"
             >
               {rows.map((cell, i) => (
                 <div
                   key={i}
                   className="flex justify-between py-1 border-b last:border-b-0"
                 >
-                  <span className="font-medium text-gray-600">{heads[i]}</span>
+                  <span className="font-medium text-muted-foreground">{heads[i]}</span>
                   <span >{"" + cell}</span>
                 </div>
               ))}

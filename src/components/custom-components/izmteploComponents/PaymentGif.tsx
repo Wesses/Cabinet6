@@ -4,7 +4,7 @@ const PRIVAT_PAYMENT_URL =
 const PaymentGif = () => {
   return (
     <div
-      className="w-full h-full pt-32 pb-4 overflow-y-auto text-white lg:pt-40"
+      className="w-full h-full pt-32 pb-4 overflow-y-auto text-primary-foreground lg:pt-40"
       style={{ direction: "rtl" }}
     >
       <div

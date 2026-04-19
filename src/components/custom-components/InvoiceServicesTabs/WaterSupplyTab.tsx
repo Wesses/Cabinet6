@@ -78,7 +78,7 @@ function WaterSupplyTab({
         t("subsidy"),
         t("end_debt"),
       ],
-      styles: ["font-bold text-center bg-gray-300"],
+      styles: ["font-bold text-center bg-muted"],
       data: getDataForTab<ArchiveItemT>(
         archivData,
         WaterSupplyArchiveEnum,
@@ -89,7 +89,7 @@ function WaterSupplyTab({
       label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
-      styles: ["font-bold text-center bg-gray-300"],
+      styles: ["font-bold text-center bg-muted"],
       data: getDataForTab<OplataItemT>(
         rentOplataData,
         AnySupplyRentEnum,
@@ -106,7 +106,7 @@ function WaterSupplyTab({
         t("indications"),
         t("description"),
       ],
-      styles: ["font-bold text-center bg-gray-300", "capitalize"],
+      styles: ["font-bold text-center bg-muted", "capitalize"],
       data: getDataForTab<WmShowDataT>(
         wmShowData,
         AnySupplyWmShowEnum,

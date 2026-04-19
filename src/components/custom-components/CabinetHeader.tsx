@@ -21,10 +21,10 @@ export const CabinetHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 w-full bg-zinc-900 py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[100px]">
+    <header className="sticky top-0 w-full bg-primary py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[100px]">
       <div className="flex items-center justify-between gap-4 ite sm:items-center sm:justify-normal">
         {import.meta.env.VITE_ALIAS === izmteploTag && (
-          <div className="rounded-full bg-slate-700 size-10 sm:size-20">
+          <div className="rounded-full bg-primary-foreground/10 size-10 sm:size-20">
             <img
               src={`${import.meta.env.VITE_BASE_URL}/izmteplo_logo.png`}
               alt="logo"
@@ -33,17 +33,17 @@ export const CabinetHeader = () => {
           </div>
         )}
 
-        <p className="text-base font-bold text-white md:text-xl">
+        <p className="text-base font-bold text-primary-foreground md:text-xl">
           {companyName}
         </p>
-        <p className="text-sm text-gray-500 md:text-base">({username})</p>
+        <p className="text-sm text-primary-foreground/60 md:text-base">({username})</p>
       </div>
 
       <div className="flex flex-row items-center justify-between sm:justify-normal gap-x-4">
         <LocaleButton isLabel={false} />
 
         <Button
-          className="transition-all duration-300 bg-white rounded-md text-zinc-900 hover:bg-gray-300"
+          className="transition-all duration-300 bg-primary-foreground rounded-md text-foreground hover:bg-primary-foreground/80"
           onClick={handleLogout}
         >
           {t("button_left_cabinet")}

@@ -53,8 +53,8 @@ export const LoginPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
-      <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-zinc-900 rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
-        <div className="absolute z-10 flex flex-row items-center text-white top-0 left-0 right-0 px-4 pt-4 pb-2 bg-zinc-900 lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
+      <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
+        <div className="absolute z-10 flex flex-row items-center text-primary-foreground top-0 left-0 right-0 px-4 pt-4 pb-2 bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
@@ -78,9 +78,9 @@ export const LoginPage = () => {
                 </>
               ) : (
                 <>
-                  <Skeleton className="h-[30px] w-[500px] bg-slate-300" />
-                  <Skeleton className="h-[20px] w-3/4 hidden sm:block bg-slate-300" />
-                  <Skeleton className="h-[20px] w-[200px] bg-slate-300" />
+                  <Skeleton className="h-[30px] w-[500px] bg-primary-foreground/20" />
+                  <Skeleton className="h-[20px] w-3/4 hidden sm:block bg-primary-foreground/20" />
+                  <Skeleton className="h-[20px] w-[200px] bg-primary-foreground/20" />
                 </>
               )}
             </>
@@ -93,7 +93,7 @@ export const LoginPage = () => {
             <div className="absolute flex justify-center w-full lg:hidden bottom-4">
               <Drawer>
                 <DrawerTrigger className="w-full" asChild>
-                  <Button className="text-black w-4/5 bg-white hover:bg-gray-300 max-w-[400px] lg:max-w-none">
+                  <Button className="w-4/5 bg-primary-foreground text-primary hover:bg-primary-foreground/80 max-w-[400px] lg:max-w-none">
                     {t("news")}
                   </Button>
                 </DrawerTrigger>

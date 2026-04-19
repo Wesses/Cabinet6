@@ -8,7 +8,7 @@ const TableSkeleton = () => {
   return (
     <div className="w-full h-full overflow-hidden flex flex-col gap-y-6">
       {arr.map((_, index) => (
-        <Skeleton key={index} className="h-[50px] w-full rounded-lg bg-slate-300" />
+        <Skeleton key={index} className="h-[50px] w-full rounded-lg" />
       ))}
     </div>
   );

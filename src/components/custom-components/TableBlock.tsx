@@ -26,9 +26,9 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
     <div
       className={cn(
         {
-          "bg-white": index % 2 === 0,
-          "bg-gray-50": index % 2 !== 0,
-          "border-2 border-zinc-300": !isPopoverOpen,
+          "bg-background": index % 2 === 0,
+          "bg-muted/50": index % 2 !== 0,
+          "border-2 border-border": !isPopoverOpen,
           "border-4 border-green-400": createdInvoice === item.personalaccontsId,
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,

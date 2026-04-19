@@ -31,7 +31,7 @@ const LocaleButton = ({ isLabel }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger
         className={cn(
-          { "bg-white text-zinc-900 hover:bg-gray-300 uppercase": isLabel },
+          { "bg-primary-foreground text-primary hover:bg-primary-foreground/80 uppercase": isLabel },
           "flex items-center gap-x-2 outline-none transition-all duration-300 rounded-md px-2 py-2"
         )}
       >

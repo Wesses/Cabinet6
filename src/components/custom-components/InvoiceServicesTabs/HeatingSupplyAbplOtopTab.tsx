@@ -50,7 +50,7 @@ function HeatingSupplyOtopAbpl({
         t("subsidy"),
         t("end_debt"),
       ],
-      styles: ["font-bold text-center bg-gray-300"],
+      styles: ["font-bold text-center bg-muted"],
       data: getDataForTab<ArchiveItemT>(
         archivData,
         HeatingSupplyAbplOtopEnum,
@@ -61,7 +61,7 @@ function HeatingSupplyOtopAbpl({
       label: t("payment_no_uah"),
       accordValue: "oplata",
       heads: [t("date_of_rent"), t("rent_sum"), t("bank")],
-      styles: ["font-bold text-center bg-gray-300"],
+      styles: ["font-bold text-center bg-muted"],
       data: getDataForTab<OplataItemT>(
         rentOplataData,
         AnySupplyRentEnum,

@@ -7,8 +7,10 @@ import ScreenWrapper from "./components/ScreenWrapper";
 import moment from "moment";
 import "moment/dist/locale/uk";
 import "./localization/i18n";
+import { applyTheme } from "./utils/applyTheme";
 
 moment.locale("uk");
+applyTheme();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

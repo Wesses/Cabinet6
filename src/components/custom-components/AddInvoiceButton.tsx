@@ -18,8 +18,8 @@ const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
       <div>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="bg-zinc-900 p-2 rounded-lg">
-              <PlusIcon className="text-white" />
+            <TooltipTrigger className="bg-primary p-2 rounded-lg">
+              <PlusIcon className="text-primary-foreground" />
             </TooltipTrigger>
             <TooltipContent>
               <p>{t("button_add_invoice")}</p>
