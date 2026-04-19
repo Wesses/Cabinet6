@@ -398,6 +398,14 @@ export enum AnySupplyWmShowEnum {
   doc = "doc",
 }
 
+export enum CertainFieldsHeatingSupplyEnum {
+  dataNach = "dataNach",
+  dataKon = "dataKon",
+  pokazSchetStr = "pokazSchetStr",
+  schetGkStr = "schetGkStr",
+  nTeploschet = "nTeploschet",
+}
+
 export const kvartplataObj = {
   kvplata: 0,
   kvplataTbo: 0,
@@ -459,10 +467,26 @@ export interface WmShowDataT {
   endDate: string;
   errorCode: number;
   errorMsg: string;
-};
+}
+
+export interface OtopShowDataT {
+  dataNach: string;
+  dataKon: string;
+  pokazSchetGk: number;
+  nEdizm: string;
+  schetGk: number;
+  dopRaskhodGk: number;
+  pokazSchetStr: string;
+  schetGkStr: string;
+  nTeploschet: string;
+  startDate: string;
+  endDate: string;
+  errorCode: number;
+  errorMsg: string;
+}
 
 export interface Bill_RaxTypeT {
-    id: number,
-    name: string,
-    service: string,
-};
+  id: number;
+  name: string;
+  service: string;
+}

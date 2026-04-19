@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { getToken } from "@/utils/getToken";
 import { onMainPage } from "@/utils/onMainPage";
-import { Bill_RaxTypeT } from "@/types";
+import { Bill_RaxTypeT, OtopShowDataT } from "@/types";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -16,6 +16,7 @@ const oplata = "/api/Oplata";
 const invoice = "/api/Invoice";
 const wmShow = "/api/VmPokaz";
 const rax = "/api/RaxParam";
+const otopShow = "/api/TeploschetPokaz";
 const baseName = import.meta.env.BASE_URL;
 
 axios.interceptors.response.use(
@@ -311,6 +312,28 @@ export const getBills_RaxTypes = async (PersonalaccontsId: number): Promise<Bill
 
   try {
     const response = await axios.get(rax + "/" + PersonalaccontsId, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const getOtopShowData = async (PersonalaccontsId: number): Promise<OtopShowDataT[]> => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(otopShow + "/" + PersonalaccontsId, {
       headers: {
         Authorization: `Bearer ${token.token}`,
       },

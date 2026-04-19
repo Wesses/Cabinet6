@@ -156,5 +156,11 @@
   "yes": "Yes",
   "no": "No",
   "heating_subscription_fee": "Heating subscription fee",
-  "ovds": "OVDS"
+  "ovds": "OVDS",
+  "period_start": "Start of period",
+  "period_end": "End of period",
+  "meter_indications": "Meter readings",
+  "heat_volume": "Heat volume",
+  "heat_meter": "Heat meter",
+  "heat_meter_indications": "Heat meter readings"
 }

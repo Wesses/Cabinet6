@@ -156,5 +156,11 @@
   "yes": "Да",
   "no": "Нет",
   "heating_subscription_fee": "Абонплата на отопление",
-  "ovds": "ОВДС"
+  "ovds": "ОВДС",
+  "period_start": "Начало периода",
+  "period_end": "Конец периода",
+  "meter_indications": "Показания счётчика",
+  "heat_volume": "Объём тепла",
+  "heat_meter": "Теплосчётчик",
+  "heat_meter_indications": "Показания теплосчётчика"
 }

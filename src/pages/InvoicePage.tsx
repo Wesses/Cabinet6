@@ -6,6 +6,7 @@ import {
   Bill_RaxTypeT,
   getAbonentCardT,
   OplataItemT,
+  OtopShowDataT,
   ServicesValuesT,
   TabsNamesT,
   WmShowDataT,
@@ -15,6 +16,7 @@ import {
   getArchivData,
   getBills_RaxTypes,
   getOplataData,
+  getOtopShowData,
   getWMShowData,
 } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
@@ -45,6 +47,7 @@ const CabinetPage = () => {
   const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
   const [rentOplataData, setRentOplata] = useState<OplataItemT[]>([]);
   const [wmShowData, setWmShowData] = useState<WmShowDataT[]>([]);
+  const [otopShowData, setOtopShowData] = useState<OtopShowDataT[]>([]);
   const [bills_RaxTypes, setBills_RaxTypes] = useState<Bill_RaxTypeT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -72,10 +75,17 @@ const CabinetPage = () => {
               getBills_RaxTypes(+id),
             ]);
             
-          if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo || abonentCardPromiseData?.teploOtop?.teploschetId) {
-            const wMShowData = await getWMShowData(+id);
+          if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo) {
+            const data = await getWMShowData(+id);
 
-            setWmShowData(wMShowData);
+            setWmShowData(data);
+            
+          }
+          
+          if (abonentCardPromiseData?.teploOtop?.teploschetId) {
+            const data = await getOtopShowData(+id);
+
+            setOtopShowData(data);
             
           }
 
@@ -202,7 +212,7 @@ const CabinetPage = () => {
           tableData={abonentCardData?.teploOtop}
           archivData={archivData}
           rentOplataData={rentOplataData}
-          wmShowData={wmShowData}
+          otopShowData={otopShowData}
         />
       ),
     },

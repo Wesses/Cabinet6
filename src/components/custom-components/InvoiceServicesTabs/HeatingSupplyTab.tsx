@@ -2,9 +2,9 @@ import {
   ArchiveItemT,
   OplataItemT,
   TeploOtopT,
-  WmShowDataT,
   AnySupplyRentEnum,
-  AnySupplyWmShowEnum,
+  OtopShowDataT,
+  CertainFieldsHeatingSupplyEnum,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import { useTranslation } from "react-i18next";
@@ -27,14 +27,14 @@ type Props = {
   tableData: TeploOtopT | undefined;
   archivData: ArchiveItemT[];
   rentOplataData: OplataItemT[];
-  wmShowData: WmShowDataT[];
+  otopShowData: OtopShowDataT[];
 };
 
 const HeatingSupplyTab = ({
   tableData,
   archivData,
   rentOplataData,
-  wmShowData,
+  otopShowData,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -92,20 +92,21 @@ const HeatingSupplyTab = ({
       ),
     },
     {
-      label: t("watermeters_indicators"),
-      accordValue: "wmshow",
+      label: t("heat_meter_indications"),
+      accordValue: "otopshow",
       heads: [
-        t("indications_date"),
-        t("watermeter_type"),
-        t("indications"),
-        t("description"),
+        t("period_start"),
+        t("period_end"),
+        t("meter_indications"),
+        t("heat_volume"),
+        t("heat_meter"),
       ],
       styles: ["font-bold text-center bg-gray-300", "capitalize"],
-      data: getDataForTab<WmShowDataT>(
-        wmShowData,
-        AnySupplyWmShowEnum,
+      data: getDataForTab<OtopShowDataT>(
+        otopShowData,
+        CertainFieldsHeatingSupplyEnum,
         () => true,
-        [AnySupplyWmShowEnum.data],
+        [CertainFieldsHeatingSupplyEnum.dataKon, CertainFieldsHeatingSupplyEnum.dataNach],
       ),
     },
   ];
