@@ -162,5 +162,15 @@
   "meter_indications": "Meter readings",
   "heat_volume": "Heat volume",
   "heat_meter": "Heat meter",
-  "heat_meter_indications": "Heat meter readings"
+  "heat_meter_indications": "Heat meter readings",
+  "watermeter_list": "Water meters",
+  "serial_number": "Serial №",
+  "inspection_date": "Inspection date",
+  "hot_cold_water": "Hot/cold water",
+  "base_indications": "Base readings",
+  "reading_date": "Reading date",
+  "household_meter": "Household meter",
+  "irrigation_meter": "Irrigation meter",
+  "hot_water": "Hot",
+  "cold_water": "Cold"
 }

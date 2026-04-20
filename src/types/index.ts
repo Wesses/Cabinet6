@@ -458,6 +458,23 @@ export const kvartplataObj = {
   tsenaRezerv: 0,
 };
 
+export interface WMListT {
+  idx: number;
+  nSchetchika: string;
+  vodaKodSchetchika: number;
+  snSchet: string;
+  dataProvSchet: string;
+  gorVm: number;
+  polivVm: number;
+  predPokazVm: number;
+  posledPokazVm: number;
+  dataSnyat: string;
+  startDate: string;
+  endDate: string;
+  errorCode: number;
+  errorMsg: string;
+}
+
 export interface WmShowDataT {
   data: string;
   tipVm: string;

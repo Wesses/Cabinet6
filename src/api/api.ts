@@ -350,3 +350,25 @@ export const getOtopShowData = async (PersonalaccontsId: number): Promise<OtopSh
     throw e?.response?.status || "Unknown error";
   }
 };
+
+export const getWMList = async (PersonalaccontsId: number) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(wmShow + "/VodomerList/" + PersonalaccontsId, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+
+    if (response.statusText !== "OK") {
+      throw new Error(response.statusText);
+    }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};

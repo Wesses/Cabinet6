@@ -9,6 +9,7 @@ import {
   OtopShowDataT,
   ServicesValuesT,
   TabsNamesT,
+  WMListT,
   WmShowDataT,
 } from "@/types";
 import {
@@ -17,6 +18,7 @@ import {
   getBills_RaxTypes,
   getOplataData,
   getOtopShowData,
+  getWMList,
   getWMShowData,
 } from "@/api/api";
 import { useNavigate, useParams } from "react-router";
@@ -47,6 +49,7 @@ const CabinetPage = () => {
   const [archivData, setArchivData] = useState<ArchiveItemT[]>([]);
   const [rentOplataData, setRentOplata] = useState<OplataItemT[]>([]);
   const [wmShowData, setWmShowData] = useState<WmShowDataT[]>([]);
+  const [wmListData, setWmListData] = useState<WMListT[]>([]);
   const [otopShowData, setOtopShowData] = useState<OtopShowDataT[]>([]);
   const [bills_RaxTypes, setBills_RaxTypes] = useState<Bill_RaxTypeT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -67,26 +70,30 @@ const CabinetPage = () => {
       setIsLoading(true);
       (async () => {
         try {
-          const [abonentCardPromiseData, archivPromiseData, oplataPromiseData, billsTypesData] =
-            await Promise.all([
-              getAbonentCardData(+id),
-              getArchivData(+id),
-              getOplataData(+id),
-              getBills_RaxTypes(+id),
-            ]);
-            
-          if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo) {
-            const data = await getWMShowData(+id);
+          const [
+            abonentCardPromiseData,
+            archivPromiseData,
+            oplataPromiseData,
+            billsTypesData,
+          ] = await Promise.all([
+            getAbonentCardData(+id),
+            getArchivData(+id),
+            getOplataData(+id),
+            getBills_RaxTypes(+id),
+          ]);
 
-            setWmShowData(data);
-            
+          if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo) {
+            const dataWMSHow = await getWMShowData(+id);
+            const dataWMList = await getWMList(+id);
+
+            setWmShowData(dataWMSHow);
+            setWmListData(dataWMList);
           }
-          
+
           if (abonentCardPromiseData?.teploOtop?.teploschetId) {
             const data = await getOtopShowData(+id);
 
             setOtopShowData(data);
-            
           }
 
           setAbonentCardData(abonentCardPromiseData);
@@ -131,7 +138,7 @@ const CabinetPage = () => {
     [abonentCardData],
   );
 
-    const isHeatingSupplySubscribtionFee = useMemo(
+  const isHeatingSupplySubscribtionFee = useMemo(
     () =>
       !!abonentCardData?.services?.includes(ServicesValuesT.heating) &&
       !!abonentCardData?.otopAbpl,
@@ -171,6 +178,7 @@ const CabinetPage = () => {
           archivData={archivData}
           rentOplataData={rentOplataData}
           wmShowData={wmShowData}
+          wmListData={wmListData}
         />
       ),
     },
@@ -252,7 +260,7 @@ const CabinetPage = () => {
 
   const isContent = !isLoading && !isError;
   console.log(bills_RaxTypes);
-  
+
   return (
     <div className="flex-1 w-full h-full px-5 py-2">
       <div
@@ -266,7 +274,7 @@ const CabinetPage = () => {
       >
         <div className="flex items-center justify-start w-full gap-x-2">
           <Button
-            className="h-8 transition-all duration-300 bg-secondary rounded-md hover:bg-secondary/70 text-secondary-foreground"
+            className="h-8 transition-all duration-300 rounded-md bg-secondary hover:bg-secondary/70 text-secondary-foreground"
             onClick={hadnleBackToCabinet}
           >
             <div className="flex items-center justify-start w-full gap-x-2">
@@ -275,9 +283,7 @@ const CabinetPage = () => {
             </div>
           </Button>
 
-          {isLoading && (
-            <Skeleton className="h-8 sm:w-[153px] w-[56px]" />
-          )}
+          {isLoading && <Skeleton className="h-8 sm:w-[153px] w-[56px]" />}
 
           <AlertDialog
             open={open}

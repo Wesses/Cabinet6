@@ -162,5 +162,15 @@
   "meter_indications": "Показания счётчика",
   "heat_volume": "Объём тепла",
   "heat_meter": "Теплосчётчик",
-  "heat_meter_indications": "Показания теплосчётчика"
+  "heat_meter_indications": "Показания теплосчётчика",
+  "watermeter_list": "Водомеры",
+  "serial_number": "Серийный №",
+  "inspection_date": "Дата проверки",
+  "hot_cold_water": "Гор./хол. вода",
+  "base_indications": "Показатели в базе данных",
+  "reading_date": "Дата снятия показаний",
+  "household_meter": "Бытовой водомер",
+  "irrigation_meter": "Водомер для полива",
+  "hot_water": "Гор.",
+  "cold_water": "Хол."
 }

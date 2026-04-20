@@ -162,5 +162,15 @@
   "meter_indications": "Показники лічильника",
   "heat_volume": "Обсяг тепла",
   "heat_meter": "Теплолічильник",
-  "heat_meter_indications": "Показники теплолічильника"
+  "heat_meter_indications": "Показники теплолічильника",
+  "watermeter_list": "Водоміри",
+  "serial_number": "Серійний №",
+  "inspection_date": "Дата перевірки",
+  "hot_cold_water": "Гар./хол. вода",
+  "base_indications": "Показники у базі даних",
+  "reading_date": "Дата зняття показників",
+  "household_meter": "Побутовий водомір",
+  "irrigation_meter": "Водомір на полив",
+  "hot_water": "Гар.",
+  "cold_water": "Хол."
 }

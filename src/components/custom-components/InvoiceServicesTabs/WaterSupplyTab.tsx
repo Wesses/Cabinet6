@@ -5,6 +5,7 @@ import {
   AnySupplyRentEnum,
   WmShowDataT,
   AnySupplyWmShowEnum,
+  WMListT,
 } from "@/types";
 import SimpleTable from "../SimpleTable";
 import AccordionForTabs from "./AccordionForTabs";
@@ -27,6 +28,7 @@ type Props = {
   archivData: ArchiveItemT[];
   rentOplataData: OplataItemT[];
   wmShowData: WmShowDataT[];
+  wmListData: WMListT[];
 };
 
 function WaterSupplyTab({
@@ -34,6 +36,7 @@ function WaterSupplyTab({
   archivData,
   rentOplataData,
   wmShowData,
+  wmListData,
 }: Props) {
   const { t } = useTranslation();
 
@@ -64,6 +67,20 @@ function WaterSupplyTab({
 
     return cookedData;
   };
+
+  const wmListRows = wmListData.map((item, index) => ({
+    rows: [
+      item.polivVm === 1
+        ? `${t("irrigation_meter")} ${item.idx}`
+        : `${t("household_meter")} ${item.idx}`,
+      item.nSchetchika,
+      new Date(item.dataProvSchet).toLocaleDateString("ru-RU"),
+      item.gorVm === 1 ? t("hot_water") : t("cold_water"),
+      item.posledPokazVm,
+      item.dataSnyat ? new Date(item.dataSnyat).toLocaleDateString("ru-RU") : "-",
+    ],
+    index,
+  }));
 
   const accordionData = [
     {
@@ -96,6 +113,20 @@ function WaterSupplyTab({
         ({ tag }) => WATER_SUPPLY_TAG_VALUES.includes(tag),
         [AnySupplyRentEnum.dataPerevoda],
       ),
+    },
+    {
+      label: t("watermeter_list"),
+      accordValue: "wmlist",
+      heads: [
+        t("watermeter_type"),
+        t("serial_number"),
+        t("inspection_date"),
+        t("hot_cold_water"),
+        t("base_indications"),
+        t("reading_date"),
+      ],
+      styles: ["font-bold text-center bg-muted"],
+      data: wmListRows,
     },
     {
       label: t("watermeters_indicators"),
