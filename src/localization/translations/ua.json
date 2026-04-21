@@ -173,5 +173,11 @@
   "household_meter": "Побутовий водомір",
   "irrigation_meter": "Водомір на полив",
   "hot_water": "Гар.",
-  "cold_water": "Хол."
+  "cold_water": "Хол.",
+  "watermeter_mark": "Марка ВМ",
+  "new_indications": "Нові показання",
+  "reading_below_previous": "Не може бути менше попереднього показання",
+  "readings_large_diff_title": "Показання значно відрізняються",
+  "readings_large_diff_description": "Наступні показання значно перевищують попередні:",
+  "confirm": "Підтвердити"
 }

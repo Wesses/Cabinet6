@@ -62,6 +62,16 @@ const CabinetPage = () => {
   const [open, setOpen] = useState(false);
   const [openWmForm, setOpenWmForm] = useState(false);
 
+  const refreshWmData = async () => {
+    if (!id) return;
+    const [dataWMShow, dataWMList] = await Promise.all([
+      getWMShowData(+id),
+      getWMList(+id),
+    ]);
+    setWmShowData(dataWMShow);
+    setWmListData(dataWMList);
+  };
+
   useEffect(() => {
     setIsError(false);
     if (!searchParams.has(SEARCH_PARAM_TAB_KEY)) {
@@ -328,6 +338,7 @@ const CabinetPage = () => {
             <AddWatermeterForm
               wmListData={wmListData}
               onClose={() => setOpenWmForm(false)}
+              onSuccess={refreshWmData}
             />
           </AlertDialog>
         </div>

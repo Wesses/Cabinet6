@@ -173,5 +173,11 @@
   "household_meter": "Household meter",
   "irrigation_meter": "Irrigation meter",
   "hot_water": "Hot",
-  "cold_water": "Cold"
+  "cold_water": "Cold",
+  "watermeter_mark": "Meter model",
+  "new_indications": "New readings",
+  "reading_below_previous": "Cannot be less than the previous reading",
+  "readings_large_diff_title": "Readings differ significantly",
+  "readings_large_diff_description": "The following readings significantly exceed the previous ones:",
+  "confirm": "Confirm"
 }
