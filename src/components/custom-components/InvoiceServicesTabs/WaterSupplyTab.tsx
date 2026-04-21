@@ -68,9 +68,6 @@ function WaterSupplyTab({
     return cookedData;
   };
 
-  console.log(wmListData);
-  
-
   const wmListRows = wmListData.map((item, index) => ({
     rows: [
       item.polivVm === 1

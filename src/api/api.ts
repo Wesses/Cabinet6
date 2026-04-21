@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { getToken } from "@/utils/getToken";
 import { onMainPage } from "@/utils/onMainPage";
-import { Bill_RaxTypeT, OtopShowDataT } from "@/types";
+import { Bill_RaxTypeT, OtopShowDataT, VmPokazPostT } from "@/types";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -342,6 +342,24 @@ export const getOtopShowData = async (PersonalaccontsId: number): Promise<OtopSh
     if (response.statusText !== "OK") {
       throw new Error(response.statusText);
     }
+
+    return response.data;
+  } catch (e: any) {
+    console.error("Помилка при виконанні запиту:", e);
+
+    throw e?.response?.status || "Unknown error";
+  }
+};
+
+export const postVmPokaz = async (data: VmPokazPostT) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.post(wmShow + "/post-vm-pokaz", data, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
 
     return response.data;
   } catch (e: any) {

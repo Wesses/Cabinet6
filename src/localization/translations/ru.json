@@ -163,6 +163,7 @@
   "heat_volume": "Объём тепла",
   "heat_meter": "Теплосчётчик",
   "heat_meter_indications": "Показания теплосчётчика",
+  "add_meter_readings": "Внести показания счётчиков",
   "watermeter_list": "Водомеры",
   "serial_number": "Серийный №",
   "inspection_date": "Дата проверки",

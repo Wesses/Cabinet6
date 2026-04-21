@@ -502,6 +502,22 @@ export interface OtopShowDataT {
   errorMsg: string;
 }
 
+export interface VmPokazPostT {
+  personalaccontsId: number;
+  novPokaz1: number;
+  novPokaz2: number;
+  novPokaz3: number;
+  novPokaz4: number;
+  novPokaz5: number;
+  novPokaz6: number;
+  novPokazPoliv1: number;
+  novPokazPoliv2: number;
+  novPokazPoliv3: number;
+  novPokazPoliv4: number;
+  novPokazPoliv5: number;
+  novPokazPoliv6: number;
+}
+
 export interface Bill_RaxTypeT {
   id: number;
   name: string;

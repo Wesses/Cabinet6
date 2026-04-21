@@ -42,6 +42,7 @@ import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
 import HeatingSupplyTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyTab";
 import HeatingSupplyAbplOtopTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyAbplOtopTab";
+import AddWatermeterForm from "@/components/custom-components/AddWatermeterForm";
 
 const CabinetPage = () => {
   const [abonentCardData, setAbonentCardData] =
@@ -59,6 +60,7 @@ const CabinetPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [openWmForm, setOpenWmForm] = useState(false);
 
   useEffect(() => {
     setIsError(false);
@@ -306,6 +308,26 @@ const CabinetPage = () => {
               onClose={() => setOpen(false)}
               open={open}
               bills_raxTypes={bills_RaxTypes}
+            />
+          </AlertDialog>
+
+          {isLoading && <Skeleton className="h-8 sm:w-[153px] w-[56px]" />}
+
+          <AlertDialog open={openWmForm} onOpenChange={setOpenWmForm}>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn("h-8 hidden", {
+                  "flex items-center justify-center": isContent,
+                })}
+                disabled={!wmListData.length}
+              >
+                {t("add_meter_readings")}
+              </Button>
+            </AlertDialogTrigger>
+            <AddWatermeterForm
+              wmListData={wmListData}
+              onClose={() => setOpenWmForm(false)}
             />
           </AlertDialog>
         </div>
