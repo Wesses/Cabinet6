@@ -53,7 +53,7 @@ const CabinetPage = () => {
         successFunction();
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
         setShowAlert(true);
         setIsError(true);
       })

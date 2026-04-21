@@ -259,7 +259,6 @@ const CabinetPage = () => {
   };
 
   const isContent = !isLoading && !isError;
-  console.log(bills_RaxTypes);
 
   return (
     <div className="flex-1 w-full h-full px-5 py-2">

@@ -68,12 +68,15 @@ function WaterSupplyTab({
     return cookedData;
   };
 
+  console.log(wmListData);
+  
+
   const wmListRows = wmListData.map((item, index) => ({
     rows: [
       item.polivVm === 1
         ? `${t("irrigation_meter")} ${item.idx}`
-        : `${t("household_meter")} ${item.idx}`,
-      item.nSchetchika,
+        : `${t("household_meter")} ${item.idx}` + ` ${item.nSchetchika}`,
+      item.snSchet,
       new Date(item.dataProvSchet).toLocaleDateString("ru-RU"),
       item.gorVm === 1 ? t("hot_water") : t("cold_water"),
       item.posledPokazVm,

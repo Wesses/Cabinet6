@@ -43,7 +43,7 @@ export const LoginPage = () => {
       })
       .catch((e) => {
         setIsError(true);
-        console.log(e);
+        console.error(e);
       });
 
     if (Cookies.get(import.meta.env.VITE_TOKEN_NAME)) {
@@ -54,7 +54,7 @@ export const LoginPage = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
       <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
-        <div className="absolute z-10 flex flex-row items-center text-primary-foreground top-0 left-0 right-0 px-4 pt-4 pb-2 bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
+        <div className="absolute top-0 left-0 right-0 z-10 flex flex-row items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
