@@ -35,6 +35,12 @@ export const KVARTPLATA_TAG_VALUES = ["KVPLATA"];
 export const SEARCH_PARAM_TAB_KEY = "tab";
 
 export const izmteploTag = "izmteplo";
+export const izmvkTag = "izmvk";
+export const izmvodaTag = "izmvoda";
+export const vilkovoTag = "vilkovo";
+export const brovodaTag = "brovoda";
+export const kiliyaTag = "kiliya";
 
-export const WARM_THEME_ALIASES = ["izmteplo"];
-export const COOL_THEME_ALIASES = ["kiliya", "izmvoda", "vilkovo", "brovoda"];
+export const WARM_THEME_ALIASES = [izmteploTag];
+export const COOL_THEME_ALIASES = [izmvodaTag, vilkovoTag, brovodaTag];
+export const GREEN_THEME_ALIASES = [izmvkTag];

@@ -20,8 +20,13 @@ import Cookies from "js-cookie";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "@/components/custom-components/LocaleButton";
 import { useTranslation } from "react-i18next";
-import { CURRENT_PAGE_PARAM_KEY, izmteploTag } from "@/utils/constants";
+import {
+  CURRENT_PAGE_PARAM_KEY,
+  izmteploTag,
+  izmvkTag,
+} from "@/utils/constants";
 import PaymentGif from "@/components/custom-components/izmteploComponents/PaymentGif";
+import ViberBotRefs from "@/components/custom-components/izmvkComponents/ViberBotRefs";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -53,24 +58,24 @@ export const LoginPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
-      <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none">
-        <div className="absolute top-0 left-0 right-0 z-10 flex flex-row items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline">
+      <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none overflow-hidden flex flex-col">
+        <div className="z-10 flex flex-row items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline lg:absolute lg:top-0 lg:left-0 lg:right-0">
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
             <>
               {organizationData ? (
                 <>
-                  <h1 className="text-2xl font-bold xl:text-3xl">
+                  <h1 className="text-xl font-bold lg:text-2xl xl:text-3xl whitespace-nowrap">
                     {organizationData.name ?? "-"}
                   </h1>
-                  <p className="hidden sm:block">
+                  <p className="hidden text-sm md:text-base sm:block">
                     {(organizationData.description ?? "-") +
                       t("address_label") +
                       " " +
                       (organizationData.contactAddress ?? "-")}
                   </p>
-                  <p>
+                  <p className="text-sm md:text-base">
                     {t("phone_number_label") +
                       " " +
                       (organizationData.contactPhone ?? "-")}
@@ -86,38 +91,42 @@ export const LoginPage = () => {
             </>
           )}
         </div>
-        {import.meta.env.VITE_ALIAS === izmteploTag ? (
-          <PaymentGif />
-        ) : (
-          <>
-            <div className="absolute flex justify-center w-full lg:hidden bottom-4">
-              <Drawer>
-                <DrawerTrigger className="w-full" asChild>
-                  <Button className="w-4/5 bg-primary-foreground text-primary hover:bg-primary-foreground/80 max-w-[400px] lg:max-w-none">
-                    {t("news")}
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent className="h-full rounded-none">
-                  <DrawerHeader>
-                    <DrawerTitle>{t("news")}</DrawerTitle>
-                  </DrawerHeader>
-                  <NewsList />
-                  <DrawerFooter>
-                    <DrawerClose asChild className="flex justify-center">
-                      <div>
-                        <Button>{t("close")}</Button>
-                      </div>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
-            </div>
+        <div className="flex-1 min-h-0">
+          {import.meta.env.VITE_ALIAS === izmteploTag && <PaymentGif />}
+          {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
 
-            <div className="hidden h-full lg:block">
-              <NewsList />
-            </div>
-          </>
-        )}
+          {!(import.meta.env.VITE_ALIAS === izmvkTag) &&
+            !(import.meta.env.VITE_ALIAS === izmteploTag) && (
+              <>
+                <div className="flex items-end justify-center h-full pb-4 lg:hidden">
+                  <Drawer>
+                    <DrawerTrigger className="w-full" asChild>
+                      <Button className="w-4/5 bg-primary-foreground text-primary hover:bg-primary-foreground/80 max-w-[400px] lg:max-w-none">
+                        {t("news")}
+                      </Button>
+                    </DrawerTrigger>
+                    <DrawerContent className="h-full rounded-none">
+                      <DrawerHeader>
+                        <DrawerTitle>{t("news")}</DrawerTitle>
+                      </DrawerHeader>
+                      <NewsList />
+                      <DrawerFooter>
+                        <DrawerClose asChild className="flex justify-center">
+                          <div>
+                            <Button>{t("close")}</Button>
+                          </div>
+                        </DrawerClose>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  </Drawer>
+                </div>
+
+                <div className="hidden h-full lg:block">
+                  <NewsList />
+                </div>
+              </>
+            )}
+        </div>
       </div>
 
       <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">

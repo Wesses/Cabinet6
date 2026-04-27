@@ -176,8 +176,11 @@
   "cold_water": "Cold",
   "watermeter_mark": "Meter model",
   "new_indications": "New readings",
+  "our_viber_bot": "Our Viber Bot",
+  "pay_online": "Pay online",
   "reading_below_previous": "Cannot be less than the previous reading",
   "readings_large_diff_title": "Readings differ significantly",
   "readings_large_diff_description": "The following readings significantly exceed the previous ones:",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "payment_button": "Payment"
 }

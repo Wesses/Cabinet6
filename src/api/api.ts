@@ -84,7 +84,7 @@ export const getNews = async () => {
 export const getOrganizationData = async () => {
   try {
     const response = await axios.get(organizationData + baseName);
-
+    
     if (response.statusText !== "OK") {
       throw new Error(response.statusText);
     }

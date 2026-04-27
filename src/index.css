@@ -99,6 +99,36 @@
   --ring: 215 45% 24%;
 }
 
+:root.theme-green {
+  --background: 138 20% 98%;
+  --foreground: 140 20% 12%;
+
+  --card: 138 20% 98%;
+  --card-foreground: 140 20% 12%;
+
+  --popover: 138 20% 98%;
+  --popover-foreground: 140 20% 12%;
+
+  --primary: 142 60% 28%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 140 30% 92%;
+  --secondary-foreground: 140 20% 18%;
+
+  --muted: 140 22% 93%;
+  --muted-foreground: 140 14% 44%;
+
+  --accent: 138 45% 88%;
+  --accent-foreground: 140 20% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 140 18% 87%;
+  --input: 140 18% 87%;
+  --ring: 142 60% 28%;
+}
+
 @layer base {
   * {
     @apply border-border;
