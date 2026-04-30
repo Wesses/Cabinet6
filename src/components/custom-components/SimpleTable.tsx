@@ -43,7 +43,7 @@ const SimpleTable = ({ data, debtValue }: Props) => {
                     <DebtLabel label={isOverpayment ? t("overpayment") : t("debt")} hint={t("debt_hint")} />
                   </TableCell>
                   <TableCell className={cn("text-right font-semibold", isOverpayment && "text-green-600", isHighDebt && "text-destructive font-extrabold")}>
-                    {debtValue}
+                    {debtValue!.toFixed(2)}
                   </TableCell>
                 </TableRow>
               )}
@@ -64,7 +64,7 @@ const SimpleTable = ({ data, debtValue }: Props) => {
                 <DebtLabel label={isOverpayment ? t("overpayment") : t("debt")} hint={t("debt_hint")} />
               </div>
               <div className={cn("text-base font-semibold", isOverpayment && "text-green-600", isHighDebt && "text-destructive font-extrabold")}>
-                {debtValue.toFixed(2)}
+                {debtValue!.toFixed(2)}
               </div>
             </div>
           )}

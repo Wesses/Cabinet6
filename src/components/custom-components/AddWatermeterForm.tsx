@@ -168,7 +168,7 @@ const AddWatermeterForm = ({ wmListData, onClose, onSuccess }: Props) => {
                         <div className="flex items-center justify-between gap-x-2">
                           <span className="text-muted-foreground">{t("new_indications")}:</span>
                           <FormControl>
-                            <Input type="number" min={0} autoComplete="off" className="w-28" {...field} />
+                            <Input type="number" min={0} autoComplete="off" className="w-28" autoFocus={i === 0} {...field} />
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -207,7 +207,7 @@ const AddWatermeterForm = ({ wmListData, onClose, onSuccess }: Props) => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="number" min={0} autoComplete="off" className="w-28" {...field} />
+                              <Input type="number" min={0} autoComplete="off" className="w-28" autoFocus={i === 0} {...field} />
                             </FormControl>
                           </FormItem>
                         )}
