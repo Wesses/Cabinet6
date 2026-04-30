@@ -36,11 +36,10 @@ export const SEARCH_PARAM_TAB_KEY = "tab";
 
 export const izmteploTag = "izmteplo";
 export const izmvkTag = "izmvk";
-export const izmvodaTag = "izmvoda";
 export const vilkovoTag = "vilkovo";
 export const brovodaTag = "brovoda";
 export const kiliyaTag = "kiliya";
 
 export const WARM_THEME_ALIASES = [izmteploTag];
-export const COOL_THEME_ALIASES = [izmvodaTag, vilkovoTag, brovodaTag];
+export const COOL_THEME_ALIASES = [vilkovoTag, brovodaTag];
 export const GREEN_THEME_ALIASES = [izmvkTag];

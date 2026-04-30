@@ -73,7 +73,10 @@ function HeatingSupplyOtopAbpl({
 
   return (
     <div className="flex flex-col gap-y-2">
-      <SimpleTable data={heatingSupplyAbplCookedData} />
+      <SimpleTable
+        data={heatingSupplyAbplCookedData}
+        debtValue={HeatingSupplyAbplOtop.saldoNachOtopAbpl}
+      />
 
       <AccordionForTabs accordionData={accordionData} />
     </div>

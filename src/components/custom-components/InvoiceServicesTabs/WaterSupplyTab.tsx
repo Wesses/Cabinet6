@@ -149,7 +149,10 @@ function WaterSupplyTab({
 
   return (
     <div className="flex flex-col gap-y-2">
-      <SimpleTable data={getWaterSupplyData(waterSupplyData)} />
+      <SimpleTable
+        data={getWaterSupplyData(waterSupplyData)}
+        debtValue={waterSupplyData?.saldoNachVoda}
+      />
 
       <AccordionForTabs accordionData={accordionData} />
     </div>

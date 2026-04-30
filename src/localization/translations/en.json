@@ -182,5 +182,8 @@
   "readings_large_diff_title": "Readings differ significantly",
   "readings_large_diff_description": "The following readings significantly exceed the previous ones:",
   "confirm": "Confirm",
-  "payment_button": "Payment"
+  "payment_button": "Payment",
+  "debt": "Debt",
+  "debt_hint": "Debt at the beginning of the billing month",
+  "overpayment": "Overpayment"
 }

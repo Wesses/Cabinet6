@@ -18,7 +18,7 @@ const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
       <div>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="bg-primary p-2 rounded-lg">
+            <TooltipTrigger className="p-2 rounded-lg bg-primary">
               <PlusIcon className="text-primary-foreground" />
             </TooltipTrigger>
             <TooltipContent>
@@ -36,4 +36,4 @@ const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
   )
 }
 
-export default AddInvoiceButton
+export default AddInvoiceButton;

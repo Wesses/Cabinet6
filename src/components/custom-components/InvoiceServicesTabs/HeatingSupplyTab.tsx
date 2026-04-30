@@ -113,7 +113,10 @@ const HeatingSupplyTab = ({
 
   return (
     <div className="flex flex-col gap-y-2">
-      <SimpleTable data={refineTableData} />
+      <SimpleTable
+        data={refineTableData}
+        debtValue={tableData?.saldoNachOtop}
+      />
 
       <AccordionForTabs accordionData={accordionData} />
     </div>

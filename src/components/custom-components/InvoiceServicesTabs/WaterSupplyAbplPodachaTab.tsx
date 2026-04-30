@@ -76,7 +76,10 @@ function WaterSupplyAbplPodachaTab({
 
   return (
     <div className="flex flex-col gap-y-2">
-      <SimpleTable data={waterSupplyAbplPodachaCookedData} />
+      <SimpleTable
+        data={waterSupplyAbplPodachaCookedData}
+        debtValue={waterSupplyAbplPodachaRowData.saldoNachVodaAbplPodacha}
+      />
 
       <AccordionForTabs accordionData={accordionData} />
     </div>

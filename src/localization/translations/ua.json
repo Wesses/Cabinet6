@@ -182,5 +182,8 @@
   "readings_large_diff_title": "Показання значно відрізняються",
   "readings_large_diff_description": "Наступні показання значно перевищують попередні:",
   "confirm": "Підтвердити",
-  "payment_button": "Оплата"
+  "payment_button": "Оплата",
+  "debt": "Борг",
+  "debt_hint": "Борг на початок розрахункового місяця",
+  "overpayment": "Переплата"
 }

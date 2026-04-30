@@ -62,6 +62,8 @@ const CabinetPage = () => {
   const [open, setOpen] = useState(false);
   const [openWmForm, setOpenWmForm] = useState(false);
 
+  const isWm = abonentCardData?.voda?.vodaAbSchetchikiKolvo;
+
   const refreshWmData = async () => {
     if (!id) return;
     const [dataWMShow, dataWMList] = await Promise.all([
@@ -95,6 +97,7 @@ const CabinetPage = () => {
           ]);
 
           if (abonentCardPromiseData?.voda?.vodaAbSchetchikiKolvo) {
+            
             const dataWMSHow = await getWMShowData(+id);
             const dataWMList = await getWMList(+id);
 
@@ -320,27 +323,30 @@ const CabinetPage = () => {
               bills_raxTypes={bills_RaxTypes}
             />
           </AlertDialog>
+          <div className={cn("hidden", {
+            "block": isContent && (isWm),
+          })}>
+            {isLoading && <Skeleton className="h-8 w-[238px]" />}
 
-          {isLoading && <Skeleton className="h-8 sm:w-[153px] w-[56px]" />}
-
-          <AlertDialog open={openWmForm} onOpenChange={setOpenWmForm}>
-            <AlertDialogTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn("h-8 hidden", {
-                  "flex items-center justify-center": isContent,
-                })}
-                disabled={!wmListData.length}
-              >
-                {t("add_meter_readings")}
-              </Button>
-            </AlertDialogTrigger>
-            <AddWatermeterForm
-              wmListData={wmListData}
-              onClose={() => setOpenWmForm(false)}
-              onSuccess={refreshWmData}
-            />
-          </AlertDialog>
+            <AlertDialog open={openWmForm} onOpenChange={setOpenWmForm}>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn("h-8 hidden", {
+                    "flex items-center justify-center": isContent,
+                  })}
+                  disabled={!wmListData.length}
+                >
+                  {t("add_meter_readings")}
+                </Button>
+              </AlertDialogTrigger>
+              <AddWatermeterForm
+                wmListData={wmListData}
+                onClose={() => setOpenWmForm(false)}
+                onSuccess={refreshWmData}
+              />
+            </AlertDialog>
+          </div>
         </div>
 
         {isLoading && (

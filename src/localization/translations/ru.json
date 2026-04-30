@@ -182,5 +182,8 @@
   "readings_large_diff_title": "Показания значительно отличаются",
   "readings_large_diff_description": "Следующие показания значительно превышают предыдущие:",
   "confirm": "Подтвердить",
-  "payment_button": "Оплата"
+  "payment_button": "Оплата",
+  "debt": "Долг",
+  "debt_hint": "Долг на начало расчётного месяца",
+  "overpayment": "Переплата"
 }

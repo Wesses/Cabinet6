@@ -197,6 +197,7 @@ export type WaterSupplyDataT = Partial<
     | "ploshadPolivaM2"
     | "tsenaPoliv"
     | "polivSchetchikiKolvo"
+    | "saldoNachVoda"
   >
 >;
 

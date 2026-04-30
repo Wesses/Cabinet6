@@ -164,7 +164,10 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <SimpleTable data={kvartptalaValidData} />
+            <SimpleTable
+              data={kvartptalaValidData}
+              debtValue={kvartplata?.saldoNachKvplata}
+            />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
