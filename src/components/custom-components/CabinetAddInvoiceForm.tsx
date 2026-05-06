@@ -24,13 +24,15 @@ import Spinner from "./Spinner";
 import { useState } from "react";
 import { showCustomToast } from "@/utils/showCustomComponent";
 import { useTranslation } from "react-i18next";
+import { OrganizationDataT } from "@/types";
 
 type Props = {
   getData: (successFunction: () => void) => void;
   lightInvoice: (invoice: number) => void;
+  orgData?: OrganizationDataT | null;
 };
 
-const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
+const CabinetAddInvoiceForm = ({ getData, lightInvoice, orgData }: Props) => {
   const [isLoading, setIsloading] = useState(false);
   const { t } = useTranslation();
 
@@ -104,6 +106,12 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice }: Props) => {
           </span>
           {", " + t("add_incoive_part_3")}
         </AlertDialogDescription>
+        {orgData?.contactPhone && (
+          <p className="text-sm text-left text-foreground">{t("phone_number_label")} {orgData.contactPhone}</p>
+        )}
+        {orgData?.viberLinkAbon && (
+          <a href={orgData.viberLinkAbon} className="text-sm text-left text-blue-500 hover:underline">{t("our_viber_bot")}</a>
+        )}
       </AlertDialogHeader>
 
       <Form {...form}>

@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ChevronsLeftIcon, ChevronsRightIcon, SearchIcon } from "lucide-react";
 import TableBlock from "./TableBlock";
 import { Input } from "../ui/input";
-import { PersonalaccontsT } from "@/types";
+import { OrganizationDataT, PersonalaccontsT } from "@/types";
 import MyTableItem from "./MyTableItem";
 import { deletePersonalaccont } from "@/api/api";
 import { showCustomToast } from "@/utils/showCustomComponent";
@@ -27,6 +27,7 @@ type Props = {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   itemsPerPage: number;
+  orgData?: OrganizationDataT | null;
 };
 
 function MyTable({
@@ -37,6 +38,7 @@ function MyTable({
   currentPage,
   setCurrentPage,
   itemsPerPage,
+  orgData,
 }: Props) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -135,7 +137,7 @@ function MyTable({
               className="px-4 py-2 border border-border rounded w-full text-base"
             />
 
-            <AddInvoiceButton getData={getData} lightInvoice={lightInvoice} />
+            <AddInvoiceButton getData={getData} lightInvoice={lightInvoice} orgData={orgData} />
           </div>
 
           {filteredData.length ? (

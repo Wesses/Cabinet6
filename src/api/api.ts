@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { getToken } from "@/utils/getToken";
 import { onMainPage } from "@/utils/onMainPage";
-import { Bill_RaxTypeT, OtopShowDataT, VmPokazPostT } from "@/types";
+import { Bill_RaxTypeT, OrganizationDataT, OtopShowDataT, VmPokazPostT } from "@/types";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
@@ -81,18 +81,13 @@ export const getNews = async () => {
   }
 };
 
-export const getOrganizationData = async () => {
+export const getOrganizationData = async (): Promise<OrganizationDataT> => {
   try {
-    const response = await axios.get(organizationData + baseName);
-    
-    if (response.statusText !== "OK") {
-      throw new Error(response.statusText);
-    }
-
+    const response = await axios.get(`${organizationData}/${import.meta.env.VITE_ALIAS}`);
     return response.data;
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
-    throw e.response?.statusText || "Unknown error";
+    throw e?.response?.status || "Unknown error";
   }
 };
 

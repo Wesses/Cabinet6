@@ -3,13 +3,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 import { PlusIcon } from 'lucide-react'
 import CabinetAddInvoiceForm from './CabinetAddInvoiceForm'
 import { useTranslation } from 'react-i18next'
+import { OrganizationDataT } from '@/types'
 
 type Props = {
   getData: (successFunction: () => void) => void;
   lightInvoice: (invoice: number) => void;
+  orgData?: OrganizationDataT | null;
 }
 
-const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
+const AddInvoiceButton = ({getData, lightInvoice, orgData}: Props) => {
   const {t} = useTranslation();
 
   return (
@@ -31,6 +33,7 @@ const AddInvoiceButton = ({getData, lightInvoice}: Props) => {
     <CabinetAddInvoiceForm
       getData={getData}
       lightInvoice={lightInvoice}
+      orgData={orgData}
     />
   </AlertDialog>
   )

@@ -14,6 +14,7 @@ export interface OrganizationDataT {
   description: string;
   contactAddress: string;
   contactPhone: string;
+  viberLinkAbon: string;
 }
 
 export interface PersonalaccontsT {

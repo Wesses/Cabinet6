@@ -9,8 +9,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import MyTable from "../components/custom-components/MyTable";
-import { getPersonalacconts } from "../api/api";
-import { PersonalaccontsT } from "@/types";
+import { getOrganizationData, getPersonalacconts } from "../api/api";
+import { OrganizationDataT, PersonalaccontsT } from "@/types";
 import { useEffect, useState } from "react";
 import TableSkeleton from "@/components/custom-components/TableSkeleton";
 import AddInvoiceButton from "@/components/custom-components/AddInvoiceButton";
@@ -27,6 +27,7 @@ const CabinetPage = () => {
   const [tableData, setTableData] = useState<PersonalaccontsT[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [createdInvoice, setCreatedInvoice] = useState(-1);
+  const [orgData, setOrgData] = useState<OrganizationDataT | null>(null);
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -84,21 +85,22 @@ const CabinetPage = () => {
     };
 
     getData();
+    getOrganizationData().then(setOrgData).catch(() => {});
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="flex flex-col w-full h-full">
       <div className="px-10 py-5">
         {isLoading && <TableSkeleton />}
         {isError && <h1 className="text-xl">{t("error_message")}</h1>}
         {!isLoading && !tableData.length && !isError && (
           <div className="border-2 border-black shadow-lg w-full h-[200px] rounded-sm flex flex-col justify-center items-center gap-y-8">
             <p className="text-lg">{" " + t("message_add_first_invoice")}</p>
-            <div className="flex justify-center items-center w-full">
+            <div className="flex items-center justify-center w-full">
               <ChevronRightIcon />
               <ChevronRightIcon />
               <ChevronRightIcon />
-              <AddInvoiceButton getData={getData} lightInvoice={() => {}} />
+              <AddInvoiceButton getData={getData} lightInvoice={() => {}} orgData={orgData} />
               <ChevronLeftIcon />
               <ChevronLeftIcon />
               <ChevronLeftIcon />
@@ -114,6 +116,7 @@ const CabinetPage = () => {
             currentPage={currentPageParam}
             setCurrentPage={handleCurrentPageParam}
             itemsPerPage={itemsPerPage}
+            orgData={orgData}
           />
         )}
       </div>

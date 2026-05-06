@@ -9,6 +9,12 @@ lerna-debug.log*
 
 node_modules
 dist
+izmteplo
+izmvk
+izmvoda
+vilkovo
+brovoda
+kiliya
 *.zip
 dist-ssr
 *.local
