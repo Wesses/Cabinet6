@@ -8,8 +8,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ReactCountryFlag from "react-country-flag";
 import { cn } from '@/lib/utils';
+import uaFlag from "@/assets/flags/ua.svg";
+import gbFlag from "@/assets/flags/gb.svg";
+import ruFlag from "@/assets/flags/ru.svg";
+
+const flagMap: Record<string, string> = { ua: uaFlag, gb: gbFlag, ru: ruFlag };
 
 type Props = {
   isLabel: boolean;
@@ -35,15 +39,7 @@ const LocaleButton = ({ isLabel }: Props) => {
           "flex items-center gap-x-2 outline-none transition-all duration-300 rounded-md px-2 py-2"
         )}
       >
-        <ReactCountryFlag
-          className="emojiFlag"
-          countryCode={getContryCode(language)}
-          style={{
-            fontSize: "1.5em",
-            lineHeight: "1em",
-          }}
-          aria-label="United States"
-        />
+        <img src={flagMap[getContryCode(language)]} className="w-6 h-4 object-cover rounded-sm" alt={language} />
         {isLabel && language}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -57,17 +53,7 @@ const LocaleButton = ({ isLabel }: Props) => {
               onClick={() => handleClick(locale)}
               key={locale}
             >
-              <div className="rounded-full">
-                <ReactCountryFlag
-                  className="emojiFlag"
-                  countryCode={getContryCode(locale)}
-                  style={{
-                    fontSize: "1.5em",
-                    lineHeight: "1em",
-                  }}
-                  aria-label={locale}
-                />
-              </div>
+              <img src={flagMap[getContryCode(locale)]} className="w-6 h-4 object-cover rounded-sm" alt={locale} />
 
               {locale}
             </DropdownMenuItem>

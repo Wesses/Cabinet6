@@ -75,7 +75,7 @@ const SimpleTable = ({ data, debtValue }: Props) => {
             >
               <div className="text-sm text-muted-foreground">{label}</div>
               <div className="text-base font-semibold text-card-foreground">
-                {(typeof value === "number" && value ? value.toFixed(2) : value) || "-"}
+                {(typeof value === "number" && value ? (Number.isInteger(value) ? value : value.toFixed(2)) : value) || "-"}
               </div>
             </div>
           ))}
