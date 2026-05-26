@@ -79,6 +79,7 @@ function WaterSupplyAbplPodachaTab({
       <SimpleTable
         data={waterSupplyAbplPodachaCookedData}
         debtValue={waterSupplyAbplPodachaRowData.saldoNachVodaAbplPodacha}
+        linkToPay={waterSupplyAbplPodachaRowData.linkToPay}
       />
 
       <AccordionForTabs accordionData={accordionData} />

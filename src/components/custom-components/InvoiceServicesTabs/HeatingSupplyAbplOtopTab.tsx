@@ -76,6 +76,7 @@ function HeatingSupplyOtopAbpl({
       <SimpleTable
         data={heatingSupplyAbplCookedData}
         debtValue={HeatingSupplyAbplOtop.saldoNachOtopAbpl}
+        linkToPay={HeatingSupplyAbplOtop.linkToPay}
       />
 
       <AccordionForTabs accordionData={accordionData} />

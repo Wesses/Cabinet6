@@ -152,6 +152,7 @@ function WaterSupplyTab({
       <SimpleTable
         data={getWaterSupplyData(waterSupplyData)}
         debtValue={waterSupplyData?.saldoNachVoda}
+        linkToPay={waterSupplyData?.linkToPay}
       />
 
       <AccordionForTabs accordionData={accordionData} />

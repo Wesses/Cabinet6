@@ -116,6 +116,7 @@ const HeatingSupplyTab = ({
       <SimpleTable
         data={refineTableData}
         debtValue={tableData?.saldoNachOtop}
+        linkToPay={tableData?.linkToPay}
       />
 
       <AccordionForTabs accordionData={accordionData} />

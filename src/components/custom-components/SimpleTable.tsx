@@ -1,13 +1,14 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Card, CardContent } from "../ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CircleHelp } from "lucide-react";
+import { CircleHelp, HandCoins } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
 type Props = {
   data: (string | number | undefined)[][];
   debtValue?: number;
+  linkToPay?: string;
 };
 
 const DebtLabel = ({ label, hint }: { label: string; hint: string }) => (
@@ -22,12 +23,13 @@ const DebtLabel = ({ label, hint }: { label: string; hint: string }) => (
   </span>
 );
 
-const SimpleTable = ({ data, debtValue }: Props) => {
+const SimpleTable = ({ data, debtValue, linkToPay }: Props) => {
   const { t } = useTranslation();
 
   const hasDebt = debtValue !== undefined;
   const isOverpayment = hasDebt && debtValue <= 0;
   const isHighDebt = hasDebt && debtValue >= 500;
+  const showPayLink = !!linkToPay && hasDebt && debtValue! > 1;
 
   if (!data.length && !hasDebt) return null;
 
@@ -43,7 +45,16 @@ const SimpleTable = ({ data, debtValue }: Props) => {
                     <DebtLabel label={isOverpayment ? t("overpayment") : t("debt")} hint={t("debt_hint")} />
                   </TableCell>
                   <TableCell className={cn("text-right font-semibold", isOverpayment && "text-green-600", isHighDebt && "text-destructive font-extrabold")}>
-                    {debtValue!.toFixed(2)}
+                    <div className="flex flex-col items-end gap-0.5">
+                      {debtValue!.toFixed(2)}
+                      {showPayLink && (
+                        <a href={linkToPay} target="_blank" rel="noopener noreferrer"
+                           className="flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-700 hover:underline">
+                          <HandCoins className="w-3.5 h-3.5" />
+                          {t("pay_online")}
+                        </a>
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
@@ -66,6 +77,13 @@ const SimpleTable = ({ data, debtValue }: Props) => {
               <div className={cn("text-base font-semibold", isOverpayment && "text-green-600", isHighDebt && "text-destructive font-extrabold")}>
                 {debtValue!.toFixed(2)}
               </div>
+              {showPayLink && (
+                <a href={linkToPay} target="_blank" rel="noopener noreferrer"
+                   className="flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-700 hover:underline mt-1">
+                  <HandCoins className="w-3.5 h-3.5" />
+                  {t("pay_online")}
+                </a>
+              )}
             </div>
           )}
           {data.map(([label, value]) => (

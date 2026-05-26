@@ -32,6 +32,7 @@ export interface PersonalaccontsT {
 }
 
 export interface KvartplataT {
+  linkToPay: string;
   kvplata: number;
   kvplataTbo: number;
   kvplataOvds: number;
@@ -84,6 +85,7 @@ export interface KvartplataT {
 }
 
 export interface TeploOtopT {
+  linkToPay: string;
   otoplenie: number;
   otopObsluga: number;
   ploshadOtopM2: number;
@@ -101,6 +103,7 @@ export interface TeploOtopT {
 }
 
 export interface OtopAbplT {
+  linkToPay: string;
   otopAbpl: number;
   otopAbplTsenaGrn: number;
   saldoNachOtopAbpl: number;
@@ -125,6 +128,7 @@ export interface getAbonentCardT {
   ploshadOtopM2: number;
   email: string;
   voda: {
+    linkToPay: string;
     vodaPodacha: number;
     vodaStoki: number;
     nVodaTarifa: string;
@@ -161,12 +165,14 @@ export interface getAbonentCardT {
     saldoNachVoda: number;
   };
   vodaAbplPodacha: {
+    linkToPay: string;
     vodaAbplPodacha: number;
     abplPodachaTsenaGrn: number;
     saldoNachVodaAbplPodacha: number;
     nAbplPodachaTarifa: string;
   };
   vodaAbplStoki: {
+    linkToPay: string;
     vodaAbplStoki: number;
     abplStokiTsenaGrn: number;
     saldoNachVodaAbplStoki: number;
@@ -189,6 +195,7 @@ export type AbonentInvoiceInfoT = Partial<
 export type WaterSupplyDataT = Partial<
   Pick<
     getAbonentCardT["voda"],
+    | "linkToPay"
     | "vodaPodacha"
     | "tsenaPodacha"
     | "vodaAbSchetchikiKolvo"
@@ -205,6 +212,7 @@ export type WaterSupplyDataT = Partial<
 export type VodaAbplPodachaDataT = Partial<
   Pick<
     getAbonentCardT["vodaAbplPodacha"],
+    | "linkToPay"
     | "vodaAbplPodacha"
     | "abplPodachaTsenaGrn"
     | "saldoNachVodaAbplPodacha"
@@ -215,6 +223,7 @@ export type VodaAbplPodachaDataT = Partial<
 export type VodaAbplStokiDataT = Partial<
   Pick<
     getAbonentCardT["vodaAbplStoki"],
+    | "linkToPay"
     | "vodaAbplStoki"
     | "abplStokiTsenaGrn"
     | "saldoNachVodaAbplStoki"
@@ -225,7 +234,7 @@ export type VodaAbplStokiDataT = Partial<
 export type OtopAbplDataT = Partial<
   Pick<
     getAbonentCardT["otopAbpl"],
-    "otopAbpl" | "otopAbplTsenaGrn" | "saldoNachOtopAbpl" | "nOtopAbplTarifa"
+    "linkToPay" | "otopAbpl" | "otopAbplTsenaGrn" | "saldoNachOtopAbpl" | "nOtopAbplTarifa"
   >
 >;
 
