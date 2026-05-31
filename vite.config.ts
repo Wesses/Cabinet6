@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: path.resolve(__dirname, env.VITE_ALIAS ?? "dist"),
+      chunkSizeWarningLimit: 1000,
     },
   }
 });

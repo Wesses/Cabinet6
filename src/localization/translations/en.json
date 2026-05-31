@@ -42,6 +42,7 @@
   "add_incoive_part_1": "To add an invoice account, you need to enter",
   "add_incoive_part_2": "the access code for the invoice account",
   "add_incoive_part_3": "which can be obtained from the utility service provider.",
+  "add_invoice_warning": "Warning! The access code is not the account number. It is a complex alphanumeric combination that can only be obtained from the service organization.",
   "form_code_title": "Access code for the invoice account",
   "form_placeholder_code": "Enter the code here:",
   "send": "Send",

@@ -106,6 +106,9 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice, orgData }: Props) => {
           </span>
           {", " + t("add_incoive_part_3")}
         </AlertDialogDescription>
+        <p className="text-sm font-bold text-left text-foreground">
+          {t("add_invoice_warning")}
+        </p>
         {orgData?.contactPhone && (
           <p className="text-sm text-left text-foreground">{t("phone_number_label")} {orgData.contactPhone}</p>
         )}

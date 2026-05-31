@@ -10,13 +10,6 @@ import { getDataForTab } from "@/utils/getValidDataFunctions";
 import { izmteploTag, KVARTPLATA_TAG_VALUES } from "@/utils/constants";
 import SimpleTable from "../SimpleTable";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 const tsenaToKvplataMap: Record<string, string> = {
   tsenaTbo: "kvplataTbo",
   tsenaOvds: "kvplataOvds",
@@ -140,39 +133,19 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
   ];
 
   const kvartptalaValidData = getKvartplataData(kvartplata, RentHeads);
-  const rentSum = kvartptalaValidData.reduce(
-    (acc, [, value]) => acc + +value,
-    0,
-  );
+  const rentSum = kvartptalaValidData.reduce((acc, [, value]) => acc + +value, 0);
+  const totalLabel = import.meta.env.VITE_ALIAS === izmteploTag ? t("total_ovds_due") : t("total_payment_due");
+  const tableData = kvartptalaValidData.length > 1
+    ? [...kvartptalaValidData, [totalLabel, rentSum]]
+    : kvartptalaValidData;
 
   return (
-    <div>
-      <Accordion
-        type="single"
-        collapsible
-        className="p-4 mb-2 border border-muted rounded-xl"
-      >
-        <AccordionItem value="rent-data">
-          <AccordionTrigger>
-            <div className="flex flex-row justify-between w-full pr-2">
-              <p>
-                {import.meta.env.VITE_ALIAS === izmteploTag
-                  ? t("total_ovds_due")
-                  : t("total_payment_due")}
-              </p>
-              {rentSum}
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <SimpleTable
-              data={kvartptalaValidData}
-              debtValue={kvartplata?.saldoNachKvplata}
-              linkToPay={kvartplata?.linkToPay}
-            />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-
+    <div className="flex flex-col gap-y-2">
+      <SimpleTable
+        data={tableData}
+        debtValue={kvartplata?.saldoNachKvplata}
+        linkToPay={kvartplata?.linkToPay}
+      />
       <AccordionForTabs accordionData={accordionData} />
     </div>
   );
