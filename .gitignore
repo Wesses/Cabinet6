@@ -16,6 +16,7 @@ vilkovo
 brovoda
 kiliya
 *.zip
+build-all.ps1
 dist-ssr
 *.local
 
