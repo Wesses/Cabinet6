@@ -1,18 +1,7 @@
 import LoginForm from "@/components/custom-components/LoginForm";
-import NewsList from "@/components/custom-components/NewsList";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
-
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { useContext, useEffect, useState } from "react";
 import { getOrganizationData } from "@/api/api";
 import { OrganizationDataT } from "@/types";
@@ -95,37 +84,6 @@ export const LoginPage = () => {
           {import.meta.env.VITE_ALIAS === izmteploTag && <PaymentGif />}
           {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
 
-          {!(import.meta.env.VITE_ALIAS === izmvkTag) &&
-            !(import.meta.env.VITE_ALIAS === izmteploTag) && (
-              <>
-                <div className="flex items-end justify-center h-full pb-4 lg:hidden">
-                  <Drawer>
-                    <DrawerTrigger className="w-full" asChild>
-                      <Button className="w-4/5 bg-primary-foreground text-primary hover:bg-primary-foreground/80 max-w-[400px] lg:max-w-none">
-                        {t("news")}
-                      </Button>
-                    </DrawerTrigger>
-                    <DrawerContent className="h-full rounded-none">
-                      <DrawerHeader>
-                        <DrawerTitle>{t("news")}</DrawerTitle>
-                      </DrawerHeader>
-                      <NewsList />
-                      <DrawerFooter>
-                        <DrawerClose asChild className="flex justify-center">
-                          <div>
-                            <Button>{t("close")}</Button>
-                          </div>
-                        </DrawerClose>
-                      </DrawerFooter>
-                    </DrawerContent>
-                  </Drawer>
-                </div>
-
-                <div className="hidden h-full lg:block">
-                  <NewsList />
-                </div>
-              </>
-            )}
         </div>
       </div>
 

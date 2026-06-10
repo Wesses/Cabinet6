@@ -7,7 +7,7 @@ import { Bill_RaxTypeT, OrganizationDataT, OtopShowDataT, VmPokazPostT } from "@
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
 const authenticate = "api/Authenticate";
-const news = "/api/News";
+// const news = "/api/News";
 const organizationData = "/api/OrganizationData";
 const personalacconts = "/api/Personalacconts";
 const abonentCard = "/api/AbonentCard";
@@ -66,20 +66,20 @@ export const postRegistrationReq = async (data: object) => {
   }
 };
 
-export const getNews = async () => {
-  try {
-    const response = await axios.get(news + baseName);
-
-    if (response.statusText !== "OK") {
-      throw new Error(response.statusText);
-    }
-
-    return response.data;
-  } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
-    throw e.response?.statusText || "Unknown error";
-  }
-};
+// export const getNews = async () => {
+//   try {
+//     const response = await axios.get(news + baseName);
+//
+//     if (response.statusText !== "OK") {
+//       throw new Error(response.statusText);
+//     }
+//
+//     return response.data;
+//   } catch (e: any) {
+//     console.error("Помилка при виконанні запиту:", e);
+//     throw e.response?.statusText || "Unknown error";
+//   }
+// };
 
 export const getOrganizationData = async (): Promise<OrganizationDataT> => {
   try {
