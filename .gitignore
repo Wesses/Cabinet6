@@ -17,6 +17,8 @@ brovoda
 kiliya
 *.zip
 build-all.ps1
+build-all.sh
+clean-builds.sh
 dist-ssr
 *.local
 

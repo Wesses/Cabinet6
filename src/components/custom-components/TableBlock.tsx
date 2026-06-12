@@ -4,6 +4,7 @@ import DeleteInvoiceButton from "./DeleteInvoiceButton";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router";
 
 type Props = {
   item: PersonalaccontsT;
@@ -21,9 +22,11 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDeleteprocessing, setIsDeleteProcessing] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div
+      onClick={() => navigate(`/cabinet/${item.personalaccontsId}?tab=invoice-data`)}
       className={cn(
         {
           "bg-background": index % 2 === 0,
@@ -33,18 +36,20 @@ const TableBlock = ({ item, invoiceNum, index, createdInvoice, deleteInvoice }: 
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
-        "rounded-lg p-2 transition-all duration-200"
+        "rounded-lg p-2 transition-all duration-200 cursor-pointer"
       )}
     >
       <div className="flex gap-x-4">
         <OpenInvoiceButton id={item.personalaccontsId} />
 
-        <DeleteInvoiceButton
-          isPopoverOpen={isPopoverOpen}
-          setIsPopoverOpen={setIsPopoverOpen}
-          invoiceNum={item.paLs}
-          deleteInvoice={() => deleteInvoice({setIsPopoverOpen, setIsDeleteProcessing, personalaccontsId: item.personalaccontsId})}
-        />
+        <div onClick={(e) => e.stopPropagation()}>
+          <DeleteInvoiceButton
+            isPopoverOpen={isPopoverOpen}
+            setIsPopoverOpen={setIsPopoverOpen}
+            invoiceNum={item.paLs}
+            deleteInvoice={() => deleteInvoice({setIsPopoverOpen, setIsDeleteProcessing, personalaccontsId: item.personalaccontsId})}
+          />
+        </div>
       </div>
       <div className="flex gap-x-8 pt-4">
         <ul className="font-semibold sm:text-base text-xs">

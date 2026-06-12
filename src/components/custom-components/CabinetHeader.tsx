@@ -6,6 +6,7 @@ import { izmteploTag, localStorages } from "@/utils/constants";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "./LocaleButton";
 import { useTranslation } from "react-i18next";
+import { postLogoutReq } from "@/api/api";
 
 export const CabinetHeader = () => {
   const navigate = useNavigate();
@@ -13,11 +14,12 @@ export const CabinetHeader = () => {
   const { t } = useTranslation();
 
   const handleLogout = () => {
+    postLogoutReq();
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
       path: import.meta.env.VITE_BASE_URL,
     });
-    navigate("/login");
     localStorage.removeItem(localStorages.USER_DATA);
+    navigate("/login");
   };
 
   return (

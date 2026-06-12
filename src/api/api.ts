@@ -66,6 +66,18 @@ export const postRegistrationReq = async (data: object) => {
   }
 };
 
+export const postLogoutReq = async () => {
+  try {
+    const token = getToken();
+    await axios.post(authenticate + "/logout", null, {
+      responseType: "text",
+      headers: { Authorization: `Bearer ${token.token}` },
+    });
+  } catch (e) {
+    console.error("Logout error:", e);
+  }
+};
+
 // export const getNews = async () => {
 //   try {
 //     const response = await axios.get(news + baseName);

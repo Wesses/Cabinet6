@@ -60,7 +60,7 @@ function SimpleMultiRowTable({ rowsData, heads, styles }: Props) {
                   className="flex justify-between py-1 border-b last:border-b-0"
                 >
                   <span className="font-medium text-muted-foreground">{heads[i]}</span>
-                  <span >{"" + cell}</span>
+                  <span>{typeof cell === "number" ? (Number.isInteger(cell) ? cell : cell.toFixed(2)) : "" + cell}</span>
                 </div>
               ))}
             </div>
