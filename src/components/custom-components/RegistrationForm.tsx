@@ -40,9 +40,12 @@ const RegistrationForm = () => {
 
   const formSchema = z
     .object({
-      username: z.string().min(2, {
-        message: t("form_error_username_length"),
-      }),
+      username: z.string()
+        .trim()
+        .min(3, { message: t("form_error_username_length") })
+        .refine((val) => /[a-zA-Zа-яА-ЯіІїЇєЄ]/.test(val), {
+          message: t("form_error_username_no_letter"),
+        }),
 
       password: z
         .string()
