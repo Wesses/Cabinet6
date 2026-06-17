@@ -40,7 +40,11 @@ export const vilkovoTag = "vilkovo";
 export const brovodaTag = "brovoda";
 export const kiliyaTag = "kiliya";
 export const bro4Tag = "bro4";
+export const belvkTag = "belvk";
+export const rozdilnaTag = "rozdilna";
 
 export const WARM_THEME_ALIASES = [izmteploTag];
 export const COOL_THEME_ALIASES = [vilkovoTag, brovodaTag];
 export const GREEN_THEME_ALIASES = [izmvkTag];
+export const TEAL_THEME_ALIASES = [belvkTag];
+export const PURPLE_THEME_ALIASES = [rozdilnaTag];

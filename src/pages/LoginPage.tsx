@@ -11,11 +11,15 @@ import LocaleButton from "@/components/custom-components/LocaleButton";
 import { useTranslation } from "react-i18next";
 import {
   CURRENT_PAGE_PARAM_KEY,
+  belvkTag,
   izmteploTag,
   izmvkTag,
+  rozdilnaTag,
 } from "@/utils/constants";
 import PaymentGif from "@/components/custom-components/izmteploComponents/PaymentGif";
 import ViberBotRefs from "@/components/custom-components/izmvkComponents/ViberBotRefs";
+import BelvkContent from "@/components/custom-components/belvkComponents/BelvkContent";
+import RozdilnaContent from "@/components/custom-components/rozdilnaComponents/RozdilnaContent";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -83,6 +87,8 @@ export const LoginPage = () => {
         <div className="flex-1 min-h-0">
           {import.meta.env.VITE_ALIAS === izmteploTag && <PaymentGif />}
           {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
+          {import.meta.env.VITE_ALIAS === belvkTag && <BelvkContent />}
+          {import.meta.env.VITE_ALIAS === rozdilnaTag && <RozdilnaContent />}
 
         </div>
       </div>

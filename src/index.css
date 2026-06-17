@@ -129,6 +129,66 @@
   --ring: 142 60% 28%;
 }
 
+:root.theme-teal {
+  --background: 195 25% 98%;
+  --foreground: 200 30% 12%;
+
+  --card: 195 25% 98%;
+  --card-foreground: 200 30% 12%;
+
+  --popover: 195 25% 98%;
+  --popover-foreground: 200 30% 12%;
+
+  --primary: 198 70% 28%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 197 30% 92%;
+  --secondary-foreground: 200 30% 18%;
+
+  --muted: 197 25% 93%;
+  --muted-foreground: 200 14% 44%;
+
+  --accent: 196 45% 88%;
+  --accent-foreground: 200 30% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 198 20% 87%;
+  --input: 198 20% 87%;
+  --ring: 198 70% 28%;
+}
+
+:root.theme-purple {
+  --background: 262 15% 98%;
+  --foreground: 265 25% 12%;
+
+  --card: 262 15% 98%;
+  --card-foreground: 265 25% 12%;
+
+  --popover: 262 15% 98%;
+  --popover-foreground: 265 25% 12%;
+
+  --primary: 262 55% 30%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 262 20% 92%;
+  --secondary-foreground: 265 25% 18%;
+
+  --muted: 262 18% 93%;
+  --muted-foreground: 265 12% 44%;
+
+  --accent: 260 35% 88%;
+  --accent-foreground: 265 25% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 262 15% 87%;
+  --input: 262 15% 87%;
+  --ring: 262 55% 30%;
+}
+
 @layer base {
   * {
     @apply border-border;
