@@ -10,6 +10,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import QRCode from "react-qr-code";
 
 const VIBER_URL = "viber://pa?chatURI=bilvoda";
@@ -98,32 +105,55 @@ const AnnouncementContent = () => (
 const BelvkContent = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
 
   return (
     <>
       {/* Mobile */}
       <div className="lg:hidden flex flex-col items-center mt-auto pb-4 gap-3 w-full">
-        <ViberQR />
+        <Button
+          className="w-4/5 max-w-[400px] bg-primary-foreground text-primary hover:bg-primary-foreground/80"
+          onClick={() => setQrOpen(true)}
+        >
+          {t("our_viber_bot")}
+        </Button>
         <Button
           className="w-4/5 max-w-[400px] bg-primary-foreground text-primary hover:bg-primary-foreground/80"
           onClick={() => setOpen(true)}
         >
           Оголошення
         </Button>
-        <AlertDialog open={open} onOpenChange={setOpen}>
-          <AlertDialogContent className="max-h-[85vh] overflow-y-auto">
+
+        <AlertDialog open={qrOpen} onOpenChange={setQrOpen}>
+          <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>До уваги абонентів</AlertDialogTitle>
-              <AlertDialogDescription className="sr-only">
-                Оголошення КП «Біляївський водоканал»
-              </AlertDialogDescription>
+              <AlertDialogTitle>{t("our_viber_bot")}</AlertDialogTitle>
+              <AlertDialogDescription className="sr-only">Viber QR</AlertDialogDescription>
             </AlertDialogHeader>
-            <AnnouncementContent />
+            <div className="flex justify-center py-4">
+              <a href={VIBER_URL} target="_blank" rel="noopener noreferrer">
+                <QRCode value={VIBER_URL} size={220} />
+              </a>
+            </div>
             <AlertDialogFooter>
               <AlertDialogCancel>{t("close")}</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerContent className="max-h-[85vh]">
+            <DrawerHeader className="flex flex-row items-center justify-between">
+              <DrawerTitle>До уваги абонентів</DrawerTitle>
+              <DrawerClose asChild>
+                <Button variant="ghost" size="sm">{t("close")}</Button>
+              </DrawerClose>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-4 pb-8">
+              <AnnouncementContent />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
 
       {/* Desktop */}

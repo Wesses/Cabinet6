@@ -59,21 +59,26 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice, orgData }: Props) => {
 
         getData(() => lightInvoice(newInvoice.personalaccontsId));
       } catch (error) {
-        if (error === 556) {
+        const apiError = error as { status?: number | string; detail?: string | null };
+        const status = apiError?.status;
+        const serverMessage = apiError?.detail;
+
+        if (status === 556) {
           form.setError("pwd", {
             type: "556",
             message: t("form_error_used_code_detail"),
           });
+        } else if (status === 558) {
+          form.setError("pwd", {
+            type: "558",
+            message: serverMessage ?? t("toast_incorect_code"),
+          });
         } else {
           form.setError("pwd", {
-            type: "401",
+            type: "error",
             message: t("form_error_input_another_code"),
           });
-          if (error === 558) {
-            showCustomToast(t("toast_incorect_code"), "bg-red-400");
-          } else {
-            showCustomToast(t("toast_error_try_later"), "bg-red-400");
-          }
+          showCustomToast(t("toast_error_try_later"), "bg-red-400");
         }
       } finally {
         setIsloading(false);

@@ -2,14 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 
 const PRIVAT_PAYMENT_URL =
   "https://next.privat24.ua/payments/form/%7B%22token%22%3A%2294edc806-4a1e-4688-90e7-69770cc62c05%22%7D";
@@ -82,20 +80,19 @@ const PaymentGif = () => {
         >
           {t("payment_button")}
         </Button>
-        <AlertDialog open={open} onOpenChange={setOpen}>
-          <AlertDialogContent className="max-h-[85vh] overflow-y-auto">
-            <AlertDialogHeader>
-              <AlertDialogTitle>{t("payment_button")}</AlertDialogTitle>
-              <AlertDialogDescription className="sr-only">
-                {t("payment_button")}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <PaymentContent />
-            <AlertDialogFooter>
-              <AlertDialogCancel>{t("close")}</AlertDialogCancel>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerContent className="max-h-[85vh]">
+            <DrawerHeader className="flex flex-row items-center justify-between">
+              <DrawerTitle>{t("payment_button")}</DrawerTitle>
+              <DrawerClose asChild>
+                <Button variant="ghost" size="sm">{t("close")}</Button>
+              </DrawerClose>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-4 pb-8">
+              <PaymentContent />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
 
       {/* Desktop: full inline content */}
