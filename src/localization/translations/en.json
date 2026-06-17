@@ -37,6 +37,7 @@
   "button_add_invoice": "Add an invoice account",
   "form_error_code_length": "Access code must be at least 2 characters long.",
   "form_error_input_another_code": "Enter a different access code.",
+  "form_error_used_code_detail": "This code has already been used and cannot be reused. Please contact the service provider to get a new code and block the old one if it was used without your authorization.",
   "toast_incorect_code": "You entered an incorrect access code, please check your input.",
   "toast_used_code": "This access code has already been used, enter another one.",
   "toast_error_try_later": "Error, please try again later.",

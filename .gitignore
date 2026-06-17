@@ -20,6 +20,7 @@ rozdilna
 *.zip
 build-all.ps1
 build-all.sh
+build-select.sh
 clean-builds.sh
 dist-ssr
 *.local
