@@ -52,14 +52,14 @@ export const LoginPage = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
       <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none overflow-hidden flex flex-col">
-        <div className="z-10 flex flex-row items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-2 gap-x-8 lg:gap-x-0 lg:items-baseline lg:absolute lg:top-0 lg:left-0 lg:right-0">
+        <div className="z-10 flex flex-col sm:flex-row items-start sm:items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-1 gap-x-8 sm:gap-y-2 lg:gap-x-0 lg:items-baseline lg:absolute lg:top-0 lg:left-0 lg:right-0">
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
             <>
               {organizationData ? (
                 <>
-                  <h1 className="text-xl font-bold lg:text-2xl xl:text-3xl whitespace-nowrap">
+                  <h1 className="text-base sm:text-xl font-bold lg:text-2xl xl:text-3xl">
                     {organizationData.name ?? "-"}
                   </h1>
                   <p className="hidden text-sm md:text-base sm:block">
@@ -68,7 +68,7 @@ export const LoginPage = () => {
                       " " +
                       (organizationData.contactAddress ?? "-")}
                   </p>
-                  <p className="text-sm md:text-base">
+                  <p className="text-xs sm:text-sm md:text-base">
                     {t("phone_number_label") +
                       " " +
                       (organizationData.contactPhone ?? "-")}
@@ -84,7 +84,7 @@ export const LoginPage = () => {
             </>
           )}
         </div>
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 flex flex-col">
           {import.meta.env.VITE_ALIAS === izmteploTag && <PaymentGif />}
           {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
           {import.meta.env.VITE_ALIAS === belvkTag && <BelvkContent />}
@@ -93,10 +93,9 @@ export const LoginPage = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/2 h-full flex items-center justify-center relative mb-2 lg:mb-0 min-h-[500px]">
-        <div className="absolute flex flex-row items-center top-4 right-4">
+      <div className="w-full lg:w-1/2 h-full flex flex-col mb-2 lg:mb-0 min-h-[500px]">
+        <div className="flex flex-row justify-end items-center px-4 pt-4 shrink-0">
           <LocaleButton isLabel={true} />
-
           <Button
             className="hidden lg:block"
             variant="ghost"
@@ -106,7 +105,9 @@ export const LoginPage = () => {
           </Button>
         </div>
 
-        <LoginForm />
+        <div className="flex-1 flex items-center justify-center">
+          <LoginForm />
+        </div>
       </div>
     </div>
   );

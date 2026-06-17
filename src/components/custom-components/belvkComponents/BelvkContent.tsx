@@ -142,7 +142,7 @@ const BelvkContent = () => {
         </AlertDialog>
 
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerContent className="max-h-[85vh]">
+          <DrawerContent className="h-dvh">
             <DrawerHeader className="flex flex-row items-center justify-between">
               <DrawerTitle>До уваги абонентів</DrawerTitle>
               <DrawerClose asChild>

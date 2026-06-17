@@ -81,7 +81,7 @@ const PaymentGif = () => {
           {t("payment_button")}
         </Button>
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerContent className="max-h-[85vh]">
+          <DrawerContent className="h-dvh">
             <DrawerHeader className="flex flex-row items-center justify-between">
               <DrawerTitle>{t("payment_button")}</DrawerTitle>
               <DrawerClose asChild>
