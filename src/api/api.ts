@@ -193,7 +193,7 @@ export const getAbonentCardData = async (PersonalaccontsId: number) => {
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
 
-    throw e?.response?.status || "Unknown error";
+    throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
   }
 };
 

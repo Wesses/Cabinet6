@@ -55,6 +55,7 @@ const CabinetPage = () => {
   const [bills_RaxTypes, setBills_RaxTypes] = useState<Bill_RaxTypeT[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ const CabinetPage = () => {
 
   useEffect(() => {
     setIsError(false);
+    setErrorDetail(null);
     if (!searchParams.has(SEARCH_PARAM_TAB_KEY)) {
       setSearchParams({ [SEARCH_PARAM_TAB_KEY]: TabsNamesT.Invoice_data });
     }
@@ -115,8 +117,13 @@ const CabinetPage = () => {
           setArchivData(archivPromiseData);
           setRentOplata(oplataPromiseData);
           setBills_RaxTypes(billsTypesData);
-        } catch {
-          setIsError(true);
+        } catch (error) {
+          const apiError = error as { status?: number | string; detail?: string | null };
+          if (apiError?.status === 558) {
+            setErrorDetail("Сталася помилка : " + (apiError.detail ?? ""));
+          } else {
+            setIsError(true);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -273,7 +280,7 @@ const CabinetPage = () => {
     navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
   };
 
-  const isContent = !isLoading && !isError;
+  const isContent = !isLoading && !isError && !errorDetail;
 
   return (
     <div className="flex-1 w-full h-full px-5 py-2">
@@ -358,6 +365,14 @@ const CabinetPage = () => {
         )}
 
         {isError && <ErrorBlock />}
+        {errorDetail && (
+          <div className="flex flex-col items-center gap-4 pt-8">
+            <p className="text-base text-center">{errorDetail}</p>
+            <Button onClick={() => navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`)}>
+              {t("on_main_page")}
+            </Button>
+          </div>
+        )}
 
         {isContent && (
           <Tabs
