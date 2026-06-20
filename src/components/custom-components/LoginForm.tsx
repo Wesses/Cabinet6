@@ -181,6 +181,16 @@ const LoginForm = () => {
             )}
           />
 
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className="text-sm text-muted-foreground hover:underline"
+            >
+              {t("forgot_password")}
+            </button>
+          </div>
+
           <Button
             className="w-full disabled:bg-primary/60"
             type="submit"

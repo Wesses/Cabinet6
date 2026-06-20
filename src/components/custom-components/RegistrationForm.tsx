@@ -146,7 +146,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4 mt-0 xl:mt-8">
+    <div className="flex flex-col justify-center items-center gap-y-4 px-8 xl:px-0 py-4">
       <div className="text-center">
         <h3 className="xl:text-2xl text-xl font-bold mb-2">
           {t("register_title")}
@@ -297,6 +297,16 @@ const RegistrationForm = () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className="text-sm text-muted-foreground hover:underline"
+            >
+              {t("forgot_password")}
+            </button>
+          </div>
 
           <Button
             className="w-full disabled:bg-primary/60"

@@ -381,6 +381,33 @@ export const postVmPokaz = async (data: VmPokazPostT) => {
   }
 };
 
+export const postForgotPassword = async (email: string) => {
+  try {
+    await axios.post(authenticate + "/forgot-password", { email });
+  } catch (e: any) {
+    if (!e?.response && e?.request) throw { status: "NETWORK", detail: null };
+    throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
+  }
+};
+
+export const postResetPassword = async (data: {
+  userId: string;
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
+}) => {
+  try {
+    await axios.post(authenticate + "/reset-password", data);
+  } catch (e: any) {
+    if (!e?.response && e?.request) throw { status: "NETWORK", detail: null };
+    throw {
+      status: e?.response?.status ?? "Unknown",
+      detail: e?.response?.data?.detail ?? null,
+      errors: e?.response?.data?.errors ?? null,
+    };
+  }
+};
+
 export const getWMList = async (PersonalaccontsId: number) => {
   const token = getToken();
 

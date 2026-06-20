@@ -191,5 +191,18 @@
   "payment_button": "Оплата",
   "debt": "Борг",
   "debt_hint": "Борг на початок розрахункового місяця",
-  "overpayment": "Переплата"
+  "overpayment": "Переплата",
+  "forgot_password": "Забули пароль?",
+  "forgot_password_title": "Відновлення пароля",
+  "forgot_password_second_title": "Введіть вашу електронну пошту і ми надішлемо посилання для відновлення пароля.",
+  "forgot_password_submit": "Надіслати",
+  "forgot_password_success": "Лист надіслано. Перевірте вашу електронну пошту та перейдіть за посиланням.",
+  "reset_password_title": "Встановіть новий пароль",
+  "reset_password_second_title": "Введіть новий пароль для вашого облікового запису.",
+  "form_new_password": "Новий пароль",
+  "reset_password_submit": "Змінити пароль",
+  "reset_password_success": "Пароль успішно змінено. Тепер ви можете увійти.",
+  "reset_password_invalid_link": "Недійсне посилання. Спробуйте запросити відновлення знову.",
+  "button_back": "Повернутись",
+  "form_error_email_invalid": "Введіть коректну електронну адресу."
 }
