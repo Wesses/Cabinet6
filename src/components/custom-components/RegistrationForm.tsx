@@ -30,7 +30,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTranslation } from "react-i18next";
-import { showCustomToast } from "@/utils/showCustomComponent";
 
 const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -107,49 +106,37 @@ const RegistrationForm = () => {
       .then(() => {
         setIsAlertOpen(true);
       })
-      .catch((errorCode) => {
-        if (errorCode === 551) {
-          showCustomToast(
-            t("form_error_user_alredy_exist"),
-            "bg-red-400"
-          );
+      .catch((error) => {
+        const apiError = error as { status?: number | string; detail?: string | null };
+        const status = apiError?.status;
+        const detail = apiError?.detail;
 
+        if (status === "NETWORK") {
+          form.setError("username", {
+            type: "network",
+            message: t("error_no_response"),
+          });
+        } else if (status === 429) {
+          form.setError("username", {
+            type: "429",
+            message: t("error_too_many_requests"),
+          });
+        } else if (status === 551) {
           form.setError("username", {
             type: "551",
-            message: "",
+            message: detail ? t("error_server_detail_prefix") + detail :t("form_error_user_alredy_exist"),
           });
-          form.setError("password", {
-            type: "551",
-            message: "",
-          });
-          form.setError("confirmPassword", {
-            type: "551",
-            message: "",
-          });
+        } else if (status === 553) {
           form.setError("email", {
-            type: "551",
-            message: "",
+            type: "553",
+            message: detail ? t("error_server_detail_prefix") + detail :t("form_error_service"),
           });
-
-          return;
+        } else {
+          form.setError("username", {
+            type: "552",
+            message: detail ? t("error_server_detail_prefix") + detail :t("form_error_service"),
+          });
         }
-
-        form.setError("username", {
-          type: "552",
-          message: t("form_error_service"),
-        });
-        form.setError("password", {
-          type: "552",
-          message: t("form_error_service"),
-        });
-        form.setError("confirmPassword", {
-          type: "552",
-          message: t("form_error_service"),
-        });
-        form.setError("email", {
-          type: "552",
-          message: t("form_error_service"),
-        });
       })
       .finally(() => setIsLoading(false));
   }

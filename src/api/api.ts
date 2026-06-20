@@ -46,7 +46,10 @@ export const postLoginReq = async (data: object) => {
     return response.data;
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
-    throw e?.response?.status || "Unknown error";
+    if (!e?.response && e?.request) {
+      throw { status: "NETWORK", detail: null };
+    }
+    throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
   }
 };
 
@@ -61,8 +64,10 @@ export const postRegistrationReq = async (data: object) => {
     return response.data;
   } catch (e: any) {
     console.error("Помилка при виконанні запиту:", e);
-
-    throw e.status || "Unknown error";
+    if (!e?.response && e?.request) {
+      throw { status: "NETWORK", detail: null };
+    }
+    throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
   }
 };
 

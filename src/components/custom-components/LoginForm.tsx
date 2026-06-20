@@ -56,18 +56,38 @@ const LoginForm = () => {
         navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
       })
       .catch((e) => {
-        if (e !== 401) {
+        const apiError = e as { status?: number | string; detail?: string | null };
+        const status = apiError?.status;
+        const detail = apiError?.detail;
+
+        if (status === "NETWORK") {
+          form.setError("password", {
+            type: "network",
+            message: t("error_no_response"),
+          });
+          return;
+        }
+
+        if (status === 429) {
+          form.setError("password", {
+            type: "429",
+            message: t("error_too_many_requests"),
+          });
+          return;
+        }
+
+        if (status !== 401) {
           form.setError("username", {
             type: "500",
-            message: t("toast_error_try_later"),
+            message: detail ? t("error_server_detail_prefix") + detail : t("toast_error_try_later"),
           });
           form.setError("password", {
             type: "500",
-            message: t("toast_error_try_later"),
+            message: detail ? t("error_server_detail_prefix") + detail : t("toast_error_try_later"),
           });
 
           return;
-        }    
+        }
 
         form.setError("username", {
           type: "401",
