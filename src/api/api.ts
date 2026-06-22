@@ -383,7 +383,7 @@ export const postVmPokaz = async (data: VmPokazPostT) => {
 
 export const postForgotPassword = async (email: string) => {
   try {
-    await axios.post(authenticate + "/forgot-password", { email });
+    await axios.post(authenticate + "/forgot-password", { email, alias: import.meta.env.VITE_ALIAS });
   } catch (e: any) {
     if (!e?.response && e?.request) throw { status: "NETWORK", detail: null };
     throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };

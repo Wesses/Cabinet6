@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PersonalaccontsT } from "@/types";
 import OpenInvoiceButton from "./OpenInvoiceButton";
 import DeleteInvoiceButton from "./DeleteInvoiceButton";
@@ -29,6 +30,7 @@ const MyTableItem = ({
 }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDeleteprocessing, setIsDeleteProcessing] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <tr
@@ -41,14 +43,15 @@ const MyTableItem = ({
           "border-4 border-orange-400": isPopoverOpen,
           "opacity-50 cursor-wait pointer-events-none": isDeleteprocessing,
         },
-        "text-base transition-all duration-200"
+        "text-base transition-all duration-200 cursor-pointer"
       )}
+      onClick={() => navigate(`/cabinet/${item.personalaccontsId}?tab=invoice-data`)}
     >
       <td className="px-4 py-2">{invoiceNum}</td>
       <td className="px-4 py-2 text-right">{item.paLs}</td>
       <td className="px-4 py-2">{item.fio}</td>
       <td className="px-4 py-2">{item.addres}</td>
-      <td className="px-4 py-2 flex gap-4">
+      <td className="px-4 py-2 flex gap-4" onClick={(e) => e.stopPropagation()}>
         <OpenInvoiceButton id={item.personalaccontsId} />
 
         <DeleteInvoiceButton

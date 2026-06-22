@@ -194,7 +194,7 @@
   "overpayment": "Overpayment",
   "forgot_password": "Forgot password?",
   "forgot_password_title": "Password Recovery",
-  "forgot_password_second_title": "Enter your email address and we will send you a link to reset your password.",
+  "forgot_password_second_title": "Enter your email address — we will send you a letter with a link to the password recovery page. After clicking the «Send» button, check your email. Once you receive the letter from our service, please click the link in it to go to the password recovery page.",
   "forgot_password_submit": "Send",
   "forgot_password_success": "Email sent. Check your inbox and follow the link.",
   "reset_password_title": "Set New Password",
