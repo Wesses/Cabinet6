@@ -139,7 +139,7 @@ const ChteContent = () => {
               <AlertDialogTitle>{t("pay_online")}</AlertDialogTitle>
               <AlertDialogDescription className="sr-only">Оплата онлайн</AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="flex justify-center py-4">
+            <div className="overflow-y-auto max-h-[60vh] flex justify-center py-4">
               <BankLinks />
             </div>
             <AlertDialogFooter>
