@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import privatGif from '@/assets/shared/privat_ua.gif';
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -22,7 +23,7 @@ const PaymentContent = () => (
       className="w-[60%] max-w-[600px]"
     >
       <img
-        src={`${import.meta.env.VITE_BASE_URL}/privat_ua.gif`}
+        src={privatGif}
         alt="Оплата через ПриватБанк"
         className="w-full cursor-pointer"
       />

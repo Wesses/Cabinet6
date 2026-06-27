@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useContext } from "react";
 import { chteTag, izmteploTag, localStorages } from "@/utils/constants";
+import izmteploLogoSrc from '@/assets/izmteplo/izmteplo_logo.png';
+import chteLogoSrc from '@/assets/chte/chte_logo.png';
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "./LocaleButton";
 import { useTranslation } from "react-i18next";
@@ -28,7 +30,7 @@ export const CabinetHeader = () => {
         {import.meta.env.VITE_ALIAS === izmteploTag && (
           <div className="rounded-full bg-primary-foreground/10 size-10 sm:size-20">
             <img
-              src={`${import.meta.env.VITE_BASE_URL}/izmteplo_logo.png`}
+              src={izmteploLogoSrc}
               alt="logo"
               className="size-10 sm:size-20"
             />
@@ -37,7 +39,7 @@ export const CabinetHeader = () => {
         {import.meta.env.VITE_ALIAS === chteTag && (
           <div className="rounded bg-primary-foreground/10 h-10 flex items-center px-2">
             <img
-              src={`${import.meta.env.VITE_BASE_URL}/chte_logo.png`}
+              src={chteLogoSrc}
               alt="logo"
               className="h-8 w-auto object-contain"
             />

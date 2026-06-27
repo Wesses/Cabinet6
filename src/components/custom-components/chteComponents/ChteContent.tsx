@@ -11,37 +11,41 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import QRCode from "react-qr-code";
+import chteLogoSrc from '@/assets/chte/chte_logo.png';
+import privatGif from '@/assets/shared/privat_ua.gif';
+import city24Src from '@/assets/chte/city24.png';
+import mtbSrc from '@/assets/chte/mtb.jpg';
+import vostokSrc from '@/assets/chte/vostok.jpg';
 
 const VIBER_URL = "viber://pa?chatURI=chernomorsk_teplo";
-const BASE = import.meta.env.VITE_BASE_URL as string;
 
 const BANKS = [
   {
     name: "Приват24",
     url: "https://next.privat24.ua/payments/form/%7B%22token%22:%22851fe060-3bfb-4fed-a974-d0590bdcdedc%22%7D",
-    img: `${BASE}/privat_ua.gif`,
+    img: privatGif,
   },
   {
     name: "City 24",
     url: "https://city24.ua/ua/default/search?text=%D0%A7%D0%9E%D0%A0%D0%9D%D0%9E%D0%9C%D0%9E%D0%A0%D0%A1%D0%AC%D0%9A%D0%A2%D0%95%D0%9F%D0%9B%D0%9E%D0%95%D0%9D%D0%95%D0%A0%D0%93%D0%9E&koshik=false",
-    img: `${BASE}/city24.png`,
+    img: city24Src,
   },
   {
     name: "МТБ БАНК",
     url: "https://mtb.ua/mtb-360",
-    img: `${BASE}/mtb.jpg`,
+    img: mtbSrc,
   },
   {
     name: "VST Bank",
     url: "https://communality.vostok.bank/3219",
-    img: `${BASE}/vostok.jpg`,
+    img: vostokSrc,
   },
 ];
 
 const Logo = () => (
   <div className="bg-primary-foreground/10 rounded p-1 w-fit self-center">
     <img
-      src={`${BASE}/chte_logo.png`}
+      src={chteLogoSrc}
       alt="Чорноморськтеплоенерго"
       className="h-16 w-auto object-contain"
     />
