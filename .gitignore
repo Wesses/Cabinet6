@@ -9,16 +9,16 @@ lerna-debug.log*
 
 node_modules
 dist
-izmteplo
-bro4
-izmvk
-izmvoda
-vilkovo
-brovoda
-kiliya
-belvk
-rozdilna
-chte
+/izmteplo
+/bro4
+/izmvk
+/izmvoda
+/vilkovo
+/brovoda
+/kiliya
+/belvk
+/rozdilna
+/chte
 *.zip
 build-all.ps1
 build-all.sh
