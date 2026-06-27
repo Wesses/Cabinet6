@@ -6,7 +6,7 @@ export const localStorages = {
 export const locales = {
   EN: "en",
   UA: "ua",
-  // RU: "ru",
+  RU: "ru",
 };
 
 export const CURRENT_PAGE_PARAM_KEY = "currpage";

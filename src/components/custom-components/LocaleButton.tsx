@@ -11,9 +11,8 @@ import {
 import { cn } from '@/lib/utils';
 import uaFlag from "@/assets/flags/ua.svg";
 import gbFlag from "@/assets/flags/gb.svg";
-import ruFlag from "@/assets/flags/ru.svg";
 
-const flagMap: Record<string, string> = { ua: uaFlag, gb: gbFlag, ru: ruFlag };
+const flagMap: Record<string, string> = { ua: uaFlag, gb: gbFlag };
 
 type Props = {
   isLabel: boolean;
@@ -31,6 +30,12 @@ const LocaleButton = ({ isLabel }: Props) => {
 
   const getContryCode = (cCode: string) => (cCode === "en" ? "gb" : cCode);
 
+  const renderFlag = (locale: string) => {
+    const flag = flagMap[getContryCode(locale)];
+    if (!flag) return null;
+    return <img src={flag} className="w-6 h-4 object-cover rounded-sm" alt={locale} />;
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -39,7 +44,7 @@ const LocaleButton = ({ isLabel }: Props) => {
           "flex items-center gap-x-2 outline-none transition-all duration-300 rounded-md px-2 py-2"
         )}
       >
-        <img src={flagMap[getContryCode(language)]} className="w-6 h-4 object-cover rounded-sm" alt={language} />
+        {renderFlag(language)}
         {isLabel && language}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -53,8 +58,7 @@ const LocaleButton = ({ isLabel }: Props) => {
               onClick={() => handleClick(locale)}
               key={locale}
             >
-              <img src={flagMap[getContryCode(locale)]} className="w-6 h-4 object-cover rounded-sm" alt={locale} />
-
+              {renderFlag(locale)}
               {locale}
             </DropdownMenuItem>
           ))}
