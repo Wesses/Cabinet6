@@ -1,4 +1,4 @@
-import { COOL_THEME_ALIASES, GREEN_THEME_ALIASES, PURPLE_THEME_ALIASES, TEAL_THEME_ALIASES, WARM_THEME_ALIASES } from "./constants";
+import { COOL_THEME_ALIASES, GREEN_THEME_ALIASES, ORANGE_THEME_ALIASES, PURPLE_THEME_ALIASES, TEAL_THEME_ALIASES, WARM_THEME_ALIASES } from "./constants";
 
 export const applyTheme = () => {
   const alias = import.meta.env.VITE_ALIAS;
@@ -14,5 +14,7 @@ export const applyTheme = () => {
     root.classList.add("theme-teal");
   } else if (PURPLE_THEME_ALIASES.includes(alias)) {
     root.classList.add("theme-purple");
+  } else if (ORANGE_THEME_ALIASES.includes(alias)) {
+    root.classList.add("theme-orange");
   }
 };

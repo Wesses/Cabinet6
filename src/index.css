@@ -189,6 +189,36 @@
   --ring: 262 55% 30%;
 }
 
+:root.theme-orange {
+  --background: 355 15% 98%;
+  --foreground: 350 20% 12%;
+
+  --card: 355 15% 98%;
+  --card-foreground: 350 20% 12%;
+
+  --popover: 355 15% 98%;
+  --popover-foreground: 350 20% 12%;
+
+  --primary: 354 62% 32%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 352 20% 92%;
+  --secondary-foreground: 350 20% 18%;
+
+  --muted: 352 16% 93%;
+  --muted-foreground: 350 10% 44%;
+
+  --accent: 350 30% 88%;
+  --accent-foreground: 350 20% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 352 14% 87%;
+  --input: 352 14% 87%;
+  --ring: 354 62% 32%;
+}
+
 @layer base {
   * {
     @apply border-border;

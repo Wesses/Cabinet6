@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useContext } from "react";
-import { izmteploTag, localStorages } from "@/utils/constants";
+import { chteTag, izmteploTag, localStorages } from "@/utils/constants";
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "./LocaleButton";
 import { useTranslation } from "react-i18next";
@@ -31,6 +31,15 @@ export const CabinetHeader = () => {
               src={`${import.meta.env.VITE_BASE_URL}/izmteplo_logo.png`}
               alt="logo"
               className="size-10 sm:size-20"
+            />
+          </div>
+        )}
+        {import.meta.env.VITE_ALIAS === chteTag && (
+          <div className="rounded bg-primary-foreground/10 h-10 flex items-center px-2">
+            <img
+              src={`${import.meta.env.VITE_BASE_URL}/chte_logo.png`}
+              alt="logo"
+              className="h-8 w-auto object-contain"
             />
           </div>
         )}

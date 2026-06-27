@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import {
   CURRENT_PAGE_PARAM_KEY,
   belvkTag,
+  chteTag,
   izmteploTag,
   izmvkTag,
   rozdilnaTag,
@@ -20,6 +21,7 @@ import PaymentGif from "@/components/custom-components/izmteploComponents/Paymen
 import ViberBotRefs from "@/components/custom-components/izmvkComponents/ViberBotRefs";
 import BelvkContent from "@/components/custom-components/belvkComponents/BelvkContent";
 import RozdilnaContent from "@/components/custom-components/rozdilnaComponents/RozdilnaContent";
+import ChteContent from "@/components/custom-components/chteComponents/ChteContent";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -89,6 +91,7 @@ export const LoginPage = () => {
           {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
           {import.meta.env.VITE_ALIAS === belvkTag && <BelvkContent />}
           {import.meta.env.VITE_ALIAS === rozdilnaTag && <RozdilnaContent />}
+          {import.meta.env.VITE_ALIAS === chteTag && <ChteContent />}
 
         </div>
       </div>
