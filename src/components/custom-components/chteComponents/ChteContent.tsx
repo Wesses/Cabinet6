@@ -73,19 +73,19 @@ const PaymentDetails = () => (
 );
 
 const BankLinks = () => (
-  <div className="grid grid-cols-2 gap-2 max-w-[340px]">
+  <div className="grid grid-cols-1 gap-2 w-full max-w-[320px]">
     {BANKS.map((bank) => (
       <a
         key={bank.name}
         href={bank.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-col items-center gap-1 p-2 rounded-md border border-primary-foreground/30 hover:bg-primary-foreground/10 transition-colors"
+        className="flex flex-col items-center gap-1 p-3 rounded-md border border-primary-foreground/30 hover:bg-primary-foreground/10 transition-colors"
       >
-        <div className="bg-white rounded p-1 flex items-center justify-center h-10 w-full">
-          <img src={bank.img} alt={bank.name} className="h-8 w-auto object-contain" />
+        <div className="bg-white rounded p-1 flex items-center justify-center h-20 w-full">
+          <img src={bank.img} alt={bank.name} className="h-16 w-auto object-contain" />
         </div>
-        <span className="text-xs text-primary-foreground text-center leading-tight">{bank.name}</span>
+        <span className="text-sm text-primary-foreground text-center leading-tight">{bank.name}</span>
       </a>
     ))}
   </div>

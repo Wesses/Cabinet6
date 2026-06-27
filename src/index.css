@@ -190,33 +190,33 @@
 }
 
 :root.theme-orange {
-  --background: 355 15% 98%;
-  --foreground: 350 20% 12%;
+  --background: 219 15% 98%;
+  --foreground: 219 20% 12%;
 
-  --card: 355 15% 98%;
-  --card-foreground: 350 20% 12%;
+  --card: 219 15% 98%;
+  --card-foreground: 219 20% 12%;
 
-  --popover: 355 15% 98%;
-  --popover-foreground: 350 20% 12%;
+  --popover: 219 15% 98%;
+  --popover-foreground: 219 20% 12%;
 
-  --primary: 354 62% 32%;
+  --primary: 219 57% 38%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 352 20% 92%;
-  --secondary-foreground: 350 20% 18%;
+  --secondary: 219 20% 92%;
+  --secondary-foreground: 219 20% 18%;
 
-  --muted: 352 16% 93%;
-  --muted-foreground: 350 10% 44%;
+  --muted: 219 16% 93%;
+  --muted-foreground: 219 10% 44%;
 
-  --accent: 350 30% 88%;
-  --accent-foreground: 350 20% 18%;
+  --accent: 219 30% 88%;
+  --accent-foreground: 219 20% 18%;
 
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 352 14% 87%;
-  --input: 352 14% 87%;
-  --ring: 354 62% 32%;
+  --border: 219 14% 87%;
+  --input: 219 14% 87%;
+  --ring: 219 57% 38%;
 }
 
 @layer base {
