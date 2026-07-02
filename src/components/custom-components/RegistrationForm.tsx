@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "./PasswordInput";
 import { Separator } from "@radix-ui/react-separator";
 import { postRegistrationReq } from "@/api/api";
 import { cn } from "@/lib/utils";
@@ -228,12 +229,11 @@ const RegistrationForm = () => {
                   {t("form_password")}
                 </FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     {...field}
                     name="registration-password"
                     autoComplete="off"
                     id="registration-password"
-                    type="password"
                     className={cn({
                       "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.password,
@@ -258,9 +258,8 @@ const RegistrationForm = () => {
                   {t("form_confirm_password")}
                 </FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     {...field}
-                    type="password"
                     name="registration-confirm-password"
                     id="registration-confirm-password"
                     autoComplete="off"

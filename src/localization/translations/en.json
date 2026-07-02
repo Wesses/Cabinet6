@@ -204,5 +204,16 @@
   "reset_password_success": "Password changed successfully. You can now log in.",
   "reset_password_invalid_link": "Invalid link. Please request a new password reset.",
   "button_back": "Go back",
-  "form_error_email_invalid": "Enter a valid email address."
+  "form_error_email_invalid": "Enter a valid email address.",
+  "forgot_sent_title": "EMAIL SENT!",
+  "forgot_sent_subtitle": "We sent an email to:",
+  "forgot_instruction_title": "What to do now:",
+  "forgot_instruction_1": "Don't close this tab",
+  "forgot_instruction_2": "Open your email in a new tab or on your phone",
+  "forgot_instruction_3": "Find our email, open it, read it, and click «Reset Password»",
+  "forgot_open_mail": "Open my email",
+  "forgot_resend_in": "Resend in {{seconds}} sec.",
+  "forgot_resend": "Resend",
+  "back_to_login": "Back to login",
+  "reset_password_hint": "Important: remember or write down your new password — you can only recover it by going through this process again."
 }

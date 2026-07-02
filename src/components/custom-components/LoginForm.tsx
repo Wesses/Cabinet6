@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "./PasswordInput";
 import Spinner from "./Spinner";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
@@ -160,12 +161,11 @@ const LoginForm = () => {
                   {t("form_password")}
                 </FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     {...field}
                     name="login-password"
                     autoComplete="login-password"
                     id="login-password"
-                    type="password"
                     className={cn({
                       "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
                         form.formState.errors.password,

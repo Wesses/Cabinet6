@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import PasswordInput from "./PasswordInput";
 import Spinner from "./Spinner";
 import { postResetPassword } from "@/api/api";
 import { useTranslation } from "react-i18next";
@@ -96,6 +96,7 @@ const ResetPasswordForm = () => {
       <div className="text-center">
         <h3 className="xl:text-2xl text-xl font-bold mb-2">{t("reset_password_title")}</h3>
         <p className="text-muted-foreground xl:text-base text-sm">{t("reset_password_second_title")}</p>
+        <p className="mt-2 text-sm font-medium text-amber-600 dark:text-amber-400">{t("reset_password_hint")}</p>
       </div>
 
       <Form {...form}>
@@ -110,9 +111,8 @@ const ResetPasswordForm = () => {
               <FormItem>
                 <FormLabel className="text-foreground">{t("form_new_password")}</FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     {...field}
-                    type="password"
                     autoComplete="new-password"
                     className={cn({
                       "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
@@ -136,9 +136,8 @@ const ResetPasswordForm = () => {
               <FormItem>
                 <FormLabel className="text-foreground">{t("form_confirm_password")}</FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     {...field}
-                    type="password"
                     autoComplete="new-password"
                     className={cn({
                       "ring-2 ring-destructive ring-offset-2 focus-visible:ring-destructive":
