@@ -22,6 +22,7 @@ import ViberBotRefs from "@/components/custom-components/izmvkComponents/ViberBo
 import BelvkContent from "@/components/custom-components/belvkComponents/BelvkContent";
 import RozdilnaContent from "@/components/custom-components/rozdilnaComponents/RozdilnaContent";
 import ChteContent from "@/components/custom-components/chteComponents/ChteContent";
+import LoginBackgroundPattern from "@/components/custom-components/LoginBackgroundPattern";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -54,7 +55,9 @@ export const LoginPage = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row lg:min-h-[500px]">
       <div className="w-full lg:w-1/2 h-1/3 md:h-1/2 lg:h-full relative bg-primary rounded-b-xl lg:rounded-b-none min-h-[200px] lg:max-w-none overflow-hidden flex flex-col">
-        <div className="z-10 flex flex-col sm:flex-row items-start sm:items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-1 gap-x-8 sm:gap-y-2 lg:gap-x-0 lg:items-baseline lg:absolute lg:top-0 lg:left-0 lg:right-0">
+        <LoginBackgroundPattern className="z-0" />
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center px-4 pt-4 pb-2 text-primary-foreground bg-primary lg:flex-col gap-y-1 gap-x-8 sm:gap-y-2 lg:gap-x-0 lg:items-baseline lg:absolute lg:top-0 lg:left-0 lg:right-0">
+          <LoginBackgroundPattern className="z-[-1]" />
           {isError ? (
             <h1>{t("server_error")}</h1>
           ) : (
@@ -86,7 +89,7 @@ export const LoginPage = () => {
             </>
           )}
         </div>
-        <div className="flex-1 min-h-0 flex flex-col">
+        <div className="relative z-[1] flex-1 min-h-0 flex flex-col">
           {import.meta.env.VITE_ALIAS === izmteploTag && <PaymentGif />}
           {import.meta.env.VITE_ALIAS === izmvkTag && <ViberBotRefs />}
           {import.meta.env.VITE_ALIAS === belvkTag && <BelvkContent />}

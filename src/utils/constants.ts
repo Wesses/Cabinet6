@@ -46,8 +46,11 @@ export const rozdilnaTag = "rozdilna";
 export const chteTag = "chte";
 
 export const WARM_THEME_ALIASES = [izmteploTag];
-export const COOL_THEME_ALIASES = [vilkovoTag, brovodaTag];
+export const COOL_THEME_ALIASES = [vilkovoTag];
 export const GREEN_THEME_ALIASES = [izmvkTag];
 export const TEAL_THEME_ALIASES = [belvkTag];
 export const PURPLE_THEME_ALIASES = [rozdilnaTag];
 export const ORANGE_THEME_ALIASES = [chteTag];
+export const AQUA_THEME_ALIASES = [brovodaTag];
+export const INDIGO_THEME_ALIASES = [kiliyaTag];
+export const AMBER_THEME_ALIASES = [bro4Tag];
