@@ -215,5 +215,7 @@
   "forgot_resend_in": "Resend in {{seconds}} sec.",
   "forgot_resend": "Resend",
   "back_to_login": "Back to login",
+  "registration_email_hint": "Please enter a valid email. You will need it to recover access if you forget your password.",
+  "forgot_mailbox_warning": "Warning! If you don't receive the email, check that your mailbox is not full and clear it if needed. Also make sure you entered the correct email address.",
   "reset_password_hint": "Important: remember or write down your new password — you can only recover it by going through this process again."
 }

@@ -51,7 +51,7 @@ const LoginForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    postLoginReq(values)
+    return postLoginReq(values)
       .then(() => {
         handleSetUsername(values.username);
         navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
@@ -194,7 +194,7 @@ const LoginForm = () => {
           <Button
             className="w-full disabled:bg-primary/60"
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || form.formState.isSubmitting}
           >
             {isLoading ? <Spinner /> : t("login")}
           </Button>

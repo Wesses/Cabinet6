@@ -144,6 +144,10 @@ const ForgotPasswordForm = () => {
           </ol>
         </div>
 
+        <div className="bg-amber-50 border border-amber-300 rounded-lg p-3 text-left w-full text-sm text-amber-800">
+          {t("forgot_mailbox_warning")}
+        </div>
+
         {provider && (
           <a
             href={provider.url}

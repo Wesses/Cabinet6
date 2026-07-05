@@ -103,7 +103,7 @@ const RegistrationForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    postRegistrationReq(values)
+    return postRegistrationReq(values)
       .then(() => {
         setIsAlertOpen(true);
       })
@@ -214,7 +214,7 @@ const RegistrationForm = () => {
                 {form.formState.errors.email ? (
                   <FormMessage />
                 ) : (
-                  <div className="h-5" />
+                  <p className="text-xs text-muted-foreground">{t("registration_email_hint")}</p>
                 )}
               </FormItem>
             )}
@@ -310,7 +310,7 @@ const RegistrationForm = () => {
           <Button
             className="w-full disabled:bg-primary/60"
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || form.formState.isSubmitting}
           >
             {isLoading ? <Spinner /> : t("register_button")}
           </Button>
