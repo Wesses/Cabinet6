@@ -217,5 +217,9 @@
   "back_to_login": "Back to login",
   "registration_email_hint": "Please enter a valid email. You will need it to recover access if you forget your password.",
   "forgot_mailbox_warning": "Warning! If you don't receive the email, check that your mailbox is not full and clear it if needed. Also make sure you entered the correct email address.",
-  "reset_password_hint": "Important: remember or write down your new password — you can only recover it by going through this process again."
+  "reset_password_hint": "Important: remember or write down your new password — you can only recover it by going through this process again.",
+  "maintenance_title": "System maintenance",
+  "maintenance_line1": "Dear users! Scheduled procedures for closing and switching to the new reporting month are currently in progress.",
+  "maintenance_line2": "Access to the database is temporarily restricted. Estimated completion time — 20 minutes.",
+  "maintenance_line3": "Please come back a little later. We apologize for the temporary inconvenience!"
 }

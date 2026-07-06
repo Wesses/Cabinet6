@@ -26,6 +26,7 @@ import { CURRENT_PAGE_PARAM_KEY } from "@/utils/constants";
 const LoginForm = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const { handleSetUsername } = useContext(UserContext);
@@ -50,6 +51,7 @@ const LoginForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
+    setServerMessage(null);
 
     return postLoginReq(values)
       .then(() => {
@@ -57,9 +59,15 @@ const LoginForm = () => {
         navigate(`/cabinet?${CURRENT_PAGE_PARAM_KEY}=1`);
       })
       .catch((e) => {
-        const apiError = e as { status?: number | string; detail?: string | null };
+        const apiError = e as {
+          status?: number | string;
+          detail?: string | null;
+          message?: string | null;
+        };
         const status = apiError?.status;
         const detail = apiError?.detail;
+
+        if (apiError?.message) setServerMessage(apiError.message);
 
         if (status === "NETWORK") {
           form.setError("password", {
@@ -190,6 +198,12 @@ const LoginForm = () => {
               {t("forgot_password")}
             </button>
           </div>
+
+          {serverMessage && (
+            <p className="text-sm font-medium text-destructive text-center">
+              {serverMessage}
+            </p>
+          )}
 
           <Button
             className="w-full disabled:bg-primary/60"

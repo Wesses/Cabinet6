@@ -1,15 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 import { UserProvider } from "./contexts/UserProvider";
 import { history } from './utils/history';
+import { maintenanceStore } from "./utils/maintenanceStore";
+import MaintenanceScreen from "./components/custom-components/MaintenanceScreen";
 
 const TABLET_SCREEN_WIDTH = 640;
 
 function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const isMaintenance = useSyncExternalStore(
+    maintenanceStore.subscribe,
+    maintenanceStore.getSnapshot
+  );
 
   history.navigate = useNavigate();
   history.location = useLocation();
@@ -48,6 +55,7 @@ function App() {
           duration={3000}
           closeButton
         />
+        {isMaintenance && <MaintenanceScreen />}
       </UserProvider>
     </>
   );

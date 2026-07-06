@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { getToken } from "@/utils/getToken";
 import { onMainPage } from "@/utils/onMainPage";
+import { maintenanceStore } from "@/utils/maintenanceStore";
 import { Bill_RaxTypeT, OrganizationDataT, OtopShowDataT, VmPokazPostT } from "@/types";
 
 axios.defaults.baseURL = "https://communal.in.ua/Cabinet6api/";
@@ -24,6 +25,9 @@ axios.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       onMainPage();
+    }
+    if (error.response?.status === 503) {
+      maintenanceStore.setMaintenance(true);
     }
     throw error;
   }
@@ -49,7 +53,11 @@ export const postLoginReq = async (data: object) => {
     if (!e?.response && e?.request) {
       throw { status: "NETWORK", detail: null };
     }
-    throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
+    throw {
+      status: e?.response?.status ?? "Unknown",
+      detail: e?.response?.data?.detail ?? null,
+      message: e?.response?.data?.message ?? null,
+    };
   }
 };
 
