@@ -1,6 +1,14 @@
 import { ReactNode, useId } from "react";
 import { cn } from "@/lib/utils";
-import { bro4Tag, chteTag, izmteploTag } from "@/utils/constants";
+import {
+  bro1Tag,
+  bro2Tag,
+  bro3Tag,
+  bro4Tag,
+  bro5Tag,
+  chteTag,
+  izmteploTag,
+} from "@/utils/constants";
 
 /**
  * Telegram-style decorative background pattern for the login left panel.
@@ -126,7 +134,7 @@ const POSITIONS = [
 ];
 
 const HEATING_ALIASES = [izmteploTag, chteTag];
-const HOUSING_ALIASES = [bro4Tag];
+const HOUSING_ALIASES = [bro1Tag, bro2Tag, bro3Tag, bro4Tag, bro5Tag];
 
 const getIconSet = (alias: string): ReactNode[] => {
   if (HEATING_ALIASES.includes(alias)) return HEATING_ICONS;

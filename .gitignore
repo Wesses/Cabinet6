@@ -19,6 +19,10 @@ dist
 /belvk
 /rozdilna
 /chte
+/bro1
+/bro2
+/bro3
+/bro5
 *.zip
 build-all.ps1
 build-all.sh
