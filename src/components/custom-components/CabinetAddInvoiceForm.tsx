@@ -21,6 +21,7 @@ import {
 import { XIcon } from "lucide-react";
 import { postPersonalaccont } from "@/api/api";
 import Spinner from "./Spinner";
+import ViberIcon from "./ViberIcon";
 import { useState } from "react";
 import { showCustomToast } from "@/utils/showCustomComponent";
 import { useTranslation } from "react-i18next";
@@ -112,7 +113,15 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice, orgData }: Props) => {
           <p className="text-sm text-left text-foreground">{t("phone_number_label")} {orgData.contactPhone}</p>
         )}
         {orgData?.viberLinkAbon && (
-          <a href={orgData.viberLinkAbon} className="text-sm text-left text-blue-500 hover:underline">{t("our_viber_bot")}</a>
+          <a
+            href={orgData.viberLinkAbon}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#7360F2] px-4 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#5f4ede]"
+          >
+            <ViberIcon className="h-5 w-5" />
+            {t("our_viber_bot")}
+          </a>
         )}
       </AlertDialogHeader>
 
