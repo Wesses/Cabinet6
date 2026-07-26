@@ -7,6 +7,7 @@ import izmteploLogoSrc from '@/assets/izmteplo/izmteplo_logo.png';
 import chteLogoSrc from '@/assets/chte/chte_logo.png';
 import { UserContext } from "@/contexts/UserContext";
 import LocaleButton from "./LocaleButton";
+import LoginBackgroundPattern from "./LoginBackgroundPattern";
 import { useTranslation } from "react-i18next";
 import { postLogoutReq } from "@/api/api";
 
@@ -25,7 +26,8 @@ export const CabinetHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 w-full bg-primary py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[100px]">
+    <header className="sticky top-0 w-full bg-primary py-6 px-6 flex sm:flex-row sm:justify-between sm:gap-0 sm:items-center shadow-lg z-10 flex-col gap-2 justify-center max-h-[100px] overflow-hidden">
+      <LoginBackgroundPattern className="z-[-1]" />
       <div className="flex items-center justify-between gap-4 ite sm:items-center sm:justify-normal">
         {import.meta.env.VITE_ALIAS === izmteploTag && (
           <div className="rounded-full bg-primary-foreground/10 size-10 sm:size-20">
