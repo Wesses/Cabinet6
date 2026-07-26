@@ -221,5 +221,11 @@
   "maintenance_title": "System maintenance",
   "maintenance_line1": "Dear users! Scheduled procedures for closing and switching to the new reporting month are currently in progress.",
   "maintenance_line2": "Access to the database is temporarily restricted. Estimated completion time — 20 minutes.",
-  "maintenance_line3": "Please come back a little later. We apologize for the temporary inconvenience!"
+  "maintenance_line3": "Please come back a little later. We apologize for the temporary inconvenience!",
+  "tariff_components": "Tariff components",
+  "uah_per_sqm": "UAH/m²",
+  "reg_tips_title": "A few tips for easy registration:",
+  "reg_tips_1": "You don't have to use your real first and last name — you can pick any nickname (for example, Mike64). A short name is easier to remember and type without mistakes.",
+  "reg_tips_2": "Save your login details: write down or keep in a safe place the login, password and email you use when registering.",
+  "reg_tips_3": "One email — one account: you can't register the same email address twice."
 }

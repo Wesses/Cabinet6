@@ -66,7 +66,7 @@ const getKvartplataData = (
 
   return validKeys
     .filter(([key, value]) => kvartplata[value] && kvartplata[key])
-    .map(([key]) => [rentHeads[key], kvartplata[key]]);
+    .map(([key]) => [rentHeads[key].replace(/\s*\([^)]*\)\s*$/, ""), kvartplata[key]]);
 };
 
 const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
@@ -135,16 +135,17 @@ const RentDataTab = ({ rentOplataData, kvartplata, archivData }: Props) => {
   const kvartptalaValidData = getKvartplataData(kvartplata, RentHeads);
   const rentSum = kvartptalaValidData.reduce((acc, [, value]) => acc + +value, 0);
   const totalLabel = import.meta.env.VITE_ALIAS === izmteploTag ? t("total_ovds_due") : t("total_payment_due");
-  const tableData = kvartptalaValidData.length > 1
-    ? [...kvartptalaValidData, [totalLabel, rentSum]]
-    : kvartptalaValidData;
+  const hasComponents = kvartptalaValidData.length > 1;
 
   return (
     <div className="flex flex-col gap-y-2">
       <SimpleTable
-        data={tableData}
+        data={kvartptalaValidData}
         debtValue={kvartplata?.saldoNachKvplata}
         linkToPay={kvartplata?.linkToPay}
+        sectionTitle={hasComponents ? t("tariff_components") : undefined}
+        sectionUnit={hasComponents ? t("uah_per_sqm") : undefined}
+        totalRow={hasComponents ? [totalLabel, rentSum.toFixed(2)] : undefined}
       />
       <AccordionForTabs accordionData={accordionData} />
     </div>

@@ -13,6 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CircleHelp } from "lucide-react";
 import PasswordInput from "./PasswordInput";
 import { Separator } from "@radix-ui/react-separator";
 import { postRegistrationReq } from "@/api/api";
@@ -168,8 +174,27 @@ const RegistrationForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground">
+                <FormLabel className="text-foreground flex items-center gap-1">
                   {t("form_username")}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        aria-label={t("reg_tips_title")}
+                        className="inline-flex"
+                      >
+                        <CircleHelp className="w-4 h-4 text-primary cursor-pointer shrink-0" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-72 text-sm space-y-2">
+                      <p className="font-semibold">{t("reg_tips_title")}</p>
+                      <ul className="list-disc pl-4 space-y-1.5">
+                        <li>{t("reg_tips_1")}</li>
+                        <li>{t("reg_tips_2")}</li>
+                        <li>{t("reg_tips_3")}</li>
+                      </ul>
+                    </PopoverContent>
+                  </Popover>
                 </FormLabel>
                 <FormControl>
                   <Input

@@ -9,6 +9,9 @@ type Props = {
   data: (string | number | undefined)[][];
   debtValue?: number;
   linkToPay?: string;
+  sectionTitle?: string;
+  sectionUnit?: string;
+  totalRow?: (string | number)[];
 };
 
 const DebtLabel = ({ label, hint }: { label: string; hint: string }) => (
@@ -23,7 +26,7 @@ const DebtLabel = ({ label, hint }: { label: string; hint: string }) => (
   </span>
 );
 
-const SimpleTable = ({ data, debtValue, linkToPay }: Props) => {
+const SimpleTable = ({ data, debtValue, linkToPay, sectionTitle, sectionUnit, totalRow }: Props) => {
   const { t } = useTranslation();
 
   const hasDebt = debtValue !== undefined;
@@ -58,12 +61,24 @@ const SimpleTable = ({ data, debtValue, linkToPay }: Props) => {
                   </TableCell>
                 </TableRow>
               )}
+              {sectionTitle && (
+                <TableRow className="bg-muted">
+                  <TableCell className="font-bold">{sectionTitle}</TableCell>
+                  <TableCell className="text-right font-medium text-muted-foreground">{sectionUnit}</TableCell>
+                </TableRow>
+              )}
               {data.map(([label, value]) => (
                 <TableRow key={label} className="text-base">
                   <TableCell className="font-medium">{label}</TableCell>
                   <TableCell className="text-right">{value || "-"}</TableCell>
                 </TableRow>
               ))}
+              {totalRow && (
+                <TableRow className="text-base border-t-2 border-foreground/20">
+                  <TableCell className="font-bold">{totalRow[0]}</TableCell>
+                  <TableCell className="text-right font-bold">{totalRow[1] || "-"}</TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </div>
@@ -86,6 +101,12 @@ const SimpleTable = ({ data, debtValue, linkToPay }: Props) => {
               )}
             </div>
           )}
+          {sectionTitle && (
+            <div className="flex items-baseline justify-between px-1 pt-1">
+              <span className="text-base font-bold">{sectionTitle}</span>
+              <span className="text-sm text-muted-foreground">{sectionUnit}</span>
+            </div>
+          )}
           {data.map(([label, value]) => (
             <div
               key={label}
@@ -97,6 +118,12 @@ const SimpleTable = ({ data, debtValue, linkToPay }: Props) => {
               </div>
             </div>
           ))}
+          {totalRow && (
+            <div className="p-3 border-2 rounded-lg shadow border-primary/30 bg-card">
+              <div className="text-sm text-muted-foreground">{totalRow[0]}</div>
+              <div className="text-base font-bold text-card-foreground">{totalRow[1] || "-"}</div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
