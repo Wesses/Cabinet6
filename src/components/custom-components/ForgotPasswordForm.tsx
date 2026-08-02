@@ -20,7 +20,7 @@ import { postForgotPassword } from "@/api/api";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
-const RESEND_LOCK_KEY = "forgot_pw_resend";
+const RESEND_LOCK_KEY = `forgot_pw_resend_${import.meta.env.VITE_ALIAS ?? ""}`;
 const RESEND_DELAY_MS = 60_000;
 
 const MAIL_PROVIDERS: Record<string, { name: string; url: string }> = {
