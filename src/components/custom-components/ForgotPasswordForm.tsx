@@ -67,10 +67,16 @@ const ForgotPasswordForm = () => {
   }, []);
 
   useEffect(() => {
-    if (countdown <= 0) return;
+    if (countdown <= 0) {
+      // Lock elapsed while on the page — drop the stale entry.
+      // Guarded by isSent so the initial countdown=0 render (nothing sent yet)
+      // and the mount before the restored value lands don't wipe a live lock.
+      if (isSent) localStorage.removeItem(RESEND_LOCK_KEY);
+      return;
+    }
     const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
     return () => clearTimeout(timer);
-  }, [countdown]);
+  }, [countdown, isSent]);
 
   const formSchema = z.object({
     email: z.string().email({ message: t("form_error_email_invalid") }),
