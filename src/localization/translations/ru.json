@@ -8,7 +8,7 @@
   "form_error_username_length": "Имя пользователя должно содержать не менее 3 символов.",
   "form_error_username_no_letter": "Имя пользователя должно содержать хотя бы одну букву.",
   "form_error_password_length": "Пароль должен содержать не менее 2 символов.",
-  "form_error_login_or_pass": "Неверный логин или пароль.",
+  "form_error_login_or_pass": "Неверное имя пользователя или пароль.",
   "or_register": "или зарегистрироваться",
   "register_button": "Зарегистрироваться",
   "form_error_password_length_6": "Пароль должен содержать минимум 6 символов.",
