@@ -79,6 +79,8 @@ const ResetPasswordForm = () => {
           form.setError("newPassword", { type: "network", message: t("error_no_response") });
         } else if (status === 429) {
           form.setError("newPassword", { type: "429", message: t("error_too_many_requests") });
+        } else if (status === 400) {
+          setServerErrors([t("reset_password_invalid_link")]);
         } else if (errors) {
           const messages = Array.isArray(errors)
             ? (errors as string[])

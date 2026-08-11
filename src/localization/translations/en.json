@@ -202,7 +202,7 @@
   "form_new_password": "New password",
   "reset_password_submit": "Change password",
   "reset_password_success": "Password changed successfully. You can now log in.",
-  "reset_password_invalid_link": "Invalid link. Please request a new password reset.",
+  "reset_password_invalid_link": "The link has expired. Please request a password reset again.",
   "button_back": "Go back",
   "form_error_email_invalid": "Enter a valid email address.",
   "forgot_sent_title": "EMAIL SENT!",

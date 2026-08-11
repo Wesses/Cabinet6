@@ -202,7 +202,7 @@
   "form_new_password": "Новий пароль",
   "reset_password_submit": "Змінити пароль",
   "reset_password_success": "Пароль успішно змінено. Тепер ви можете увійти.",
-  "reset_password_invalid_link": "Недійсне посилання. Спробуйте запросити відновлення знову.",
+  "reset_password_invalid_link": "Посилання застаріле, будь ласка, запросіть відновлення пароля ще раз.",
   "button_back": "Повернутись",
   "form_error_email_invalid": "Введіть коректну електронну адресу.",
   "forgot_sent_title": "ЛИСТ НАДІСЛАНО!",
