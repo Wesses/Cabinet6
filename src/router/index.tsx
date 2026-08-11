@@ -7,39 +7,48 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import { createBrowserRouter } from "react-router-dom";
 import InvoicePage from '@/pages/InvoicePage';
 import { PrivateRoutes } from '@/pages/PrivateRoutes';
+import RouteErrorFallback from "@/components/custom-components/RouteErrorFallback";
 
 const routes = [
   {
     path: "/",
     element: <App />,
+    errorElement: <RouteErrorFallback />,
     children: [
       {
         path: "login",
         element: <LoginPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: "registration",
         element: <RegistrationPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: "reset-password",
         element: <ResetPasswordPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: "cabinet",
         element: <PrivateRoutes />,
+        errorElement: <RouteErrorFallback />,
         children: [
           {
             index: true,
             element: <CabinetPage />,
+            errorElement: <RouteErrorFallback />,
           },
           {
             path: ":id",
             element: <InvoicePage />,
+            errorElement: <RouteErrorFallback />,
           },
         ],
       },
