@@ -342,9 +342,13 @@ const RegistrationForm = () => {
 
           <div className="flex justify-center items-center gap-x-2">
             <Separator className="h-[1px] w-full" />
-            <span className="uppercase text-muted-foreground text-sm whitespace-nowrap">
+            <button
+              type="button"
+              onClick={handleLoginPage}
+              className="uppercase text-muted-foreground text-sm whitespace-nowrap hover:text-foreground hover:underline"
+            >
               {t("or_login")}
-            </span>
+            </button>
             <Separator className="h-[1px] w-full" />
           </div>
 
