@@ -108,9 +108,12 @@ export default function PrintInvoiceForm({
 
   useEffect(() => {
     if (open) {
-      form.reset();
+      form.reset({
+        month: "0",
+        serviceId: bills_raxTypes[0] ? String(bills_raxTypes[0].id) : undefined,
+      });
     }
-  }, [open]);
+  }, [open, bills_raxTypes]);
 
   return (
     <AlertDialogContent>
@@ -140,7 +143,7 @@ export default function PrintInvoiceForm({
                 <FormLabel>{t("service")}</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  value={field.value}
                 >
                   <FormControl>
                     <SelectTrigger
@@ -180,6 +183,7 @@ export default function PrintInvoiceForm({
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
+                    value={field.value}
                     className="flex flex-col space-y-1"
                   >
                     {[
