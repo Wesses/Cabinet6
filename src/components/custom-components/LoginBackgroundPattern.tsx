@@ -1,11 +1,13 @@
 import { ReactNode, useId } from "react";
 import { cn } from "@/lib/utils";
 import {
+  boristeploTag,
   bro1Tag,
   bro2Tag,
   bro3Tag,
   bro4Tag,
   bro5Tag,
+  broteploTag,
   chteTag,
   izmteploTag,
 } from "@/utils/constants";
@@ -133,7 +135,7 @@ const POSITIONS = [
   { x: 98, y: 118, r: -6, s: 1.3 },
 ];
 
-const HEATING_ALIASES = [izmteploTag, chteTag];
+const HEATING_ALIASES = [izmteploTag, chteTag, broteploTag, boristeploTag];
 const HOUSING_ALIASES = [bro1Tag, bro2Tag, bro3Tag, bro4Tag, bro5Tag];
 
 const getIconSet = (alias: string): ReactNode[] => {

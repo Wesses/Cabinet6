@@ -429,6 +429,66 @@
   --ring: 162 70% 28%;
 }
 
+:root.theme-crimson {
+  --background: 355 30% 98%;
+  --foreground: 355 25% 12%;
+
+  --card: 355 30% 98%;
+  --card-foreground: 355 25% 12%;
+
+  --popover: 355 30% 98%;
+  --popover-foreground: 355 25% 12%;
+
+  --primary: 355 70% 35%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 355 30% 92%;
+  --secondary-foreground: 355 25% 18%;
+
+  --muted: 355 22% 93%;
+  --muted-foreground: 355 12% 45%;
+
+  --accent: 355 40% 88%;
+  --accent-foreground: 355 25% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 355 20% 87%;
+  --input: 355 20% 87%;
+  --ring: 355 70% 35%;
+}
+
+:root.theme-gold {
+  --background: 50 40% 98%;
+  --foreground: 40 30% 12%;
+
+  --card: 50 40% 98%;
+  --card-foreground: 40 30% 12%;
+
+  --popover: 50 40% 98%;
+  --popover-foreground: 40 30% 12%;
+
+  --primary: 50 78% 30%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 50 35% 91%;
+  --secondary-foreground: 40 30% 18%;
+
+  --muted: 50 26% 93%;
+  --muted-foreground: 42 16% 44%;
+
+  --accent: 48 50% 86%;
+  --accent-foreground: 40 30% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 50 26% 85%;
+  --input: 50 26% 85%;
+  --ring: 50 78% 30%;
+}
+
 @layer base {
   * {
     @apply border-border;

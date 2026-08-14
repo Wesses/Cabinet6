@@ -50,6 +50,9 @@ export const bro2Tag = "bro2";
 export const bro3Tag = "bro3";
 export const bro5Tag = "bro5";
 
+export const broteploTag = "broteplo";
+export const boristeploTag = "boristeplo";
+
 export const WARM_THEME_ALIASES = [izmteploTag];
 export const COOL_THEME_ALIASES = [vilkovoTag];
 export const GREEN_THEME_ALIASES = [izmvkTag];
@@ -63,3 +66,5 @@ export const ROSE_THEME_ALIASES = [bro1Tag];
 export const FUCHSIA_THEME_ALIASES = [bro2Tag];
 export const LIME_THEME_ALIASES = [bro3Tag];
 export const EMERALD_THEME_ALIASES = [bro5Tag];
+export const CRIMSON_THEME_ALIASES = [broteploTag];
+export const GOLD_THEME_ALIASES = [boristeploTag];
