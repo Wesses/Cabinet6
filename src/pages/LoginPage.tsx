@@ -12,6 +12,8 @@ import { useTranslation } from "react-i18next";
 import {
   CURRENT_PAGE_PARAM_KEY,
   belvkTag,
+  broteploTag,
+  brovodaTag,
   chteTag,
   izmteploTag,
   izmvkTag,
@@ -23,6 +25,7 @@ import BelvkContent from "@/components/custom-components/belvkComponents/BelvkCo
 import RozdilnaContent from "@/components/custom-components/rozdilnaComponents/RozdilnaContent";
 import ChteContent from "@/components/custom-components/chteComponents/ChteContent";
 import LoginBackgroundPattern from "@/components/custom-components/LoginBackgroundPattern";
+import SbuWarningBanner from "@/components/custom-components/SbuWarningBanner";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -95,6 +98,10 @@ export const LoginPage = () => {
           {import.meta.env.VITE_ALIAS === belvkTag && <BelvkContent />}
           {import.meta.env.VITE_ALIAS === rozdilnaTag && <RozdilnaContent />}
           {import.meta.env.VITE_ALIAS === chteTag && <ChteContent />}
+          {(import.meta.env.VITE_ALIAS === brovodaTag ||
+            import.meta.env.VITE_ALIAS === broteploTag) && (
+            <SbuWarningBanner />
+          )}
 
         </div>
       </div>
