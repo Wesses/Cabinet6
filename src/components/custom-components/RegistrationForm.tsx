@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CircleHelp } from "lucide-react";
+import { Check, Circle, CircleHelp } from "lucide-react";
 import PasswordInput from "./PasswordInput";
 import { Separator } from "@radix-ui/react-separator";
 import { postRegistrationReq } from "@/api/api";
@@ -37,6 +37,51 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTranslation } from "react-i18next";
+
+// Always-visible password checklist (not gated behind a hover/click popover
+// like the username tips above) — elderly users especially struggled with
+// discovering rules one-at-a-time via the submit-triggered FormMessage,
+// since zod/react-hook-form only surfaces the first failing rule per submit.
+const PASSWORD_RULES: { test: (v: string) => boolean; labelKey: string }[] = [
+  { test: (v) => v.length >= 6, labelKey: "password_requirement_length" },
+  { test: (v) => /[a-z]/.test(v), labelKey: "password_requirement_lowercase" },
+  { test: (v) => /[A-Z]/.test(v), labelKey: "password_requirement_uppercase" },
+  { test: (v) => /[0-9]/.test(v), labelKey: "password_requirement_digit" },
+  { test: (v) => /[^a-zA-Z0-9]/.test(v), labelKey: "password_requirement_special" },
+  { test: (v) => new Set(v).size >= 6, labelKey: "password_requirement_unique" },
+];
+
+const PasswordRequirements = ({ password }: { password: string }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="space-y-1.5 rounded-md border bg-muted/40 p-3">
+      <p className="text-sm font-semibold text-foreground">
+        {t("password_requirements_title")}
+      </p>
+      <ul className="space-y-1">
+        {PASSWORD_RULES.map(({ test, labelKey }) => {
+          const met = test(password);
+          return (
+            <li
+              key={labelKey}
+              className={cn(
+                "flex items-center gap-2 text-sm transition-colors",
+                met ? "text-green-600" : "text-muted-foreground"
+              )}
+            >
+              {met ? (
+                <Check className="h-4 w-4 shrink-0" />
+              ) : (
+                <Circle className="h-4 w-4 shrink-0" />
+              )}
+              {t(labelKey)}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 
 const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -265,11 +310,7 @@ const RegistrationForm = () => {
                     })}
                   />
                 </FormControl>
-                {form.formState.errors.password ? (
-                  <FormMessage />
-                ) : (
-                  <div className="h-5" />
-                )}
+                <PasswordRequirements password={field.value ?? ""} />
               </FormItem>
             )}
           />
