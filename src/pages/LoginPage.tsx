@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import {
   CURRENT_PAGE_PARAM_KEY,
   belvkTag,
+  boristeploTag,
   broteploTag,
   brovodaTag,
   chteTag,
@@ -99,7 +100,8 @@ export const LoginPage = () => {
           {import.meta.env.VITE_ALIAS === rozdilnaTag && <RozdilnaContent />}
           {import.meta.env.VITE_ALIAS === chteTag && <ChteContent />}
           {(import.meta.env.VITE_ALIAS === brovodaTag ||
-            import.meta.env.VITE_ALIAS === broteploTag) && (
+            import.meta.env.VITE_ALIAS === broteploTag ||
+            import.meta.env.VITE_ALIAS === boristeploTag) && (
             <SbuWarningBanner />
           )}
 
