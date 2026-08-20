@@ -42,13 +42,30 @@ import { useTranslation } from "react-i18next";
 // like the username tips above) — elderly users especially struggled with
 // discovering rules one-at-a-time via the submit-triggered FormMessage,
 // since zod/react-hook-form only surfaces the first failing rule per submit.
-const PASSWORD_RULES: { test: (v: string) => boolean; labelKey: string }[] = [
-  { test: (v) => v.length >= 6, labelKey: "password_requirement_length" },
-  { test: (v) => /[a-z]/.test(v), labelKey: "password_requirement_lowercase" },
-  { test: (v) => /[A-Z]/.test(v), labelKey: "password_requirement_uppercase" },
-  { test: (v) => /[0-9]/.test(v), labelKey: "password_requirement_digit" },
-  { test: (v) => /[^a-zA-Z0-9]/.test(v), labelKey: "password_requirement_special" },
-  { test: (v) => new Set(v).size >= 6, labelKey: "password_requirement_unique" },
+//
+// Mirrors the server's PasswordOptions + custom IPasswordValidator exactly —
+// keep these regexes in sync if the server rules change again.
+// Uppercase: A-Z plus the full Cyrillic uppercase block (covers Ukrainian
+// Є/І/Ї U+0404/0406/0407) plus Ukrainian Ґ (U+0490, outside that block).
+// Lowercase: a-z plus Cyrillic lowercase а-я plus Ukrainian є/і/ї/ґ
+// (U+0454/0456/0457/0491, outside the а-я block).
+const PASSWORD_UPPERCASE_RE = /[A-ZЀ-ЯЄІЇҐ]/;
+const PASSWORD_LOWERCASE_RE = /[a-zа-яєіїґ]/;
+// "Special" = not a digit and not any letter covered by the two rules above
+// (union of both char classes — must stay in sync with them).
+const PASSWORD_SPECIAL_RE = /[^a-zA-Z0-9Ѐ-ЯЄІЇҐа-яєіїґ]/;
+
+const PASSWORD_RULES: {
+  test: (v: string) => boolean;
+  labelKey: string;
+  errorKey: string;
+}[] = [
+  { test: (v) => v.length >= 6, labelKey: "password_requirement_length", errorKey: "form_error_password_length_6" },
+  { test: (v) => PASSWORD_LOWERCASE_RE.test(v), labelKey: "password_requirement_lowercase", errorKey: "form_error_password_any_lowercase_letter" },
+  { test: (v) => PASSWORD_UPPERCASE_RE.test(v), labelKey: "password_requirement_uppercase", errorKey: "form_error_password_any_uppercase_letter" },
+  { test: (v) => /[0-9]/.test(v), labelKey: "password_requirement_digit", errorKey: "form_error_password_any_symbol" },
+  { test: (v) => PASSWORD_SPECIAL_RE.test(v), labelKey: "password_requirement_special", errorKey: "form_error_password_any_special_symbol" },
+  { test: (v) => new Set(v).size >= 4, labelKey: "password_requirement_unique", errorKey: "form_error_password_more_special_symbols" },
 ];
 
 const PasswordRequirements = ({ password }: { password: string }) => {
@@ -98,30 +115,10 @@ const RegistrationForm = () => {
           message: t("form_error_username_no_letter"),
         }),
 
-      password: z
-        .string()
-        .min(6, t("form_error_password_length_6"))
-        .refine((value) => /[0-9]/.test(value), {
-          message: t("form_error_password_any_symbol"),
-        })
-        .refine((value) => /[a-z]/.test(value), {
-          message: t("form_error_password_any_lowercase_letter"),
-        })
-        .refine((value) => /[A-Z]/.test(value), {
-          message: t("form_error_password_any_uppercase_letter"),
-        })
-        .refine((value) => /[^a-zA-Z0-9]/.test(value), {
-          message: t("form_error_password_any_special_symbol"),
-        })
-        .refine(
-          (value) => {
-            const uniqueChars = new Set(value).size;
-            return uniqueChars >= 6;
-          },
-          {
-            message: t("form_error_password_more_special_symbols"),
-          }
-        ),
+      password: PASSWORD_RULES.reduce<z.ZodTypeAny>(
+        (schema, rule) => schema.refine(rule.test, { message: t(rule.errorKey) }),
+        z.string(),
+      ),
 
       email: z.string().min(2, {
         message: t("form_error_email_length"),
