@@ -110,6 +110,25 @@ export interface OtopAbplT {
   nOtopAbplTarifa: string;
 }
 
+export interface VyvozOthodovT {
+  linkToPay: string;
+  normaTboM3: number;
+  tsenaTboZaM3: number;
+  vyvozOthodovDogTboM3: number;
+  vyvozOthodovKodTarifa: number;
+  tarifiVyvozOthodovNTarifa: string;
+  saldoNachVyvozOthodov: number;
+}
+
+export interface VyvozOthodovAbplT {
+  linkToPay: string;
+  vyvozOthodovAbpl: number;
+  vyvozOthodovAbplKodTarifa: number;
+  tarifiVyvozAbplNTarifa: string;
+  tarifiVyvozAbplTsenaGrn: number;
+  saldoNachVyvozOthodovAbpl: number;
+}
+
 export interface getAbonentCardT {
   services: string;
   startDate: Date;
@@ -183,6 +202,9 @@ export interface getAbonentCardT {
 
   teploOtop: TeploOtopT;
   otopAbpl: OtopAbplT;
+
+  vyvozOthodov?: VyvozOthodovT;
+  vyvozOthodovAbpl?: VyvozOthodovAbplT;
 }
 
 export type AbonentInvoiceInfoT = Partial<
@@ -246,6 +268,8 @@ export enum TabsNamesT {
   Heating_supply = "heating-supply",
   Heating_supply_subscription_fee = "heating-supply-subscribtion-fee",
   Rent_data = "rent-data",
+  Waste_removal = "waste-removal",
+  Waste_removal_fee = "waste-removal-fee",
 }
 
 export enum ServicesValuesT {

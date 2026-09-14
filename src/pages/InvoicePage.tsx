@@ -42,6 +42,8 @@ import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import PrintInvoiceForm from "@/components/custom-components/PrintInvoiceForm";
 import HeatingSupplyTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyTab";
 import HeatingSupplyAbplOtopTab from "@/components/custom-components/InvoiceServicesTabs/HeatingSupplyAbplOtopTab";
+import WasteRemovalTab from "@/components/custom-components/InvoiceServicesTabs/WasteRemovalTab";
+import WasteRemovalAbplTab from "@/components/custom-components/InvoiceServicesTabs/WasteRemovalAbplTab";
 import AddWatermeterForm from "@/components/custom-components/AddWatermeterForm";
 
 const CabinetPage = () => {
@@ -174,6 +176,20 @@ const CabinetPage = () => {
     [abonentCardData],
   );
 
+  // No services-string check here (unlike the tabs above) — the backend
+  // doesn't expose a dedicated ServicesValuesT code for this service, so we
+  // rely purely on the object's presence, same as how the other tabs'
+  // object-presence checks already behave in practice.
+  const isWasteRemoval = useMemo(
+    () => !!abonentCardData?.vyvozOthodov,
+    [abonentCardData],
+  );
+
+  const isWasteRemovalAbpl = useMemo(
+    () => !!abonentCardData?.vyvozOthodovAbpl,
+    [abonentCardData],
+  );
+
   const handlSetSearchParams = (value: string) => {
     if (searchParams.get(SEARCH_PARAM_TAB_KEY) === value) return;
 
@@ -271,6 +287,33 @@ const CabinetPage = () => {
           rentOplataData={rentOplataData}
           kvartplata={abonentCardData?.kvartplata}
           archivData={archivData}
+        />
+      ),
+    },
+
+    {
+      value: TabsNamesT.Waste_removal,
+      label: t("waste_removal"),
+      condition: isWasteRemoval,
+      tab_component: (
+        <WasteRemovalTab
+          wasteRemovalData={abonentCardData?.vyvozOthodov}
+          kolGil={abonentCardData?.kolGil}
+          archivData={archivData}
+          rentOplataData={rentOplataData}
+        />
+      ),
+    },
+
+    {
+      value: TabsNamesT.Waste_removal_fee,
+      label: t("waste_removal_subscription_fee"),
+      condition: isWasteRemovalAbpl,
+      tab_component: (
+        <WasteRemovalAbplTab
+          wasteRemovalAbplData={abonentCardData?.vyvozOthodovAbpl}
+          archivData={archivData}
+          rentOplataData={rentOplataData}
         />
       ),
     },

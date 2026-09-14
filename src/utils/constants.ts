@@ -32,6 +32,10 @@ export const HEATING_SUPPLY_ABPL_OTOP_TAG_VALUES = ["OTOP_ABPL"];
 
 export const KVARTPLATA_TAG_VALUES = ["KVPLATA"];
 
+export const WASTE_REMOVAL_TAG_VALUES = ["VYVOZ_OTHODOV"];
+
+export const WASTE_REMOVAL_ABPL_TAG_VALUES = ["VYVOZ_OTHODOV_ABPL"];
+
 export const SEARCH_PARAM_TAB_KEY = "tab";
 
 export const izmteploTag = "izmteplo";
@@ -52,6 +56,7 @@ export const bro5Tag = "bro5";
 
 export const broteploTag = "broteplo";
 export const boristeploTag = "boristeplo";
+export const selticTag = "seltic";
 
 export const WARM_THEME_ALIASES = [izmteploTag];
 export const COOL_THEME_ALIASES = [vilkovoTag];
@@ -68,3 +73,4 @@ export const LIME_THEME_ALIASES = [bro3Tag];
 export const EMERALD_THEME_ALIASES = [bro5Tag];
 export const CRIMSON_THEME_ALIASES = [broteploTag];
 export const GOLD_THEME_ALIASES = [boristeploTag];
+export const OLIVE_THEME_ALIASES = [selticTag];

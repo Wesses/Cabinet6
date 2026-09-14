@@ -489,6 +489,36 @@
   --ring: 50 78% 30%;
 }
 
+:root.theme-olive {
+  --background: 72 40% 98%;
+  --foreground: 65 30% 12%;
+
+  --card: 72 40% 98%;
+  --card-foreground: 65 30% 12%;
+
+  --popover: 72 40% 98%;
+  --popover-foreground: 65 30% 12%;
+
+  --primary: 72 70% 28%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 72 35% 91%;
+  --secondary-foreground: 65 30% 18%;
+
+  --muted: 72 26% 93%;
+  --muted-foreground: 64 16% 44%;
+
+  --accent: 70 50% 86%;
+  --accent-foreground: 65 30% 18%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 72 26% 85%;
+  --input: 72 26% 85%;
+  --ring: 72 70% 28%;
+}
+
 @layer base {
   * {
     @apply border-border;
