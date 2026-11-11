@@ -20,6 +20,10 @@ const rax = "/api/RaxParam";
 const otopShow = "/api/TeploschetPokaz";
 const baseName = import.meta.env.BASE_URL;
 
+// Не логувати AxiosError цілком: у config.data пароль, у config.headers токен
+const logRequestError = (e: any) =>
+  console.error("Помилка при виконанні запиту:", e?.response?.status ?? e?.message);
+
 axios.interceptors.response.use(
   (r) => r,
   (error) => {
@@ -49,7 +53,7 @@ export const postLoginReq = async (data: object) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
     if (!e?.response && e?.request) {
       throw { status: "NETWORK", detail: null };
     }
@@ -71,7 +75,7 @@ export const postRegistrationReq = async (data: object) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
     if (!e?.response && e?.request) {
       throw { status: "NETWORK", detail: null };
     }
@@ -87,7 +91,7 @@ export const postLogoutReq = async () => {
       headers: { Authorization: `Bearer ${token.token}` },
     });
   } catch (e) {
-    console.error("Logout error:", e);
+    logRequestError(e);
   }
 };
 
@@ -111,7 +115,7 @@ export const getOrganizationData = async (): Promise<OrganizationDataT> => {
     const response = await axios.get(`${organizationData}/${import.meta.env.VITE_ALIAS}`);
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
     throw e?.response?.status || "Unknown error";
   }
 };
@@ -135,7 +139,7 @@ export const getPersonalacconts = async () => {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
       path: baseName,
     });
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
     throw e.response?.statusText || "Unknown error";
   }
 };
@@ -160,7 +164,7 @@ export const postPersonalaccont = async (pwd: string) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
   }
@@ -182,7 +186,7 @@ export const deletePersonalaccont = async (id: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -204,7 +208,7 @@ export const getAbonentCardData = async (PersonalaccontsId: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw { status: e?.response?.status ?? "Unknown", detail: e?.response?.data?.detail ?? null };
   }
@@ -226,7 +230,7 @@ export const getArchivData = async (PersonalaccontsId: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -248,7 +252,7 @@ export const getOplataData = async (PersonalaccontsId: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -299,7 +303,7 @@ export const getInvoiceBlob = async (
 
     return { blob: response.data, fileName };
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -321,7 +325,7 @@ export const getWMShowData = async (PersonalaccontsId: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -343,7 +347,7 @@ export const getBills_RaxTypes = async (PersonalaccontsId: number): Promise<Bill
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -365,7 +369,7 @@ export const getOtopShowData = async (PersonalaccontsId: number): Promise<OtopSh
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -383,7 +387,7 @@ export const postVmPokaz = async (data: VmPokazPostT) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }
@@ -432,7 +436,7 @@ export const getWMList = async (PersonalaccontsId: number) => {
 
     return response.data;
   } catch (e: any) {
-    console.error("Помилка при виконанні запиту:", e);
+    logRequestError(e);
 
     throw e?.response?.status || "Unknown error";
   }

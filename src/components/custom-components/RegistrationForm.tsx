@@ -208,6 +208,7 @@ const RegistrationForm = () => {
 
       <Form {...form}>
         <form
+          method="post"
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-3 w-full min-w-[300px] sm:min-w-[400px] max-w-[400px]"
         >
@@ -391,6 +392,7 @@ const RegistrationForm = () => {
           </div>
 
           <Button
+            type="button"
             className="w-full"
             variant="outline"
             onClick={handleLoginPage}

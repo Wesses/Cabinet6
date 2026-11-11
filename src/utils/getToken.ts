@@ -14,11 +14,12 @@ export const getToken = () => {
     token = JSON.parse(tokenString);
 
     return token;
-  } catch (error) {
+  } catch {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
       path: import.meta.env.BASE_URL,
     });
-    console.error("Помилка парсинга токена:", error);
+    // Без об'єкта помилки: текст SyntaxError містить фрагмент токена
+    console.error("Помилка парсинга токена");
     throw "invalid-token";
   }
 };

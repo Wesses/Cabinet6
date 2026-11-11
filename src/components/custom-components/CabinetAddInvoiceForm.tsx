@@ -127,6 +127,7 @@ const CabinetAddInvoiceForm = ({ getData, lightInvoice, orgData }: Props) => {
 
       <Form {...form}>
         <form
+          method="post"
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 max-w-3xl mx-auto pb-10"
         >
