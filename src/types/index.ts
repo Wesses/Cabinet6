@@ -1,14 +1,3 @@
-export interface NewsT {
-  newsId: number;
-  deleted: boolean;
-  userChg: string;
-  dateChg: string;
-  organizationId: number;
-  newsDate: string;
-  newsText: string;
-  organization: string | null;
-}
-
 export interface OrganizationDataT {
   name: string;
   description: string;
@@ -440,58 +429,6 @@ export enum CertainFieldsHeatingSupplyEnum {
   schetGkStr = "schetGkStr",
   nTeploschet = "nTeploschet",
 }
-
-export const kvartplataObj = {
-  kvplata: 0,
-  kvplataTbo: 0,
-  kvplataOvds: 0,
-  kvplataDymovent: 0,
-  kvplataVygreb: 0,
-  kvplataTekrem: 0,
-  kvplataKnizh: 0,
-  kvplataUborter: 0,
-  kvplataDetploshad: 0,
-  kvplataZima: 0,
-  kvplataSvetobsh: 0,
-  kvplataDeratiz: 0,
-  kvplataDezinsec: 0,
-  kvplataUborlest: 0,
-  kvplataLiftTo: 0,
-  kvplataLiftElectro: 0,
-  kvplataOvdsDisp: 0,
-  kvplataOvdsElectro: 0,
-  kvplataOvdsGaz: 0,
-  kvplataRemVds: 0,
-  kvplataRemAvt: 0,
-  kvplataRemElectro: 0,
-  kvplataUprav: 0,
-  kvplataRezerv: 0,
-  saldoNachKvplata: 0,
-  nKvplataTarifa: "",
-  tsenaTbo: 0,
-  tsenaOvds: 0,
-  tsenaDymovent: 0,
-  tsenaVygreb: 0,
-  tsenaTekrem: 0,
-  tsenaKnizh: 0,
-  tsenaUborter: 0,
-  tsenaDetploshad: 0,
-  tsenaZima: 0,
-  tsenaSvetobsh: 0,
-  tsenaDeratiz: 0,
-  tsenaDezinsec: 0,
-  tsenaUborlest: 0,
-  tsenaLiftTo: 0,
-  tsenaLiftElectro: 0,
-  tsenaOvdsDisp: 0,
-  tsenaOvdsElectro: 0,
-  tsenaOvdsGaz: 0,
-  tsenaRemVds: 0,
-  tsenaRemAvt: 0,
-  tsenaRemElectro: 0,
-  tsenaUprav: 0,
-  tsenaRezerv: 0,
-};
 
 export interface WMListT {
   idx: number;

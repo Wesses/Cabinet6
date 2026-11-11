@@ -21,7 +21,7 @@ No test framework is configured.
 
 **API layer:** All external API calls in `src/api/api.ts` using Axios. JWT token stored in a cookie (name from `VITE_TOKEN_NAME`), passed as `Authorization: Bearer` header. A global Axios interceptor catches 401 errors and redirects to login.
 
-**State management:** React Context via `src/Contexts/UserProvider.tsx` for user state (username, companyName), persisted to localStorage. No external state library — components use local `useState`.
+**State management:** React Context via `src/contexts/UserProvider.tsx` for user state (username, companyName), persisted to localStorage. No external state library — components use local `useState`.
 
 **UI components:** shadcn/ui pattern — Radix UI primitives in `src/components/ui/`, business components in `src/components/custom-components/`. Use `cn()` from `src/lib/utils.ts` (clsx + tailwind-merge) for class composition. Always prefer existing ui primitives over raw HTML elements.
 

@@ -12,7 +12,6 @@ dist
 /izmteplo
 /bro4
 /izmvk
-/izmvoda
 /vilkovo
 /brovoda
 /kiliya
@@ -32,6 +31,7 @@ build-all.sh
 build-select.sh
 clean-builds.sh
 dist-ssr
+*.tsbuildinfo
 *.local
 
 # Editor directories and files
@@ -45,4 +45,3 @@ dist-ssr
 *.sln
 *.sw?
 .env
-vite-env.d.ts
