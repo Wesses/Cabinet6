@@ -21,7 +21,7 @@ const resources = {
   },
 };
 
-const locale = localStorage.getItem(localStorages.LOCALE) || Locales.EN;
+const locale = localStorage.getItem(localStorages.LOCALE) || Locales.UA;
 
 i18n.use(initReactI18next).init({
   resources,
