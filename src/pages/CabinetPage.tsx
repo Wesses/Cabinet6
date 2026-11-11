@@ -1,7 +1,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -39,10 +38,6 @@ const CabinetPage = () => {
 
   const onAlertLogin = () => {
     onMainPage();
-  };
-
-  const onAlertQuit = () => {
-    window.location.href = "https://www.google.com";
   };
 
   const getData = (successFunction: () => void = () => {}) => {
@@ -129,9 +124,6 @@ const CabinetPage = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={onAlertQuit}>
-              {t("leave_website")}
-            </AlertDialogCancel>
             <AlertDialogAction onClick={onAlertLogin}>
               {t("button_to_login")}
             </AlertDialogAction>
