@@ -44,7 +44,7 @@ export const postLoginReq = async (data: object) => {
     Cookies.set(
       import.meta.env.VITE_TOKEN_NAME,
       JSON.stringify(response.data),
-      { expires: 1 / 24, path: import.meta.env.VITE_BASE_URL }
+      { expires: 1 / 24, path: baseName }
     );
 
     return response.data;
@@ -133,7 +133,7 @@ export const getPersonalacconts = async () => {
     return response.data;
   } catch (e: any) {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
-      path: import.meta.env.VITE_BASE_URL,
+      path: baseName,
     });
     console.error("Помилка при виконанні запиту:", e);
     throw e.response?.statusText || "Unknown error";

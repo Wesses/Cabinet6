@@ -19,7 +19,7 @@ export const CabinetHeader = () => {
   const handleLogout = () => {
     postLogoutReq();
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
-      path: import.meta.env.VITE_BASE_URL,
+      path: import.meta.env.BASE_URL,
     });
     localStorage.removeItem(localStorages.USER_DATA);
     navigate("/login");

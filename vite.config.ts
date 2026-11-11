@@ -9,9 +9,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     base: baseUrl,
-    define: {
-      "import.meta.env.VITE_BASE_URL": JSON.stringify(baseUrl),
-    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

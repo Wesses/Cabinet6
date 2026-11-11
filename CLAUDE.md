@@ -37,7 +37,7 @@ No test framework is configured.
 - Styling: Tailwind utility classes only — no raw CSS files. Reuse `components/ui/*` for accessible primitives.
 - Toast notifications via `sonner` — use `showCustomToast()` from `src/utils/showCustomComponent.tsx`
 - Token retrieval: `src/utils/getToken.ts`
-- Environment variables: prefixed with `VITE_` (see `.env` for `VITE_BASE_URL`, `VITE_TOKEN_NAME`, `VITE_ALIAS`)
+- Environment variables: prefixed with `VITE_` (see `.env` for `VITE_TOKEN_NAME`, `VITE_ALIAS`). `VITE_ALIAS` also sets Vite's `base`, so use the built-in `import.meta.env.BASE_URL` for the app's base path
 - Adding shadcn/ui components: configured via `components.json` (default style, neutral base color, no CSS variables)
 
 ## Common Modification Points

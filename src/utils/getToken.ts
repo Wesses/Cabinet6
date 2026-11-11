@@ -16,7 +16,7 @@ export const getToken = () => {
     return token;
   } catch (error) {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME, {
-      path: import.meta.env.VITE_BASE_URL,
+      path: import.meta.env.BASE_URL,
     });
     console.error("Помилка парсинга токена:", error);
     throw "invalid-token";
